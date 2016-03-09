@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package net.atomique.ksar.Graph;
 
 import java.awt.BasicStroke;
@@ -14,18 +11,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
 import javax.swing.JCheckBox;
-import net.atomique.ksar.Config;
-import net.atomique.ksar.GlobalOptions;
-import net.atomique.ksar.OSParser;
-import net.atomique.ksar.UI.SortedTreeNode;
-import net.atomique.ksar.UI.TreeNodeInfo;
-import net.atomique.ksar.XML.ColumnConfig;
-import net.atomique.ksar.XML.GraphConfig;
-import net.atomique.ksar.XML.PlotConfig;
-import net.atomique.ksar.XML.StackConfig;
-import net.atomique.ksar.XML.StatConfig;
-import net.atomique.ksar.kSar;
+
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -45,6 +33,18 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.TimeTableXYDataset;
 import org.jfree.data.xy.XYDataset;
+
+import net.atomique.ksar.Config;
+import net.atomique.ksar.GlobalOptions;
+import net.atomique.ksar.OSParser;
+import net.atomique.ksar.kSar;
+import net.atomique.ksar.UI.SortedTreeNode;
+import net.atomique.ksar.UI.TreeNodeInfo;
+import net.atomique.ksar.XML.ColumnConfig;
+import net.atomique.ksar.XML.GraphConfig;
+import net.atomique.ksar.XML.PlotConfig;
+import net.atomique.ksar.XML.StackConfig;
+import net.atomique.ksar.XML.StatConfig;
 
 /**
  *

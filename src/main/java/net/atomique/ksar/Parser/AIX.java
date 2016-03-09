@@ -1,17 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package net.atomique.ksar.Parser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import net.atomique.ksar.OSParser;
+
+import org.jfree.data.time.Second;
+
 import net.atomique.ksar.GlobalOptions;
+import net.atomique.ksar.OSParser;
 import net.atomique.ksar.Graph.Graph;
 import net.atomique.ksar.Graph.List;
 import net.atomique.ksar.XML.GraphConfig;
-import org.jfree.data.time.Second;
 
 /**
  *

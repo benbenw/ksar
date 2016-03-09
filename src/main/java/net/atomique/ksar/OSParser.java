@@ -1,12 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package net.atomique.ksar;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import net.atomique.ksar.XML.OSConfig;
 
 /**

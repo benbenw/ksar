@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package net.atomique.ksar;
 
 import java.beans.PropertyVetoException;
@@ -9,7 +6,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JDesktopPane;
+
 import net.atomique.ksar.Graph.Graph;
 import net.atomique.ksar.UI.DataView;
 import net.atomique.ksar.UI.SortedTreeNode;

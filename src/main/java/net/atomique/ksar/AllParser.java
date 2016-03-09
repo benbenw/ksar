@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package net.atomique.ksar;
 
 import java.text.ParseException;
@@ -10,9 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TreeSet;
-import net.atomique.ksar.Parser.Linux;
-import net.atomique.ksar.XML.OSConfig;
+
 import org.jfree.data.time.Second;
+
+import net.atomique.ksar.XML.OSConfig;
 
 /**
  *

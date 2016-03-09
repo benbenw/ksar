@@ -1,13 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package net.atomique.ksar.XML;
 
 import java.text.NumberFormat;
-import net.atomique.ksar.Graph.IEEE1541Number;
+
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.data.Range;
+
+import net.atomique.ksar.Graph.IEEE1541Number;
 
 /**
  *

@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /*
  * DataView.java
@@ -11,6 +8,7 @@
 package net.atomique.ksar.UI;
 
 import java.io.File;
+
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -21,13 +19,14 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+
 import net.atomique.ksar.Config;
+import net.atomique.ksar.GlobalOptions;
+import net.atomique.ksar.kSar;
 import net.atomique.ksar.Export.FileCSV;
 import net.atomique.ksar.Export.FilePDF;
-import net.atomique.ksar.GlobalOptions;
-import net.atomique.ksar.Graph.List;
 import net.atomique.ksar.Graph.Graph;
-import net.atomique.ksar.kSar;
+import net.atomique.ksar.Graph.List;
 
 /**
  *

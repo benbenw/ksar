@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package net.atomique.ksar.Graph;
 
@@ -11,14 +8,17 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+
+import org.jfree.data.time.Second;
+
+import net.atomique.ksar.kSar;
 import net.atomique.ksar.UI.ParentNodeInfo;
 import net.atomique.ksar.UI.SortedTreeNode;
 import net.atomique.ksar.UI.TreeNodeInfo;
 import net.atomique.ksar.XML.GraphConfig;
-import net.atomique.ksar.kSar;
-import org.jfree.data.time.Second;
 
 /**
  *

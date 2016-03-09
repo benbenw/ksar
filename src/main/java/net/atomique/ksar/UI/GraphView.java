@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /*
  * GraphView.java
@@ -14,12 +11,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
+import org.jfree.chart.ChartPanel;
+
 import net.atomique.ksar.Config;
 import net.atomique.ksar.GlobalOptions;
 import net.atomique.ksar.Graph.Graph;
-import org.jfree.chart.ChartPanel;
 
 /**
  *

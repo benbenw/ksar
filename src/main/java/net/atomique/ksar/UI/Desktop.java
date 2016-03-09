@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /*
  * Desktop.java
@@ -16,10 +13,11 @@ import java.awt.Toolkit;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import net.atomique.ksar.GlobalOptions;
+
 import net.atomique.ksar.kSar;
 
 /**

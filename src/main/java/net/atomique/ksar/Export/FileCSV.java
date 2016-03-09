@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package net.atomique.ksar.Export;
 
 import java.io.BufferedWriter;
@@ -10,16 +7,19 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JDialog;
 import javax.swing.JProgressBar;
+
+import org.jfree.data.time.RegularTimePeriod;
+import org.jfree.data.time.Second;
+
+import net.atomique.ksar.kSar;
 import net.atomique.ksar.Graph.Graph;
 import net.atomique.ksar.Graph.List;
 import net.atomique.ksar.UI.ParentNodeInfo;
 import net.atomique.ksar.UI.SortedTreeNode;
 import net.atomique.ksar.UI.TreeNodeInfo;
-import net.atomique.ksar.kSar;
-import org.jfree.data.time.RegularTimePeriod;
-import org.jfree.data.time.Second;
 
 /**
  *

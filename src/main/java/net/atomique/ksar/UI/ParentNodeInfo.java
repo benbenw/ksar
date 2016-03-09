@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package net.atomique.ksar.UI;
 
-import net.atomique.ksar.Graph.Graph;
 import net.atomique.ksar.Graph.List;
 
 /**

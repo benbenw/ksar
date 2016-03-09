@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package net.atomique.ksar;
 
 import java.awt.Font;
@@ -13,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+
 import javax.swing.UIManager;
 
 /**

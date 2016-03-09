@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /*
  * Preferences.java
@@ -11,11 +8,13 @@
 package net.atomique.ksar.UI;
 
 import java.awt.Dimension;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
 import net.atomique.ksar.Config;
 import net.atomique.ksar.GlobalOptions;
 
