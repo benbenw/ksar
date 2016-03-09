@@ -23,7 +23,7 @@ public abstract class AllParser {
     }
 
     public void init (kSar hissar, String header) {
-        String [] s = header.split("\\s+");
+        String[] s = header.split("\\s+");
         mysar = hissar;
         ParserName = s[0];
         parse_header(header);

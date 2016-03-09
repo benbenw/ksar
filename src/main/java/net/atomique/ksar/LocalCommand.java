@@ -78,8 +78,6 @@ public class LocalCommand extends Thread {
     }
 
     public void run() {
-        String current_line;
-
         if (in == null) {
             return;
         }

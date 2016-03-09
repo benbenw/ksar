@@ -3,6 +3,7 @@ package net.atomique.ksar.Parser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import org.jfree.data.time.Second;
 
@@ -71,9 +72,9 @@ public class SunOS extends OSParser {
         try {
             parsedate = new SimpleDateFormat(timeFormat).parse(columns[0]);
             cal.setTime(parsedate);
-            heure = cal.get(cal.HOUR_OF_DAY);
-            minute = cal.get(cal.MINUTE);
-            seconde = cal.get(cal.SECOND);
+            heure = cal.get(Calendar.HOUR_OF_DAY);
+            minute = cal.get(Calendar.MINUTE);
+            seconde = cal.get(Calendar.SECOND);
             now = new Second(seconde, minute, heure, day, month, year);
             if (startofstat == null) {
                 startofstat = now;

@@ -17,7 +17,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 import net.atomique.ksar.XML.CnxHistory;
@@ -62,7 +61,6 @@ public class XMLConfig extends DefaultHandler {
     public void load_config(InputStream is) {
         SAXParserFactory fabric = null;
         SAXParser parser = null;
-        XMLReader reader = null;
         try {
             fabric = SAXParserFactory.newInstance();
             parser = fabric.newSAXParser();
@@ -76,7 +74,7 @@ public class XMLConfig extends DefaultHandler {
             ioe.printStackTrace();
             System.exit(1);
         }
-        //dump_XML();
+        
         try {
             is.close();
         } catch (IOException ex) {

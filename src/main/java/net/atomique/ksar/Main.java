@@ -32,7 +32,7 @@ public class Main {
         System.err.println("ksar Version : " + VersionNumber.getVersionNumber());
     }
 
-    private static void set_lookandfeel() {
+    private static void setLookAndFeel() {
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             if (Config.getLandf().equals(laf.getName())) {
                 try {
@@ -61,7 +61,7 @@ public class Main {
         }
 
 
-        set_lookandfeel();
+        setLookAndFeel();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
@@ -87,8 +87,6 @@ public class Main {
 
         config = Config.getInstance();
         globaloptions = GlobalOptions.getInstance();
-
-
 
         if (args.length > 0) {
             while (i < args.length && args[i].startsWith("-")) {
@@ -118,14 +116,11 @@ public class Main {
 
         make_ui();
 
-
-
         System.out.println("exit");
     }
 
     public static void exit_error(final String message) {
         System.err.println(message);
         System.exit(1);
-
     }
 }

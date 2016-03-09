@@ -255,5 +255,4 @@ public class GlobalOptions {
     private static boolean dodebug = false;
     private static String CLfilename = null;
     private static HashMap<String, Class> ParserMap;
-    private static boolean firstrun = true;
 }

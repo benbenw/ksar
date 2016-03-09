@@ -395,9 +395,6 @@ public class Graph {
             NumberAxis graphaxistitle = tmp.getAxis();
             XYPlot tmpplot = new XYPlot(c, axisofdate, graphaxistitle, renderer);
 
-            if (tmpplot == null) {
-                continue;
-            }
             for (int i = 0; i < s.length; i++) {
                 Color color = GlobalOptions.getDataColor(s[i].toString());
                 if (color != null) {

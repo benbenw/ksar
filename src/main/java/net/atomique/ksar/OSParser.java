@@ -17,7 +17,7 @@ public abstract class OSParser extends AllParser {
     }
 
     public void init (kSar hissar, String header) {
-        String [] s = header.split("\\s+");
+        String[] s = header.split("\\s+");
         mysar = hissar;
         ParserName = s[0];
         myosconfig = GlobalOptions.getOSinfo(s[0]);
@@ -146,7 +146,6 @@ public abstract class OSParser extends AllParser {
     
     protected String lastStat = null;
     protected Object currentStatObj = null;
-    //List graphlist = new ArrayList();
     
     protected String ostype = null;
     protected String Hostname = null;
