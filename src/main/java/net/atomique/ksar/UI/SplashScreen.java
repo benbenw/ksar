@@ -18,11 +18,11 @@ import javax.swing.SwingUtilities;
  *
  * @author Max
  */
-public class  SplashScreen extends JWindow {
+public class SplashScreen extends JWindow {
 
     private static final long serialVersionUID = 8L;
 
-    public SplashScreen( Frame f, int waitTime) {
+    public SplashScreen(Frame f, int waitTime) {
         super(f);
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());

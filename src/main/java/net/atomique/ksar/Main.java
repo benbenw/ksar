@@ -22,8 +22,6 @@ public class Main {
     static GlobalOptions globaloptions = null;
     static ResourceBundle resource = ResourceBundle.getBundle("net/atomique/ksar/Language/Message");
 
-    ;
-
     public static void usage() {
         show_version();
     }
@@ -59,7 +57,6 @@ public class Main {
                 ie.printStackTrace();
             }
         }
-
 
         setLookAndFeel();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {

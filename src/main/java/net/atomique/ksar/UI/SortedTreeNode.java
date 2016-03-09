@@ -27,12 +27,7 @@ public class SortedTreeNode extends DefaultMutableTreeNode implements Comparable
     public SortedTreeNode(ParentNodeInfo tmp) {
         super(tmp);
     }
-    /*
-    public SortedTreeNode (GraphDescription graphdesc) {
-        super(graphdesc);
-    }
-    */
-
+    
     public void count_graph(SortedTreeNode node) {
         int num = node.getChildCount();
 

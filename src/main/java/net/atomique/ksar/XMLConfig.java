@@ -179,7 +179,7 @@ public class XMLConfig extends DefaultHandler {
         if (in_hostinfo) {
             if ("host".equals(qName)) {
                 currentHost = new HostInfo(attributes.getValue("name"));
-                in_host=true;
+                inHost=true;
             }
         }
 
@@ -358,7 +358,8 @@ public class XMLConfig extends DefaultHandler {
     private boolean in_history = false;
     private boolean in_cnx = false;
     private boolean in_hostinfo = false;
-    private boolean in_host = false;
+    private boolean inHost = false;
+    
     private ColumnConfig currentColor = null;
     private OSConfig currentOS = null;
     private StatConfig currentStat = null;
@@ -367,7 +368,6 @@ public class XMLConfig extends DefaultHandler {
     private StackConfig currentStack = null;
     private CnxHistory currentCnx = null;
     private HostInfo currentHost = null;
-
     
 }
 

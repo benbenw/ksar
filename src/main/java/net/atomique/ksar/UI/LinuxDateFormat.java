@@ -20,7 +20,7 @@ public class LinuxDateFormat extends javax.swing.JDialog {
     public LinuxDateFormat(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        load_linuxformat();
+        loadLinuxformat();
         pack();
         setLocationRelativeTo(parent);
         toFront();
@@ -28,7 +28,7 @@ public class LinuxDateFormat extends javax.swing.JDialog {
         
     }
 
-    private void load_linuxformat() {
+    private void loadLinuxformat() {
         LinuxFormatComboModel.addElement("MM/DD/YYYY 23:59:59");
         LinuxFormatComboModel.addElement("DD/MM/YYYY 23:59:59");
         LinuxFormatComboModel.addElement("YYYY-MM-DD 23:59:59");

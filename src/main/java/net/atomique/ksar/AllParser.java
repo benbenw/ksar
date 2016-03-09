@@ -16,10 +16,7 @@ import net.atomique.ksar.XML.OSConfig;
  */
 public abstract class AllParser {
 
-     
-
     public AllParser () {
-
     }
 
     public void init (kSar hissar, String header) {
@@ -41,6 +38,7 @@ public abstract class AllParser {
     public Second get_startofgraph() {
         return startofgraph;
     }
+    
     public Second get_endofgraph() {
         return endofgraph;
     }
@@ -62,13 +60,14 @@ public abstract class AllParser {
         }
         
         try {
-            dateSimple1 = new SimpleDateFormat(dateFormat).parse(s);            
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+            dateSimple1 = simpleDateFormat.parse(s);            
             cal.setTime(dateSimple1);
-            day=cal.get(cal.DAY_OF_MONTH);
-            month=cal.get(cal.MONTH)+1;
-            year=cal.get(cal.YEAR);
-            dateSimple2 = new SimpleDateFormat(dateFormat).parse(sarStartDate);
-            dateSimple3 = new SimpleDateFormat(dateFormat).parse(sarEndDate);
+            day = cal.get(Calendar.DAY_OF_MONTH);
+            month = cal.get(Calendar.MONTH)+1;
+            year = cal.get(Calendar.YEAR);
+            dateSimple2 = simpleDateFormat.parse(sarStartDate);
+            dateSimple3 = simpleDateFormat.parse(sarEndDate);
         } catch (ParseException e) {
             return false;
         }
@@ -106,7 +105,7 @@ public abstract class AllParser {
     protected Second startofgraph = null;
     protected Second endofgraph =null;
     protected TreeSet<Second> DateSamples = new TreeSet<Second>();
-    protected int firstdatacolumn =0;
+    protected int firstdatacolumn = 0;
 
     abstract public String getInfo();
     abstract public void parse_header(String s);
@@ -116,7 +115,7 @@ public abstract class AllParser {
     protected OSConfig myosconfig = null;
     protected String ParserName = null;
 
-    protected Calendar cal=Calendar.getInstance();
+    protected Calendar cal = Calendar.getInstance();
     protected Date parsedate = null;
     protected int day = 0;
     protected int month = 0;

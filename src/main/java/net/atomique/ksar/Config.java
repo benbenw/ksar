@@ -35,8 +35,8 @@ public class Config {
                 myPref.flush();
             } catch (BackingStoreException e) {
             }
-            local_configfile = store_configdir();
-            myPref.putInt("local_configfile", local_configfile);
+            localConfigfile = store_configdir();
+            myPref.putInt("local_configfile", localConfigfile);
             
         }
         load();
@@ -57,7 +57,7 @@ public class Config {
 
         setNumber_host_history(myPref.getInt("HostHistory", 0));
         for (int i = 0; i < getNumber_host_history(); i++) {
-            host_history.add(myPref.get("HostHistory_" + i, null));
+            hostHistory.add(myPref.get("HostHistory_" + i, null));
         }
         setLocal_configfile(myPref.getInt("local_configfile", -1));
     }
@@ -74,17 +74,17 @@ public class Config {
             myPref.put("lastExportDirectory", lastExportDirectory.toString());
         }
 
-        myPref.putInt("ImageHeight", ImageHeight);
-        myPref.putInt("ImageWidth", ImageWidth);
+        myPref.putInt("ImageHeight", imageHeight);
+        myPref.putInt("ImageWidth", imageWidth);
         myPref.put("PDFPageFormat", PDFPageFormat);
-        myPref.put("LinuxDateFormat", LinuxDateFormat);
+        myPref.put("LinuxDateFormat", linuxDateFormat);
 
-        for (int i = 0; i < host_history.size(); i++) {
-            myPref.put("HostHistory_" + i, host_history.get(i));
+        for (int i = 0; i < hostHistory.size(); i++) {
+            myPref.put("HostHistory_" + i, hostHistory.get(i));
         }
-        myPref.putInt("HostHistory", host_history.size());
+        myPref.putInt("HostHistory", hostHistory.size());
 
-        myPref.putInt("local_configfile", local_configfile);
+        myPref.putInt("local_configfile", localConfigfile);
 
     }
 
@@ -133,19 +133,19 @@ public class Config {
     }
 
     public static ArrayList<String> getHost_history() {
-        return host_history;
+        return hostHistory;
     }
 
     public static void addHost_history(String e) {
-        host_history.add(e);
+        hostHistory.add(e);
     }
 
     public static int getNumber_host_history() {
-        return number_host_history;
+        return numberHostHistory;
     }
 
     public static void setNumber_host_history(int number_host_history) {
-        Config.number_host_history = number_host_history;
+        Config.numberHostHistory = number_host_history;
     }
 
     public static Font getDEFAULT_FONT() {
@@ -153,19 +153,19 @@ public class Config {
     }
 
     public static int getImageHeight() {
-        return ImageHeight;
+        return imageHeight;
     }
 
     public static void setImageHeight(int ImageHeight) {
-        Config.ImageHeight = ImageHeight;
+        Config.imageHeight = ImageHeight;
     }
 
     public static int getImageWidth() {
-        return ImageWidth;
+        return imageWidth;
     }
 
     public static void setImageWidth(int ImageWidth) {
-        Config.ImageWidth = ImageWidth;
+        Config.imageWidth = ImageWidth;
     }
 
     public static String getPDFPageFormat() {
@@ -204,19 +204,19 @@ public class Config {
     }
 
     public static int getLocal_configfile() {
-        return local_configfile;
+        return localConfigfile;
     }
 
     public static void setLocal_configfile(int local_configfile) {
-        Config.local_configfile = local_configfile;
+        Config.localConfigfile = local_configfile;
     }
 
     public static String getLinuxDateFormat() {
-        return LinuxDateFormat;
+        return linuxDateFormat;
     }
 
     public static void setLinuxDateFormat(String LinuxDateFormat) {
-        Config.LinuxDateFormat = LinuxDateFormat;
+        Config.linuxDateFormat = LinuxDateFormat;
     }
 
     
@@ -225,14 +225,15 @@ public class Config {
     private static File lastReadDirectory;
     private static File lastExportDirectory;
     private static String lastCommand;
-    private static int number_host_history;
-    private static int local_configfile;
-    private static ArrayList<String> host_history = new ArrayList<String>();
+    private static int numberHostHistory;
+    private static int localConfigfile;
+    private static ArrayList<String> hostHistory = new ArrayList<String>();
+    
     public static final Font DEFAULT_FONT = new Font("SansSerif", Font.BOLD, 18);
 
-    private static String LinuxDateFormat;
+    private static String linuxDateFormat;
     private static String PDFPageFormat;
-    private static int ImageWidth;
-    private static int ImageHeight;
+    private static int imageWidth;
+    private static int imageHeight;
     
 }

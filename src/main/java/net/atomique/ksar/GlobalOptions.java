@@ -39,10 +39,6 @@ public class GlobalOptions {
     }
 
     GlobalOptions() {
-        String [] OSParserNames = {"AIX", "HPUX",  "Linux", "SunOS"};
-        String filename = null;
-        InputStream is = null;
-        XMLConfig tmp = null;
         systemprops = System.getProperties();
         username = (String) systemprops.get("user.name");
         userhome = (String) systemprops.get("user.home") + systemprops.get("file.separator");
@@ -52,7 +48,11 @@ public class GlobalOptions {
         ParserMap = new HashMap<String, Class>();
         HistoryList = new HashMap<String, CnxHistory>();
         HostInfoList = new HashMap<String, HostInfo>();
-        is = this.getClass().getResourceAsStream("/Config.xml");
+        
+        String[] OSParserNames = {"AIX", "HPUX",  "Linux", "SunOS"};
+        String filename = null;
+        XMLConfig tmp = null;
+        InputStream is = this.getClass().getResourceAsStream("/Config.xml");
         tmp = new XMLConfig(is);
         for ( String  OSName : OSParserNames ) {
             try {
@@ -61,8 +61,8 @@ public class GlobalOptions {
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
-            
         }
+        
         for (String parsername : ParserMap.keySet()) {
             is = this.getClass().getResourceAsStream("/" + parsername + ".xml");
             if (is != null) {
@@ -74,6 +74,7 @@ public class GlobalOptions {
         if (new File(filename).canRead()) {
             tmp.load_config(filename);
         }
+        
         filename = userhome + ".ksarcfg" + fileseparator + "History.xml";
         if (new File(filename).canRead()) {
             tmp.load_config(filename);
@@ -137,8 +138,8 @@ public class GlobalOptions {
         return CLfilename;
     }
 
-    public static void setCLfilename(String CL_filename) {
-        GlobalOptions.CLfilename = CL_filename;
+    public static void setCLfilename(String cLFilename) {
+        GlobalOptions.CLfilename = cLFilename;
     }
 
     public static String getFileseparator() {

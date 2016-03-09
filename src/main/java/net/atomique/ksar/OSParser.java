@@ -13,26 +13,23 @@ import net.atomique.ksar.XML.OSConfig;
 public abstract class OSParser extends AllParser {
 
     public OSParser () {
-        
+    }
+
+    public OSParser(kSar hissar, String header) {
+        init(hissar, header);
     }
 
     public void init (kSar hissar, String header) {
         String[] s = header.split("\\s+");
-        mysar = hissar;
-        ParserName = s[0];
-        myosconfig = GlobalOptions.getOSinfo(s[0]);
+        this.mysar = hissar;
+        this.ParserName = s[0];
+        this.myosconfig = GlobalOptions.getOSinfo(this.ParserName);
         parse_header(header);
     }
     
-    public OSParser(kSar hissar,String header) {
-        init(hissar, header);
-    }
-
-
     public OSConfig get_OSConfig() {
         return myosconfig;
     }
-
 
     public void setHostname(String s) {
         Hostname = s;
@@ -49,8 +46,6 @@ public abstract class OSParser extends AllParser {
     public void setCpuType(String s) {
         CpuType = s;
     }
-
-   
 
     public void setMacAddress(String s) {
         MacAddress = s;
@@ -159,7 +154,5 @@ public abstract class OSParser extends AllParser {
     protected String ENT = null;
     protected String Detect = null;
     protected String original_line=null;
-    // for graph
-    
     
 }

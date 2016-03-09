@@ -21,35 +21,35 @@ import net.atomique.ksar.XML.GraphConfig;
  */
 public class Linux extends OSParser {
 
+    private String linuxDateFormat;
+    
     public void parse_header(String s) {
         boolean retdate = false;
-        LinuxDateFormat = Config.getLinuxDateFormat();
+        linuxDateFormat = Config.getLinuxDateFormat();
         String[] columns = s.split("\\s+");
-        String tmpstr;
         setOstype(columns[0]);
         setKernel(columns[1]);
-        tmpstr = columns[2];
+        String tmpstr = columns[2];
         setHostname(tmpstr.substring(1, tmpstr.length() - 1));
         checkDateFormat();
-        retdate=setDate(columns[3]);
-        
+        retdate = setDate(columns[3]);
     }
 
     private void checkDateFormat() {
 
-        if ("Always ask".equals(LinuxDateFormat)) {
+        if ("Always ask".equals(linuxDateFormat)) {
             askDateFormat("Provide date Format");
         }
         
-        if ("MM/DD/YYYY 23:59:59".equals(LinuxDateFormat)) {
+        if ("MM/DD/YYYY 23:59:59".equals(linuxDateFormat)) {
             dateFormat = "MM/dd/yy";
-        } else if ("MM/DD/YYYY 12:59:59 AM|PM".equals(LinuxDateFormat)) {
+        } else if ("MM/DD/YYYY 12:59:59 AM|PM".equals(linuxDateFormat)) {
             dateFormat = "MM/dd/yy";
             timeFormat = "hh:mm:ss a";
             timeColumn=2;
-        } else if ("DD/MM/YYYY 23:59:59".equals(LinuxDateFormat)) {
+        } else if ("DD/MM/YYYY 23:59:59".equals(linuxDateFormat)) {
             dateFormat = "dd/MM/yy";
-        } else if ("YYYY-MM-DD 23:59:59".equals(LinuxDateFormat)) {
+        } else if ("YYYY-MM-DD 23:59:59".equals(linuxDateFormat)) {
             dateFormat = "yy-MM-dd";
         }  
     }
@@ -59,7 +59,7 @@ public class Linux extends OSParser {
             LinuxDateFormat tmp = new LinuxDateFormat(GlobalOptions.getUI(),true);
             tmp.setTitle(s);
             if ( tmp.isOk()) {
-                LinuxDateFormat=tmp.getDateFormat();
+                linuxDateFormat=tmp.getDateFormat();
                 if ( tmp.hasToRemenber() ) {
                     Config.setLinuxDateFormat(tmp.getDateFormat());
                     Config.save();
@@ -70,9 +70,9 @@ public class Linux extends OSParser {
     
     @Override
     public int parse(String line, String[] columns) {
-        int heure = 0;
+        int hour = 0;
         int minute = 0;
-        int seconde = 0;
+        int second = 0;
         Second now = null;
 
         if ("Average:".equals(columns[0])) {
@@ -100,10 +100,10 @@ public class Linux extends OSParser {
                 parsedate = new SimpleDateFormat(timeFormat).parse(columns[0]);
             }
             cal.setTime(parsedate);
-            heure = cal.get(Calendar.HOUR_OF_DAY);
+            hour = cal.get(Calendar.HOUR_OF_DAY);
             minute = cal.get(Calendar.MINUTE);
-            seconde = cal.get(Calendar.SECOND);
-            now = new Second(seconde, minute, heure, day, month, year);
+            second = cal.get(Calendar.SECOND);
+            now = new Second(second, minute, hour, day, month, year);
             if (startofstat == null) {
                 startofstat = now;
                 startofgraph = now;
@@ -160,9 +160,6 @@ public class Linux extends OSParser {
             }
         }
 
-        //System.out.println( currentStat +" " + line);
-
-
 
         if (lastStat != null) {
             if (!lastStat.equals(currentStat) ) {
@@ -199,7 +196,4 @@ public class Linux extends OSParser {
         return -1;
     }
 
-
-    private String LinuxDateFormat;
-    
 }

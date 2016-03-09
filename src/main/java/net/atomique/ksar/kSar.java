@@ -234,13 +234,15 @@ public class kSar {
     public boolean isParsing() {
         return Parsing;
     }
+    
     DataView dataview = null;
     private long lines_parsed = 0L;
     private String reload_action = "Empty";
     private Thread launched_action = null;
     private boolean action_interrupted = false;
-    public AllParser myparser = null;
     private boolean Parsing = false;
+    
+    public AllParser myparser = null;
     public int total_graph = 0;
     public SortedTreeNode graphtree = new SortedTreeNode("kSar");
     public int page_to_print = 0;

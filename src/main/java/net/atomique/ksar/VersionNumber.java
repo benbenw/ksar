@@ -87,7 +87,6 @@ public class VersionNumber {
 
         return false;
     }
-
     
     private static Integer major;
     private static Integer minor;
