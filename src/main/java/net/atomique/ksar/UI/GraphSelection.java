@@ -120,7 +120,7 @@ public class GraphSelection extends javax.swing.JDialog {
     }//GEN-LAST:event_unselectallButtonActionPerformed
 
     public void toggle_checkbox(JPanel panel, boolean checked) {
-        Component [] list = panel.getComponents();        
+        Component[] list = panel.getComponents();        
         for (int i= 0; i < list.length ; i++) {
             Component tmp = (Component)list[i];
             if ( tmp instanceof JPanel) {
