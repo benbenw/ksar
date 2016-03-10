@@ -81,7 +81,7 @@ public class GraphView extends javax.swing.JPanel {
         });
         buttonPanel.add(jpgBuitton);
 
-        pngButton.setText("Expprt PNG");
+        pngButton.setText("Export PNG");
         pngButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pngButtonActionPerformed(evt);
