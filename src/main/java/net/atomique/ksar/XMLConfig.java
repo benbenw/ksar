@@ -146,14 +146,14 @@ public class XMLConfig extends DefaultHandler {
             // config found
         }
         if ("colors".equals(qName)) {
-            in_colors = true;
+            inColors = true;
         }
         if ("OS".equals(qName)) {
-            in_OS = true;
+            inOS = true;
         }
 
         if ("History".equals(qName)) {
-            in_history = true;
+            inHistory = true;
         }
 
         if ( "HostInfo".equals(qName)) {
@@ -161,18 +161,18 @@ public class XMLConfig extends DefaultHandler {
         }
         
         // COLORS
-        if (in_colors) {
+        if (inColors) {
             if ("itemcolor".equals(qName)) {
                 currentColor = new ColumnConfig(attributes.getValue("name"));
-                in_color = true;
+                inColor = true;
             }
         }
 
         // history
-        if (in_history) {
+        if (inHistory) {
             if ("cnx".equals(qName)) {
                 currentCnx = new CnxHistory(attributes.getValue("link"));
-                in_cnx = true;
+                inCnx = true;
             }
         }
         // hostinfo
@@ -184,7 +184,7 @@ public class XMLConfig extends DefaultHandler {
         }
 
         // OS
-        if (in_OS) {
+        if (inOS) {
             if ("OSType".equals(qName)) {
                 currentOS = GlobalOptions.getOSlist().get(attributes.getValue("name"));
                 if (currentOS == null) {
@@ -245,7 +245,7 @@ public class XMLConfig extends DefaultHandler {
             beenparse = true;
         }
         if ("colors".equals(qName)) {
-            in_colors = false;
+            inColors = false;
         }
         if ("OSType".equals(qName)) {
             currentOS = null;
@@ -310,16 +310,16 @@ public class XMLConfig extends DefaultHandler {
                 System.err.println("Err: " + currentColor.getError_message());
                 currentColor = null;
             }
-            in_color = false;
+            inColor = false;
         }
 
-        if (in_color) {
+        if (inColor) {
             if ("color".equals(qName) && currentColor != null) {
                 currentColor.setData_color(tempval);
             }
         }
 
-        if (in_cnx) {
+        if (inCnx) {
             if ("command".equals(qName) && currentCnx != null) {
                 currentCnx.addCommand(tempval);
             }
@@ -352,11 +352,11 @@ public class XMLConfig extends DefaultHandler {
     
     public boolean beenparse = false;
     private String tempval;
-    private boolean in_color = false;
-    private boolean in_colors = false;
-    private boolean in_OS = false;
-    private boolean in_history = false;
-    private boolean in_cnx = false;
+    private boolean inColor = false;
+    private boolean inColors = false;
+    private boolean inOS = false;
+    private boolean inHistory = false;
+    private boolean inCnx = false;
     private boolean in_hostinfo = false;
     private boolean inHost = false;
     

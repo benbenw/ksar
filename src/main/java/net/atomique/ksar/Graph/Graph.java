@@ -71,14 +71,14 @@ public class Graph {
             SortedTreeNode nodetmp = new SortedTreeNode(infotmp);
             mysar.add2tree(pp, nodetmp);
         }
-        HeaderStr = hdrs.split("\\s+");
+        headerStr = hdrs.split("\\s+");
         create_DataStore();
     }
 
     private void create_DataStore() {
         // create timeseries
-        for (int i = skipColumn; i < HeaderStr.length; i++) {
-            Stats.add(new TimeSeries(HeaderStr[i]));
+        for (int i = skipColumn; i < headerStr.length; i++) {
+            Stats.add(new TimeSeries(headerStr[i]));
         }
         // create stack
         SortedSet<String> sortedset = new TreeSet<String>(graphconfig.getStacklist().keySet());
@@ -88,17 +88,17 @@ public class Graph {
             TimeTableXYDataset tmp2 = new TimeTableXYDataset();
             String[] s = tmp.getHeaderStr().split("\\s+");
             for (int i = 0; i < s.length; i++) {
-                StackListbyCol.put(s[i], tmp2);
+                stackListbyCol.put(s[i], tmp2);
             }
-            StackListbyName.put(tmp.getTitle(), tmp2);
+            stackListbyName.put(tmp.getTitle(), tmp2);
         }
     }
 
     public int parse_line(Second now, String s) {
         String[] cols = s.split("\\s+");
         Double colvalue = null;
-        //System.out.println("graph parsing:" + s);
-        for (int i = skipColumn; i < HeaderStr.length; i++) {
+        
+        for (int i = skipColumn; i < headerStr.length; i++) {
             try {
                 colvalue = new Double(cols[i]);
             } catch (NumberFormatException ne) {
@@ -110,12 +110,12 @@ public class Graph {
                 return 0;
             }
 
-            add_datapoint_plot(now, i-skipColumn , HeaderStr[i-skipColumn], colvalue);
+            addDatapointPlot(now, i-skipColumn , headerStr[i-skipColumn], colvalue);
 
 
-            TimeTableXYDataset tmp = StackListbyCol.get(HeaderStr[i]);
+            TimeTableXYDataset tmp = stackListbyCol.get(headerStr[i]);
             if (tmp != null) {
-                add_datapoint_stack(tmp, now, i , HeaderStr[i], colvalue);
+                add_datapoint_stack(tmp, now, i , headerStr[i], colvalue);
             }
         }
 
@@ -177,7 +177,7 @@ public class Graph {
 
     }
 
-    private boolean add_datapoint_plot(Second now, int col, String colheader, Double value) {
+    private boolean addDatapointPlot(Second now, int col, String colheader, Double value) {
         try {
             ((TimeSeries) (Stats.get(col))).add(now, value);
             return true;
@@ -237,7 +237,7 @@ public class Graph {
 
     public String getCsvHeader() {
         StringBuilder tmp = new StringBuilder();
-        for (int i = 1 + skipColumn; i < HeaderStr.length; i++) {
+        for (int i = 1 + skipColumn; i < headerStr.length; i++) {
             TimeSeries tmpseries = (TimeSeries) Stats.get(i - skipColumn);
             tmp.append(graphtitle).append(" ").append(tmpseries.getKey());
             tmp.append(";");
@@ -247,7 +247,7 @@ public class Graph {
 
     public String getCsvLine(RegularTimePeriod t) {
         StringBuilder tmp = new StringBuilder();
-        for (int i = 1 + skipColumn; i < HeaderStr.length; i++) {
+        for (int i = 1 + skipColumn; i < headerStr.length; i++) {
             TimeSeries tmpseries = (TimeSeries) Stats.get(i - skipColumn);
             tmp.append(tmpseries.getValue(t));
 
@@ -364,7 +364,7 @@ public class Graph {
             if (tmp == null) {
                 continue;
             }
-            TimeTableXYDataset tmp2 = StackListbyName.get(tmp.getTitle());
+            TimeTableXYDataset tmp2 = stackListbyName.get(tmp.getTitle());
 
             if (tmp2 != null) {
                 StackedXYAreaRenderer2 renderer = new StackedXYAreaRenderer2();
@@ -429,8 +429,8 @@ public class Graph {
     private JCheckBox printCheckBox = null;
     private GraphConfig graphconfig = null;
     private int skipColumn = 0;
-    private String[] HeaderStr = null;
+    private String[] headerStr = null;
     private ArrayList<TimeSeries> Stats = new ArrayList<TimeSeries>();
-    private Map<String, TimeTableXYDataset> StackListbyName = new HashMap<String, TimeTableXYDataset>();
-    private Map<String, TimeTableXYDataset> StackListbyCol = new HashMap<String, TimeTableXYDataset>();
+    private Map<String, TimeTableXYDataset> stackListbyName = new HashMap<String, TimeTableXYDataset>();
+    private Map<String, TimeTableXYDataset> stackListbyCol = new HashMap<String, TimeTableXYDataset>();
 }

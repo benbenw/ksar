@@ -94,10 +94,11 @@ public class Linux extends OSParser {
         }
 
         try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(timeFormat);
             if ( timeColumn == 2 ) {
-                parsedate = new SimpleDateFormat(timeFormat).parse(columns[0]+" "+columns[1]);
+                parsedate = simpleDateFormat.parse(columns[0]+" "+columns[1]);
             } else {
-                parsedate = new SimpleDateFormat(timeFormat).parse(columns[0]);
+                parsedate = simpleDateFormat.parse(columns[0]);
             }
             cal.setTime(parsedate);
             hour = cal.get(Calendar.HOUR_OF_DAY);

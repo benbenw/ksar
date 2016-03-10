@@ -139,7 +139,7 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
                 Graph nodeobj = tmpnode.getNode_object();
                 if ( nodeobj.isPrintSelected() ) {
                     root = new PdfOutline(root, new PdfDestination(PdfDestination.FIT), nodeobj.getTitle());
-                    update_ui();
+                    updateUi();
                     addchart(writer, nodeobj);
                     document.newPage();
                     
@@ -148,7 +148,7 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
         }
     }
 
-    private void update_ui() {
+    private void updateUi() {
         if (progress_bar != null) {
             progress_bar.setValue(++progress_info);
             progress_bar.repaint();
