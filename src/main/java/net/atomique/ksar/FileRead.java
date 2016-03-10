@@ -4,18 +4,23 @@ package net.atomique.ksar;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 
 /**
- *
  * @author Max
  */
 public class FileRead extends Thread {
 
+    private static final Logger LOGGER = Logger.getLogger(FileRead.class.getName());
+    
+    private kSar mysar = null;
+    private String sarfilename = null;
+    private FileReader tmpfile = null;
+    private BufferedReader myfilereader = null;
+    
     public FileRead(kSar hissar) {
         mysar = hissar;
         JFileChooser fc = new JFileChooser();
@@ -48,15 +53,11 @@ public class FileRead extends Thread {
     }
 
     private void close() {
-        try {
-            if (myfilereader != null) {
-                myfilereader.close();
-            }
-            if (tmpfile != null) {
-                tmpfile.close();
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(FileRead.class.getName()).log(Level.SEVERE, null, ex);
+        if (myfilereader != null) {
+            try {myfilereader.close();} catch (Exception ex) {/*noop*/}
+        }
+        if (tmpfile != null) {
+            try {tmpfile.close();} catch (Exception ex) {/*noop*/}
         }
     }
 
@@ -67,18 +68,14 @@ public class FileRead extends Thread {
 
         try {
             tmpfile = new FileReader(sarfilename);
+            myfilereader = new BufferedReader(tmpfile);
+            mysar.parse(myfilereader);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FileRead.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
-
-        myfilereader = new BufferedReader(tmpfile);
-
-        mysar.parse(myfilereader);
-
-        close();
+        finally {
+            close();            
+        }
     }
-    private kSar mysar = null;
-    private String sarfilename = null;
-    private FileReader tmpfile = null;
-    private BufferedReader myfilereader = null;
+    
 }
