@@ -72,8 +72,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int i = 0;
-        String arg;
+       
         /// load default
         String mrjVersion = System.getProperty("mrj.version");
         if (mrjVersion != null) {
@@ -85,6 +84,8 @@ public class Main {
         config = Config.getInstance();
         globaloptions = GlobalOptions.getInstance();
 
+        int i = 0;
+        String arg;
         if (args.length > 0) {
             while (i < args.length && args[i].startsWith("-")) {
                 arg = args[i++];

@@ -22,7 +22,7 @@ public abstract class AllParser {
     public void init (kSar hissar, String header) {
         String[] s = header.split("\\s+");
         mysar = hissar;
-        ParserName = s[0];
+        parserName = s[0];
         parse_header(header);
     }
 
@@ -44,7 +44,7 @@ public abstract class AllParser {
     }
 
     public String getParserName() {
-        return ParserName;
+        return parserName;
     }
 
      public boolean setDate(String s) {
@@ -113,7 +113,7 @@ public abstract class AllParser {
      
     protected kSar mysar = null;
     protected OSConfig myosconfig = null;
-    protected String ParserName = null;
+    protected String parserName = null;
 
     protected Calendar cal = Calendar.getInstance();
     protected Date parsedate = null;

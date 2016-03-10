@@ -1,5 +1,4 @@
 
-
 package net.atomique.ksar.XML;
 
 /**
@@ -8,27 +7,27 @@ package net.atomique.ksar.XML;
  */
 public class HostInfo {
 
-    public HostInfo(String s) {
-        this.setHostname(s);
+    public HostInfo(String sarHostname) {
+        this.setHostname(sarHostname);
     }
 
     public Integer getMemBlockSize() {
-        return MemBlockSize;
+        return this.memBlockSize;
     }
 
     public void setMemBlockSize(Integer MemBlockSize) {
-        this.MemBlockSize = MemBlockSize;
+        this.memBlockSize = MemBlockSize;
     }
 
     public void setMemBlockSize(String MemBlockSizestr) {
         try {
-        this.MemBlockSize = Integer.parseInt(MemBlockSizestr);
-        }  catch ( NumberFormatException nfe) {            
+        this.memBlockSize = Integer.parseInt(MemBlockSizestr);
+        }  catch ( NumberFormatException nfe) {
         }
     }
     
     public String getAlias() {
-        return aka_hostname;
+        return this.aka_hostname;
     }
 
     public void setAlias(String aka_hostname) {
@@ -36,7 +35,7 @@ public class HostInfo {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
@@ -44,28 +43,28 @@ public class HostInfo {
     }
 
     public String getHostname() {
-        return sar_hostname;
+        return this.sarHostname;
     }
 
-    public void setHostname(String sar_hostname) {
-        this.sar_hostname = sar_hostname;
+    public void setHostname(String sarHostname) {
+        this.sarHostname = sarHostname;
     }
 
     public String save() {
         StringBuilder tmp = new StringBuilder();
-        tmp.append("\t\t<host name=\"" + sar_hostname + "\">\n");
-        tmp.append("\t\t\t<alias>" + aka_hostname + "</alias>\n");
-        tmp.append("\t\t\t<description>" + description + "</description>\n");
-        tmp.append("\t\t\t<memblocksize>" + MemBlockSize + "</memblocksize>\n");
+        tmp.append("\t\t<host name=\"" + this.sarHostname + "\">\n");
+        tmp.append("\t\t\t<alias>" + this.aka_hostname + "</alias>\n");
+        tmp.append("\t\t\t<description>" + this.description + "</description>\n");
+        tmp.append("\t\t\t<memblocksize>" + this.memBlockSize + "</memblocksize>\n");
         tmp.append("\t\t</host>\n");
         return tmp.toString();
     }
 
 
 
-    private String sar_hostname =null;
+    private String sarHostname =null;
     private String aka_hostname = null;
     private String description = null;
-    private Integer MemBlockSize = 1;
+    private Integer memBlockSize = 1;
     
 }

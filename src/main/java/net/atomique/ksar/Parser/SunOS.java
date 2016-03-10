@@ -102,19 +102,19 @@ public class SunOS extends OSParser {
         String checkStat = myosconfig.getStat(columns, firstdatacolumn);
 
         if (checkStat != null) {
-            Object obj = ListofGraph.get(checkStat);
+            Object obj = listofGraph.get(checkStat);
             if (obj == null) {
                 GraphConfig mygraphinfo = myosconfig.getGraphConfig(checkStat);
                 if (mygraphinfo != null) {
                     if ("unique".equals(mygraphinfo.getType())) {
                         obj = new Graph(mysar, mygraphinfo, mygraphinfo.getTitle(), line, firstdatacolumn, mysar.graphtree);
-                        ListofGraph.put(checkStat, obj);
+                        listofGraph.put(checkStat, obj);
                         currentStat = checkStat;
                         return 0;
                     }
                     if ("multiple".equals(mygraphinfo.getType())) {
                         obj = new List(mysar, mygraphinfo, mygraphinfo.getTitle(), line, firstdatacolumn);
-                        ListofGraph.put(checkStat, obj);
+                        listofGraph.put(checkStat, obj);
                         currentStat = checkStat;
                         return 0;
                     }
@@ -129,10 +129,7 @@ public class SunOS extends OSParser {
             }
         }
 
-        //System.out.println("==" + currentStat + " " + line);
-
-
-
+        
         if (lastStat != null) {
             if (!lastStat.equals(currentStat)) {
                 if (GlobalOptions.isDodebug()) {
@@ -154,7 +151,7 @@ public class SunOS extends OSParser {
         if (under_average) {
             return 0;
         }
-        currentStatObj = ListofGraph.get(currentStat);
+        currentStatObj = listofGraph.get(currentStat);
         if (currentStatObj == null) {
             return -1;
         } else {

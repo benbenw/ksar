@@ -10,10 +10,10 @@ import java.awt.Color;
 public class ColumnConfig {
 
     public ColumnConfig(String s) {
-        data_title=s;
+        this.data_title=s;
     }
     public String getData_colorstr() {
-        return data_colorstr;
+        return this.data_colorstr;
     }
 
     public void setData_color(String data_color) {
@@ -31,11 +31,11 @@ public class ColumnConfig {
     }
 
     public Color getData_color() {
-        return data_color;
+        return this.data_color;
     }
 
     public String getData_title() {
-        return data_title;
+        return this.data_title;
     }
 
     public void setData_title(String data_title) {
@@ -44,35 +44,35 @@ public class ColumnConfig {
 
     public void setType(String s){
         if ( "gauge".equals(s)) {
-            type=1;
+            this.type=1;
         }
         if ( "counter".equals(s)) {
-            type=2;
+            this.type=2;
         }
     }
 
     public int getType() {
-        return type;
+        return this.type;
     }
     
     public boolean is_valid() {
-        if (data_title == null) {
-            error_message = "Column header name not found";
+        if (this.data_title == null) {
+            this.error_message = "Column header name not found";
             return false;
         }
-        if (data_colorstr == null) {
-            error_message = "color info missing for " + data_title;
+        if (this.data_colorstr == null) {
+            this.error_message = "color info missing for " + this.data_title;
             return false;
         }
-        if (data_color == null) {
-            error_message = "color " + data_colorstr + " is not a valid color";
+        if (this.data_color == null) {
+            this.error_message = "color " + this.data_colorstr + " is not a valid color";
             return false;
         }
         return true;
     }
 
     public String getError_message() {
-        return error_message;
+        return this.error_message;
     }
 
     private int type = 0;

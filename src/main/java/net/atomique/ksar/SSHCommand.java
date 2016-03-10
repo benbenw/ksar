@@ -293,7 +293,7 @@ public class SSHCommand extends Thread {
 
     public void run() {
         StringBuilder tmpmessage = new StringBuilder();
-        int max_waitdata = 10;
+        int maxWaitdata = 10;
         
         try {
             if (in == null) {
@@ -304,20 +304,20 @@ public class SSHCommand extends Thread {
             InputStreamReader tmpin= new InputStreamReader(in);
             InputStreamReader tmperr = new InputStreamReader(err);
             
-            while ( max_waitdata > 0 && ! tmpin.ready() ) {
+            while ( maxWaitdata > 0 && ! tmpin.ready() ) {
                 // no data and not in timeout 
                 try { Thread.sleep( 100 ); }catch( Exception ee ) {}
-                max_waitdata--;
+                maxWaitdata--;
             }
             
             BufferedReader myfile = new BufferedReader(tmpin);
             BufferedReader myerror = new BufferedReader(tmperr);
             
             mysar.parse(myfile);
-            String current_line;
+            String currentLine;
             
-            while ( (current_line = myerror.readLine()) != null) {
-                tmpmessage.append(current_line);
+            while ( (currentLine = myerror.readLine()) != null) {
+                tmpmessage.append(currentLine);
                 tmpmessage.append("\n");
             }
             if ( tmpmessage.length() >0 ) {

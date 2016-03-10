@@ -52,9 +52,9 @@ import net.atomique.ksar.XML.StatConfig;
  */
 public class Graph {
 
-    public Graph(kSar hissar, GraphConfig g, String Title, String hdrs, int skipcol, SortedTreeNode pp) {
+    public Graph(kSar hissar, GraphConfig g, String title, String hdrs, int skipcol, SortedTreeNode pp) {
         mysar = hissar;
-        graphtitle = Title;
+        graphtitle = title;
         graphconfig = g;
         printCheckBox = new JCheckBox(graphtitle, printSelected);
         printCheckBox.addItemListener(new java.awt.event.ItemListener() {
@@ -67,15 +67,15 @@ public class Graph {
         });
         skipColumn = skipcol;
         if (pp != null) {
-            TreeNodeInfo infotmp = new TreeNodeInfo(Title, this);
+            TreeNodeInfo infotmp = new TreeNodeInfo(title, this);
             SortedTreeNode nodetmp = new SortedTreeNode(infotmp);
             mysar.add2tree(pp, nodetmp);
         }
         headerStr = hdrs.split("\\s+");
-        create_DataStore();
+        createDataStore();
     }
 
-    private void create_DataStore() {
+    private void createDataStore() {
         // create timeseries
         for (int i = skipColumn; i < headerStr.length; i++) {
             Stats.add(new TimeSeries(headerStr[i]));
@@ -115,14 +115,14 @@ public class Graph {
 
             TimeTableXYDataset tmp = stackListbyCol.get(headerStr[i]);
             if (tmp != null) {
-                add_datapoint_stack(tmp, now, i , headerStr[i], colvalue);
+                addDatapointStack(tmp, now, i , headerStr[i], colvalue);
             }
         }
 
         return 0;
     }
 
-    private boolean add_datapoint_stack(TimeTableXYDataset dataset, Second now, int col, String colheader, Double value) {
+    private boolean addDatapointStack(TimeTableXYDataset dataset, Second now, int col, String colheader, Double value) {
         try {
             dataset.add(now, value, colheader);
 
@@ -306,7 +306,7 @@ public class Graph {
         return printSelected;
     }
 
-    private XYDataset create_collection(ArrayList l) {
+    private XYDataset createCollection(java.util.List<?> l) {
         TimeSeriesCollection graphcollection = new TimeSeriesCollection();
         TimeSeries found = null;
         boolean hasdata = false;
@@ -391,7 +391,7 @@ public class Graph {
             for (int i = 0; i < s.length; i++) {
                 t.add(s[i]);
             }
-            XYDataset c = create_collection(t);
+            XYDataset c = createCollection(t);
             NumberAxis graphaxistitle = tmp.getAxis();
             XYPlot tmpplot = new XYPlot(c, axisofdate, graphaxistitle, renderer);
 
@@ -420,6 +420,7 @@ public class Graph {
         }
         return mychart;
     }
+    
     private DateAxis axisofdate = new DateAxis("");
     private kSar mysar = null;
     private JFreeChart mygraph = null;

@@ -12,7 +12,7 @@ public class CnxHistory {
 
     public CnxHistory(String link) {
         this.link=link;
-        commandList = new TreeSet<String>();
+        this.commandList = new TreeSet<String>();
         String[] s = link.split("@", 2);
         if (s.length != 2) {
             return;
@@ -29,15 +29,15 @@ public class CnxHistory {
     }
 
     public void addCommand(String s) {
-        commandList.add(s);
+        this.commandList.add(s);
     }
 
     public TreeSet<String> getCommandList() {
-        return commandList;
+        return this.commandList;
     }
 
     public String getHostname() {
-        return hostname;
+        return this.hostname;
     }
 
     public void setHostname(String hostname) {
@@ -45,7 +45,7 @@ public class CnxHistory {
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -53,11 +53,11 @@ public class CnxHistory {
     }
 
     public String getPort() {
-        return port;
+        return this.port;
     }
 
     public int getPortInt() {
-        Integer tmp = Integer.parseInt(port);
+        Integer tmp = Integer.parseInt(this.port);
         return tmp.intValue();
     }
     
@@ -66,34 +66,34 @@ public class CnxHistory {
     }
 
     public String getLink() {
-        return link;
+        return this.link;
     }
     
     public boolean isValid() {
-        if (username == null) {
+        if (this.username == null) {
             return false;
         }
-        if (hostname == null) {
+        if (this.hostname == null) {
             return false;
         }
-        if (commandList.isEmpty()) {
+        if (this.commandList.isEmpty()) {
             return false;
         }
         return true;
     }
 
     public void dump() {
-        System.out.println(username + "@" + hostname + ":" + commandList);
+        System.out.println(this.username + "@" + this.hostname + ":" + this.commandList);
     }
 
     public String save() {
         StringBuilder tmp = new StringBuilder();
-        if ( "22".equals(port)) {
-            tmp.append("\t\t<cnx link=\"" + username + "@" + hostname + "\">\n");
+        if ( "22".equals(this.port)) {
+            tmp.append("\t\t<cnx link=\"" + this.username + "@" + this.hostname + "\">\n");
         } else {
-            tmp.append("\t\t<cnx link=\"" + username + "@" + hostname + ":" + port + "\">\n");
+            tmp.append("\t\t<cnx link=\"" + this.username + "@" + this.hostname + ":" + this.port + "\">\n");
         }
-        Iterator<String> ite = commandList.iterator();
+        Iterator<String> ite = this.commandList.iterator();
         while (ite.hasNext()) {
             tmp.append("\t\t\t<command>").append(ite.next()).append("</command>\n");
         }

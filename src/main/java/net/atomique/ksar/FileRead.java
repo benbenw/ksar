@@ -18,8 +18,6 @@ public class FileRead extends Thread {
     
     private kSar mysar = null;
     private String sarfilename = null;
-    private FileReader tmpfile = null;
-    private BufferedReader myfilereader = null;
     
     public FileRead(kSar hissar) {
         mysar = hissar;
@@ -52,19 +50,13 @@ public class FileRead extends Thread {
         }
     }
 
-    private void close() {
-        if (myfilereader != null) {
-            try {myfilereader.close();} catch (Exception ex) {/*noop*/}
-        }
-        if (tmpfile != null) {
-            try {tmpfile.close();} catch (Exception ex) {/*noop*/}
-        }
-    }
-
     public void run() {
         if (sarfilename == null) {
             return;
         }
+        
+        FileReader tmpfile = null;
+        BufferedReader myfilereader = null;
 
         try {
             tmpfile = new FileReader(sarfilename);
@@ -74,7 +66,12 @@ public class FileRead extends Thread {
             LOGGER.log(Level.SEVERE, null, ex);
         }
         finally {
-            close();            
+            if (myfilereader != null) {
+                try {myfilereader.close();} catch (Exception ex) {/*noop*/}
+            }
+            if (tmpfile != null) {
+                try {tmpfile.close();} catch (Exception ex) {/*noop*/}
+            }
         }
     }
     

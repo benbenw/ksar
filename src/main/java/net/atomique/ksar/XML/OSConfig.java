@@ -11,24 +11,24 @@ import java.util.Iterator;
 public class OSConfig {
 
     public OSConfig(String s) {
-        OSname = s;
+        this.OSname = s;
     }
 
     public void addStat(StatConfig s) {
-        StatHash.put(s.getStatName(), s);
+        this.StatHash.put(s.getStatName(), s);
     }
 
     public void addGraph(GraphConfig s) {
-        GraphHash.put(s.getName(), s);
+        this.GraphHash.put(s.getName(), s);
     }
 
     public String getOSname() {
-        return OSname;
+        return this.OSname;
     }
 
     public String getStat(String[] columns, int firstdatacolumn) {
 
-        StringBuffer tmpbuf = new StringBuffer();
+        StringBuilder tmpbuf = new StringBuilder();
         int num = 0;
         for (int i = firstdatacolumn; i < columns.length; i++) {
             if (tmpbuf.length() != 0) {
@@ -37,26 +37,29 @@ public class OSConfig {
             tmpbuf.append(columns[i]);
             num++;
         }
+        String header = tmpbuf.toString();
+        
 
-        Iterator<String> ite = StatHash.keySet().iterator();
+        Iterator<String> ite = this.StatHash.keySet().iterator();
         while (ite.hasNext()) {
             String tmptitle = ite.next();
-            StatConfig tmp = (StatConfig) StatHash.get(tmptitle);
-            if (tmp.check_Header(tmpbuf.toString(), num)) {
+            StatConfig tmp = this.StatHash.get(tmptitle);
+            if (tmp.check_Header(header, num)) {
                 return tmp.getGraphName();
             }
         }
+        
         return null;
     }
 
     public StatConfig getStat(String statName) {
-        if (StatHash.isEmpty()) {
+        if (this.StatHash.isEmpty()) {
             return null;
         }
-        Iterator<String> ite = StatHash.keySet().iterator();
+        Iterator<String> ite = this.StatHash.keySet().iterator();
         while (ite.hasNext()) {
             String tmptitle = ite.next();
-            StatConfig tmp = (StatConfig) StatHash.get(tmptitle);
+            StatConfig tmp = this.StatHash.get(tmptitle);
             if ( tmp.getGraphName().equals(statName)) {
                 return tmp;
             }
@@ -65,18 +68,18 @@ public class OSConfig {
     }
 
     public GraphConfig getGraphConfig(String s) {
-        if (GraphHash.isEmpty()) {
+        if (this.GraphHash.isEmpty()) {
             return null;
         }
-        return GraphHash.get(s);
+        return this.GraphHash.get(s);
     }
 
     public HashMap<String, StatConfig> getStatHash() {
-        return StatHash;
+        return this.StatHash;
     }
 
     public HashMap<String, GraphConfig> getGraphHash() {
-        return GraphHash;
+        return this.GraphHash;
     }
     private String OSname = null;
     HashMap<String, StatConfig> StatHash = new HashMap<String, StatConfig>();

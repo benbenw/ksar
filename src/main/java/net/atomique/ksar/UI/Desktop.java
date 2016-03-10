@@ -1,5 +1,4 @@
 
-
 /*
  * Desktop.java
  *
@@ -26,6 +25,7 @@ import net.atomique.ksar.kSar;
  */
 public class Desktop extends javax.swing.JFrame {
 
+    private static final Logger LOGGER = Logger.getLogger(Desktop.class.getName());
     /** Creates new form Desktop */
     public Desktop() {
         int wmargins = 90;
@@ -67,7 +67,7 @@ public class Desktop extends javax.swing.JFrame {
                 try {
                     frames[i].setIcon(true);
                 } catch (PropertyVetoException ex) {
-                    Logger.getLogger(Desktop.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -87,7 +87,7 @@ public class Desktop extends javax.swing.JFrame {
                 try {
                     frames[i].setMaximum(true);
                 } catch (PropertyVetoException ex) {
-                    Logger.getLogger(Desktop.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.log(Level.SEVERE, null, ex);
                 }
             }
         }

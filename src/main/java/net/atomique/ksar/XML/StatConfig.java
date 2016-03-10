@@ -8,33 +8,33 @@ package net.atomique.ksar.XML;
 public class StatConfig {
 
     public StatConfig(String s) {
-        StatName = s;
+        this.statName = s;
     }
 
     public String getGraphName() {
-        return GraphName;
+        return this.graphName;
     }
 
     public void setGraphName(String GraphName) {
-        this.GraphName = GraphName;
+        this.graphName = GraphName;
     }
 
     public String[] getHeader() {
-        return Header;
+        return this.Header;
     }
 
     public String getHeaderStr() {
-        return HeaderStr;
+        return this.HeaderStr;
     }
 
     public void setHeaderStr(String s) {
-        HeaderStr = s;
-        this.Header = HeaderStr.split("\\s+");
-        HeaderNum = Header.length;
+        this.HeaderStr = s;
+        this.Header = this.HeaderStr.split("\\s+");
+        this.headerNum = this.Header.length;
     }
 
     public String getStatName() {
-        return StatName;
+        return this.statName;
     }
 
     public boolean check_Header(String c, int i) {
@@ -42,35 +42,35 @@ public class StatConfig {
             return false;
         }
 
-        if (HeaderStr.equals(c)) {
+        if (this.HeaderStr.equals(c)) {
             return true;
         }
         return false;
     }
 
     public boolean compare_Header(int i) {
-        if (i == HeaderNum) {
+        if (i == this.headerNum) {
             return true;
         }
         return false;
     }
 
     public boolean canDuplicateTime() {
-        return duplicatetime;
+        return this.duplicatetime;
     }
 
     public void setDuplicateTime(String s) {
         if ( "yes".equals(s) || "true".equals(s) ){
-            duplicatetime=true;
+            this.duplicatetime=true;
         }
     }
 
     
 
-    private int HeaderNum = 0;
-    private String StatName = null;
-    private String GraphName = null;
-    private String Header[] = null;
+    private int headerNum = 0;
+    private String statName = null;
+    private String graphName = null;
+    private String[] Header = null;
     private String HeaderStr = null;
     private boolean duplicatetime = false;
 }

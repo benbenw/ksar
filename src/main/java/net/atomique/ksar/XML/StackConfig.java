@@ -14,36 +14,36 @@ import net.atomique.ksar.Graph.IEEE1541Number;
  */
 public class StackConfig {
 
-    public StackConfig(String s) {
-        Title = s;
+    public StackConfig(String title) {
+        this.title = title;
     }
 
     public String[] getHeader() {
-        return Header;
+        return this.header;
     }
 
     public String getTitle() {
-        return Title;
+        return this.title;
     }
 
     public void setHeaderStr(String s) {
-        this.Header = s.split("\\s+");
-        HeaderStr = s;
+        this.header = s.split("\\s+");
+        this.HeaderStr = s;
     }
 
     public String getHeaderStr() {
-        return HeaderStr;
+        return this.HeaderStr;
     }
 
     public void print() {
-        System.out.println("Title " + Title);
-        System.out.println("HeaderStr " + HeaderStr);
-        System.out.println("Header " + Header);
+        System.out.println("Title " + this.title);
+        System.out.println("HeaderStr " + this.HeaderStr);
+        System.out.println("Header " + this.header);
 
     }
 
     public int getSize() {
-        return size;
+        return this.size;
     }
 
     public void setSize(int size) {
@@ -59,14 +59,14 @@ public class StackConfig {
     }
 
     public NumberAxis getAxis() {
-        NumberAxis tmp = new NumberAxis(Title);
-        if ("1024".equals(base)) {
-            NumberFormat decimalformat1 = new IEEE1541Number(factor.intValue());
+        NumberAxis tmp = new NumberAxis(this.title);
+        if ("1024".equals(this.base)) {
+            NumberFormat decimalformat1 = new IEEE1541Number(this.factor.intValue());
             tmp.setNumberFormatOverride(decimalformat1);
         }
 
-        if (range != null) {
-            tmp.setRange(range);
+        if (this.range != null) {
+            tmp.setRange(this.range);
         }
         return tmp;
     }
@@ -75,11 +75,11 @@ public class StackConfig {
         if (s == null) {
             return;
         }
-        base = s;
+        this.base = s;
     }
 
     public void setFactor(String s) {
-        factor = Double.parseDouble(s);
+        this.factor = Double.parseDouble(s);
     }
 
     public void setRange(String s) {
@@ -87,7 +87,7 @@ public class StackConfig {
         if (t.length == 2) {
             Double min = Double.parseDouble(t[0]);
             Double max = Double.parseDouble(t[1]);
-            range = new Range(min, max);
+            this.range = new Range(min, max);
         }
     }
 
@@ -95,7 +95,7 @@ public class StackConfig {
     private String base = null;
     private Range range = null;
     private int size = 1;
-    private String Title = null;
-    private String[] Header = null;
+    private String title = null;
+    private String[] header = null;
     private String HeaderStr = null;
 }

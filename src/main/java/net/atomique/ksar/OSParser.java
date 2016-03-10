@@ -22,8 +22,8 @@ public abstract class OSParser extends AllParser {
     public void init (kSar hissar, String header) {
         String[] s = header.split("\\s+");
         this.mysar = hissar;
-        this.ParserName = s[0];
-        this.myosconfig = GlobalOptions.getOSinfo(this.ParserName);
+        this.parserName = s[0];
+        this.myosconfig = GlobalOptions.getOSinfo(this.parserName);
         parse_header(header);
     }
     
@@ -137,7 +137,7 @@ public abstract class OSParser extends AllParser {
         }
     }
     
-    protected Map<String,Object> ListofGraph = new HashMap<String, Object>();
+    protected Map<String, Object> listofGraph = new HashMap<String, Object>();
     
     protected String lastStat = null;
     protected Object currentStatObj = null;

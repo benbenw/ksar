@@ -129,24 +129,25 @@ public class Linux extends OSParser {
             currentStat = "IGNORE";
             return 1;
         }
+        
         /** XML COLUMN PARSER **/
         String checkStat = myosconfig.getStat(columns, firstdatacolumn);
         if (checkStat != null) {
-            Object obj = ListofGraph.get(checkStat);
+            Object obj = listofGraph.get(checkStat);
             if (obj == null) {
                 GraphConfig mygraphinfo = myosconfig.getGraphConfig(checkStat);
                 if (mygraphinfo != null) {
                     if ("unique".equals(mygraphinfo.getType())) {
                         obj = new Graph(mysar, mygraphinfo, mygraphinfo.getTitle(), line, firstdatacolumn, mysar.graphtree);
 
-                        ListofGraph.put(checkStat, obj);
+                        listofGraph.put(checkStat, obj);
                         currentStat = checkStat;
                         return 0;
                     }
                     if ("multiple".equals(mygraphinfo.getType())) {
                         obj = new List(mysar, mygraphinfo, mygraphinfo.getTitle(), line, firstdatacolumn);
 
-                        ListofGraph.put(checkStat, obj);
+                        listofGraph.put(checkStat, obj);
                         currentStat = checkStat;
                         return 0;
                     }
@@ -164,8 +165,8 @@ public class Linux extends OSParser {
 
         if (lastStat != null) {
             if (!lastStat.equals(currentStat) ) {
-                if (  GlobalOptions.isDodebug())  {
-                System.out.println("Stat change from " + lastStat + " to " + currentStat);
+                if ( GlobalOptions.isDodebug())  {
+                    System.out.println("Stat change from " + lastStat + " to " + currentStat);
                 }
                 lastStat = currentStat;
             }
@@ -180,7 +181,7 @@ public class Linux extends OSParser {
             return -1;
         }
 
-        currentStatObj = ListofGraph.get(currentStat);
+        currentStatObj = listofGraph.get(currentStat);
         if (currentStatObj == null) {
             return -1;
         } else {

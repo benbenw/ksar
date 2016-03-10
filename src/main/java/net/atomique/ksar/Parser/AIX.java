@@ -28,7 +28,6 @@ public class AIX extends OSParser {
         setOSversion(columns[2]+ "." + columns[3]);
         setMacAddress(columns[4]);
         setDate(columns[5]);
-        
     }
 
     @Override
@@ -90,19 +89,19 @@ public class AIX extends OSParser {
         String checkStat = myosconfig.getStat(columns, firstdatacolumn);
 
         if (checkStat != null) {
-            Object obj = ListofGraph.get(checkStat);
+            Object obj = listofGraph.get(checkStat);
             if (obj == null) {
                 GraphConfig mygraphinfo = myosconfig.getGraphConfig(checkStat);
                 if (mygraphinfo != null) {
                     if ("unique".equals(mygraphinfo.getType())) {
                         obj = new Graph(mysar, mygraphinfo, mygraphinfo.getTitle(), line, firstdatacolumn, mysar.graphtree);
-                        ListofGraph.put(checkStat, obj);
+                        listofGraph.put(checkStat, obj);
                         currentStat = checkStat;
                         return 0;
                     }
                     if ("multiple".equals(mygraphinfo.getType())) {
                         obj = new List(mysar, mygraphinfo, mygraphinfo.getTitle(), line, firstdatacolumn);
-                        ListofGraph.put(checkStat, obj);
+                        listofGraph.put(checkStat, obj);
                         currentStat = checkStat;
                         return 0;
                     }
@@ -117,10 +116,7 @@ public class AIX extends OSParser {
             }
         }
 
-        //System.out.println(currentStat + " " + line);
-
-
-
+      
         if (lastStat != null) {
             if (!lastStat.equals(currentStat) ) {
                 if (  GlobalOptions.isDodebug())  {
@@ -143,7 +139,7 @@ public class AIX extends OSParser {
         if (under_average) {
             return 0;
         }
-        currentStatObj = ListofGraph.get(currentStat);
+        currentStatObj = listofGraph.get(currentStat);
         if (currentStatObj == null) {
             return -1;
         } else {
@@ -160,11 +156,6 @@ public class AIX extends OSParser {
         return -1;
     }
 
-    public void updateUITitle() {
-        if ( mysar.getDataView() != null) {
-            mysar.getDataView().setTitle(Hostname + " from "+ startofgraph + " to " + endofgraph);
-        }
-    }
 
     Second now = null;
     boolean under_average = false;

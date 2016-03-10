@@ -20,6 +20,7 @@ import net.atomique.ksar.UI.TreeNodeInfo;
  */
 public class kSar {
 
+    private static final Logger LOGGER = Logger.getLogger(kSar.class.getName());
     public kSar(JDesktopPane DesktopPane) {
         dataview = new DataView(this);
         dataview.toFront();
@@ -51,7 +52,7 @@ public class kSar {
             launched_action = new FileRead(this, filename);
         }
         reload_action = ((FileRead) launched_action).get_action();
-        do_action();
+        doAction();
     }
 
     public void do_localcommand(String cmd) {
@@ -61,7 +62,7 @@ public class kSar {
             launched_action = new LocalCommand(this, cmd);
         }
         reload_action = ((LocalCommand) launched_action).get_action();
-        do_action();
+        doAction();
     }
 
     public void do_sshread(String cmd) {
@@ -73,10 +74,10 @@ public class kSar {
         }
 
         reload_action = ((SSHCommand) launched_action).get_action();
-        do_action();
+        doAction();
     }
 
-    private void do_action() {
+    private void doAction() {
         if (reload_action == null ) {
             System.out.println("action is null");
             return;
@@ -90,70 +91,70 @@ public class kSar {
     }
 
     public int parse(BufferedReader br) {
-        String current_line = null;
-        long parsing_start = 0L;
-        long parsing_end = 0L;
+        String currentLine = null;
+        long parsingStart = 0L;
+        long parsingEnd = 0L;
         String[] columns;
-        int parser_return = 0;
+        int parserReturn = 0;
 
-        parsing_start = System.currentTimeMillis();
+        parsingStart = System.currentTimeMillis();
 
         try {
-            while ((current_line = br.readLine()) != null && !action_interrupted) {
-                Parsing = true;
+            while ((currentLine = br.readLine()) != null && !action_interrupted) {
+                parsing = true;
 
                 linesParsed++;
-                if (current_line.length() == 0) {
+                if (currentLine.length() == 0) {
                     continue;
                 }
-                columns = current_line.split("\\s+");
+                columns = currentLine.split("\\s+");
 
                 if (columns.length == 0) {
                     continue;
                 }
 
-                String ParserType = columns[0];
+                String parserType = columns[0];
                 try {
-                    Class classtmp = GlobalOptions.getParser(ParserType);
+                    Class classtmp = GlobalOptions.getParser(parserType);
                     if (classtmp != null) {
                         if (myparser == null) {
                             myparser = (AllParser) classtmp.newInstance();
-                            myparser.init(this, current_line);
+                            myparser.init(this, currentLine);
 
                             continue;
                         } else {
-                            if (myparser.getParserName().equals(columns[0])) {
-                                myparser.parse_header(current_line);
+                            if (myparser.getParserName().equals(parserType)) {
+                                myparser.parse_header(currentLine);
                                 continue;
                             }
                         }
                     }
                 } catch (InstantiationException ex) {
-                    Logger.getLogger(kSar.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.log(Level.SEVERE, null, ex);
                 } catch (IllegalAccessException ex) {
-                    Logger.getLogger(kSar.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.log(Level.SEVERE, null, ex);
                 }
 
 
                 if (myparser == null) {
                     System.out.println("unknown parser");
-                    Parsing = false;
+                    parsing = false;
                     return -1;
                 }
 
-                parser_return = myparser.parse(current_line, columns);
-                if (parser_return == 1 && GlobalOptions.isDodebug()) {
-                    System.out.println("### " + current_line);
+                parserReturn = myparser.parse(currentLine, columns);
+                if (parserReturn == 1 && GlobalOptions.isDodebug()) {
+                    System.out.println("### " + currentLine);
                 }
-                if (parser_return < 0 && GlobalOptions.isDodebug()) {
-                    System.out.println("ERR " + current_line);
+                if (parserReturn < 0 && GlobalOptions.isDodebug()) {
+                    System.out.println("ERR " + currentLine);
                 }
 
                 myparser.updateUITitle();
             }
         } catch (IOException ex) {
-            Logger.getLogger(kSar.class.getName()).log(Level.SEVERE, null, ex);
-            Parsing = false;
+            LOGGER.log(Level.SEVERE, null, ex);
+            parsing = false;
         }
 
         if (dataview != null) {
@@ -162,14 +163,14 @@ public class kSar {
             dataview.setHasData(true);
         }
 
-        parsing_end = System.currentTimeMillis();
+        parsingEnd = System.currentTimeMillis();
         if (GlobalOptions.isDodebug()) {
-            System.out.println("time to parse: " + (parsing_end - parsing_start) + "ms ");
+            System.out.println("time to parse: " + (parsingEnd - parsingStart) + "ms ");
             if (myparser != null) {
                 System.out.println("number of datesamples: " + myparser.DateSamples.size());
             }
         }
-        Parsing = false;
+        parsing = false;
         return -1;
     }
 
@@ -232,7 +233,7 @@ public class kSar {
     }
 
     public boolean isParsing() {
-        return Parsing;
+        return parsing;
     }
     
     DataView dataview = null;
@@ -240,7 +241,7 @@ public class kSar {
     private String reload_action = "Empty";
     private Thread launched_action = null;
     private boolean action_interrupted = false;
-    private boolean Parsing = false;
+    private boolean parsing = false;
     
     public AllParser myparser = null;
     public int total_graph = 0;

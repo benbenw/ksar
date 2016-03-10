@@ -1,5 +1,4 @@
 
-
 /*
  * DataView.java
  *
@@ -450,7 +449,7 @@ public class DataView extends javax.swing.JInternalFrame {
     }
     
     public void setHasData(boolean actif) {
-        has_fresh_data=actif;
+        hasFreshData=actif;
         exportMenu.setEnabled(actif);
         if (actif) {
             LoadFile.setText("Append from a file...");
@@ -464,7 +463,7 @@ public class DataView extends javax.swing.JInternalFrame {
     }
     
     private void save_data() {
-        if (has_fresh_data) {
+        if (hasFreshData) {
             System.out.println("need backup");
         }
     }
@@ -487,7 +486,7 @@ public class DataView extends javax.swing.JInternalFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
-    private boolean has_fresh_data = false;
+    private boolean hasFreshData = false;
     private kSar mysar = null;
     private JPanel current_panel = null;
     private GraphView mygraphview = new GraphView();

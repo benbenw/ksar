@@ -15,28 +15,28 @@ import net.atomique.ksar.Graph.IEEE1541Number;
 public class PlotConfig {
 
     public PlotConfig(String s) {
-        Title = s;
+        this.Title = s;
     }
 
     public String[] getHeader() {
-        return Header;
+        return this.Header;
     }
 
     public String getTitle() {
-        return Title;
+        return this.Title;
     }
 
     public void setHeaderStr(String s) {
         this.Header = s.split("\\s+");
-        HeaderStr = s;
+        this.HeaderStr = s;
     }
 
     public String getHeaderStr() {
-        return HeaderStr;
+        return this.HeaderStr;
     }
 
     public int getSize() {
-        return size;
+        return this.size;
     }
 
     public void setSize(int size) {
@@ -48,19 +48,19 @@ public class PlotConfig {
         if (tmp == null) {
             return;
         }
-        this.size = size;
+        this.size = this.size;
     }
 
 
     public NumberAxis getAxis() {
-        NumberAxis tmp = new NumberAxis(Title);
-        if ("1024".equals(base)) {
-            NumberFormat decimalformat1 = new IEEE1541Number(factor.intValue());
+        NumberAxis tmp = new NumberAxis(this.Title);
+        if ("1024".equals(this.base)) {
+            NumberFormat decimalformat1 = new IEEE1541Number(this.factor.intValue());
             tmp.setNumberFormatOverride(decimalformat1);
         }
 
-        if (range != null) {
-            tmp.setRange(range);
+        if (this.range != null) {
+            tmp.setRange(this.range);
         }
         return tmp;
     }
@@ -69,11 +69,11 @@ public class PlotConfig {
         if (s == null) {
             return;
         }
-        base = s;
+        this.base = s;
     }
 
     public void setFactor(String s) {
-        factor = Double.parseDouble(s);
+        this.factor = Double.parseDouble(s);
     }
 
     public void setRange(String s) {
@@ -81,7 +81,7 @@ public class PlotConfig {
         if (t.length == 2) {
             Double min = Double.parseDouble(t[0]);
             Double max = Double.parseDouble(t[1]);
-            range = new Range(min, max);
+            this.range = new Range(min, max);
         }
     }
     

@@ -45,7 +45,7 @@ public class GlobalOptions {
         fileseparator = (String) systemprops.get("file.separator");
         columnlist = new HashMap<String, ColumnConfig>();
         OSlist = new HashMap<String, OSConfig>();
-        ParserMap = new HashMap<String, Class>();
+        parserMap = new HashMap<String, Class>();
         HistoryList = new HashMap<String, CnxHistory>();
         HostInfoList = new HashMap<String, HostInfo>();
         
@@ -57,13 +57,13 @@ public class GlobalOptions {
         for ( String  OSName : OSParserNames ) {
             try {
                 Class tmpclass = Class.forName("net.atomique.ksar.Parser."+OSName);
-                ParserMap.put(OSName, tmpclass);
+                parserMap.put(OSName, tmpclass);
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
         }
         
-        for (String parsername : ParserMap.keySet()) {
+        for (String parsername : parserMap.keySet()) {
             is = this.getClass().getResourceAsStream("/" + parsername + ".xml");
             if (is != null) {
                 tmp.load_config(is);
@@ -148,10 +148,10 @@ public class GlobalOptions {
 
     public static Class getParser(String s) {
         String tmp = s.replaceAll("-", "");
-        if (ParserMap.isEmpty()) {
+        if (parserMap.isEmpty()) {
             return null;
         }
-        return ParserMap.get(tmp);
+        return parserMap.get(tmp);
     }
 
     public static HashMap<String, HostInfo> getHostInfoList() {
@@ -255,5 +255,5 @@ public class GlobalOptions {
     private static HashMap<String, HostInfo> HostInfoList;
     private static boolean dodebug = false;
     private static String CLfilename = null;
-    private static HashMap<String, Class> ParserMap;
+    private static HashMap<String, Class> parserMap;
 }
