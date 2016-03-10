@@ -19,6 +19,9 @@ import javax.swing.JProgressBar;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.atomique.ksar.Config;
 import net.atomique.ksar.GlobalOptions;
 import net.atomique.ksar.kSar;
@@ -33,6 +36,8 @@ import net.atomique.ksar.Graph.List;
  */
 public class DataView extends javax.swing.JInternalFrame {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataView.class);
+    
     /** Creates new form DataView */
     public DataView(kSar sar) {
         initComponents();
@@ -202,10 +207,8 @@ public class DataView extends javax.swing.JInternalFrame {
         TreePath treepath = evt.getPath();
         Object obj = treepath.getLastPathComponent();
         if (obj != null) {
-            if ( GlobalOptions.isDodebug()) {
-                System.out.print("mem:" + Runtime.getRuntime().totalMemory());
-                System.out.println(" free:" + Runtime.getRuntime().freeMemory());
-            }
+            LOGGER.debug("mem:" + Runtime.getRuntime().totalMemory());
+            LOGGER.debug(" free:" + Runtime.getRuntime().freeMemory());
 
             SortedTreeNode treenode = (SortedTreeNode) obj;
             if ( treenode.getRoot() == treenode) {

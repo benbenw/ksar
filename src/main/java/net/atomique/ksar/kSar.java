@@ -4,10 +4,11 @@ package net.atomique.ksar;
 import java.beans.PropertyVetoException;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JDesktopPane;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.Graph.Graph;
 import net.atomique.ksar.UI.DataView;
@@ -20,7 +21,8 @@ import net.atomique.ksar.UI.TreeNodeInfo;
  */
 public class kSar {
 
-    private static final Logger LOGGER = Logger.getLogger(kSar.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(kSar.class);
+    
     public kSar(JDesktopPane DesktopPane) {
         dataview = new DataView(this);
         dataview.toFront();
@@ -130,9 +132,9 @@ public class kSar {
                         }
                     }
                 } catch (InstantiationException ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                    LOGGER.error("", ex);
                 } catch (IllegalAccessException ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                    LOGGER.error("", ex);
                 }
 
 
@@ -143,17 +145,19 @@ public class kSar {
                 }
 
                 parserReturn = myparser.parse(currentLine, columns);
-                if (parserReturn == 1 && GlobalOptions.isDodebug()) {
-                    System.out.println("### " + currentLine);
-                }
-                if (parserReturn < 0 && GlobalOptions.isDodebug()) {
-                    System.out.println("ERR " + currentLine);
+                if(LOGGER.isDebugEnabled()) {
+                    if (parserReturn == 1) {
+                        LOGGER.debug("### " + currentLine);
+                    }
+                    else if (parserReturn < 0) {
+                        LOGGER.debug("ERR " + currentLine);
+                    }
                 }
 
                 myparser.updateUITitle();
             }
         } catch (IOException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.error("", ex);
             parsing = false;
         }
 
@@ -164,10 +168,10 @@ public class kSar {
         }
 
         parsingEnd = System.currentTimeMillis();
-        if (GlobalOptions.isDodebug()) {
-            System.out.println("time to parse: " + (parsingEnd - parsingStart) + "ms ");
+        if(LOGGER.isDebugEnabled()) {
+            LOGGER.debug("time to parse: " + (parsingEnd - parsingStart) + "ms ");
             if (myparser != null) {
-                System.out.println("number of datesamples: " + myparser.DateSamples.size());
+                LOGGER.debug("number of datesamples: " + myparser.DateSamples.size());
             }
         }
         parsing = false;

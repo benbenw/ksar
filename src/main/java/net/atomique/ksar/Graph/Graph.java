@@ -33,6 +33,8 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.TimeTableXYDataset;
 import org.jfree.data.xy.XYDataset;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.Config;
 import net.atomique.ksar.GlobalOptions;
@@ -52,6 +54,8 @@ import net.atomique.ksar.XML.StatConfig;
  */
 public class Graph {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Graph.class);
+    
     public Graph(kSar hissar, GraphConfig g, String title, String hdrs, int skipcol, SortedTreeNode pp) {
         mysar = hissar;
         graphtitle = title;
@@ -415,9 +419,7 @@ public class Graph {
         JFreeChart mychart = new JFreeChart(graphtitle, Config.getDEFAULT_FONT(), plot, true);
         long endgenerate = System.currentTimeMillis();
         mychart.setBackgroundPaint(Color.white);
-        if (GlobalOptions.isDodebug()) {
-            System.out.println("graph generation: " + (endgenerate - begingenerate) + " ms");
-        }
+        LOGGER.debug("graph generation: {} ms",  (endgenerate - begingenerate));
         return mychart;
     }
     

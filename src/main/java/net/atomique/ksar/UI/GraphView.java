@@ -16,6 +16,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import org.jfree.chart.ChartPanel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.Config;
 import net.atomique.ksar.GlobalOptions;
@@ -27,6 +29,8 @@ import net.atomique.ksar.Graph.Graph;
  */
 public class GraphView extends javax.swing.JPanel {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GraphView.class);
+    
     /** Creates new form GraphView */
     public GraphView() {        
         initComponents();        
@@ -125,9 +129,7 @@ public class GraphView extends javax.swing.JPanel {
 
         buffer = thegraph.make_csv();
 
-        if ( GlobalOptions.isDodebug() ) {
-            System.out.println(buffer);
-        }
+        LOGGER.debug(buffer);
         BufferedWriter out = null;
         try {
             out = new BufferedWriter(new FileWriter(filename));

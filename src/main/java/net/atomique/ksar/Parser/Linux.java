@@ -6,12 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.jfree.data.time.Second;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.Config;
 import net.atomique.ksar.GlobalOptions;
 import net.atomique.ksar.OSParser;
 import net.atomique.ksar.Graph.Graph;
 import net.atomique.ksar.Graph.List;
+import net.atomique.ksar.UI.DataView;
 import net.atomique.ksar.UI.LinuxDateFormat;
 import net.atomique.ksar.XML.GraphConfig;
 
@@ -21,6 +24,8 @@ import net.atomique.ksar.XML.GraphConfig;
  */
 public class Linux extends OSParser {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataView.class);
+    
     private String linuxDateFormat;
     
     public void parse_header(String s) {
@@ -165,9 +170,7 @@ public class Linux extends OSParser {
 
         if (lastStat != null) {
             if (!lastStat.equals(currentStat) ) {
-                if ( GlobalOptions.isDodebug())  {
-                    System.out.println("Stat change from " + lastStat + " to " + currentStat);
-                }
+                LOGGER.debug("Stat change from " + lastStat + " to " + currentStat);
                 lastStat = currentStat;
             }
         } else {

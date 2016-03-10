@@ -2,12 +2,13 @@
 package net.atomique.ksar;
 
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.UI.Desktop;
 import net.atomique.ksar.UI.SplashScreen;
@@ -18,6 +19,8 @@ import net.atomique.ksar.UI.SplashScreen;
  */
 public class Main {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    
     static Config config = null;
     static GlobalOptions globaloptions = null;
     static ResourceBundle resource = ResourceBundle.getBundle("net/atomique/ksar/Language/Message");
@@ -36,13 +39,13 @@ public class Main {
                 try {
                     UIManager.setLookAndFeel(laf.getClassName());
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Desktop.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error("", ex);
                 } catch (InstantiationException ex) {
-                    Logger.getLogger(Desktop.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error("", ex);
                 } catch (IllegalAccessException ex) {
-                    Logger.getLogger(Desktop.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error("", ex);
                 } catch (UnsupportedLookAndFeelException ex) {
-                    Logger.getLogger(Desktop.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error("", ex);
                 }
             }
         }
@@ -97,10 +100,7 @@ public class Main {
                     usage();
                     continue;
                 }
-                if ("-test".equals(arg)) {
-                    GlobalOptions.setDodebug(true);
-                    continue;
-                }
+                
                 if ("-input".equals(arg)) {
                     if (i < args.length) {
                         GlobalOptions.setCLfilename(args[i++]);

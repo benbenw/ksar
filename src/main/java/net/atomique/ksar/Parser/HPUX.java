@@ -7,11 +7,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.jfree.data.time.Second;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.GlobalOptions;
 import net.atomique.ksar.OSParser;
 import net.atomique.ksar.Graph.Graph;
 import net.atomique.ksar.Graph.List;
+import net.atomique.ksar.UI.DataView;
 import net.atomique.ksar.XML.GraphConfig;
 
 /**
@@ -20,6 +23,8 @@ import net.atomique.ksar.XML.GraphConfig;
  */
 public class HPUX extends OSParser {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataView.class);
+    
     public void parse_header(String s) {
         String[] columns = s.split("\\s+");
         setOstype(columns[0]);
@@ -121,9 +126,7 @@ public class HPUX extends OSParser {
        
         if (lastStat != null) {
             if (!lastStat.equals(currentStat) ) {
-                if (  GlobalOptions.isDodebug())  {
-                System.out.println("Stat change from " + lastStat + " to " + currentStat);
-                }
+                LOGGER.debug("Stat change from " + lastStat + " to " + currentStat);
                 lastStat = currentStat;
                 under_average = false;
             }
