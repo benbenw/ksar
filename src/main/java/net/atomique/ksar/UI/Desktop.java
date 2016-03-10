@@ -10,12 +10,14 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.kSar;
 
@@ -23,9 +25,10 @@ import net.atomique.ksar.kSar;
  *
  * @author Max
  */
-public class Desktop extends javax.swing.JFrame {
+public class Desktop extends JFrame {
 
-    private static final Logger LOGGER = Logger.getLogger(Desktop.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(Desktop.class);
+    
     /** Creates new form Desktop */
     public Desktop() {
         int wmargins = 90;
@@ -34,12 +37,11 @@ public class Desktop extends javax.swing.JFrame {
         initComponents();
         setBounds(wmargins, hmargins, screenSize.width - (wmargins * 2), screenSize.height - (hmargins * 2));
         
-        DesktopPane.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
+        desktopPane.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
         setVisible(true);
     }
 
     
-
     private static JInternalFrame[] filterFrame(JInternalFrame[] frames) {
         int n = 0;
         for (int i = 0; i < frames.length; i++) {
@@ -62,19 +64,20 @@ public class Desktop extends javax.swing.JFrame {
         if (frames.length == 0) {
             return;
         }
+        
         for (int i = 0; i < frames.length; i++) {
             if (frames[i].isVisible() && !frames[i].isIcon()) {
                 try {
                     frames[i].setIcon(true);
                 } catch (PropertyVetoException ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                    LOGGER.error("", ex);
                 }
             }
         }
     }
 
     public void maxall() {
-        maximize(DesktopPane);
+        maximize(desktopPane);
     }
     
     private static void maximize(JDesktopPane desktopPane) {
@@ -87,7 +90,7 @@ public class Desktop extends javax.swing.JFrame {
                 try {
                     frames[i].setMaximum(true);
                 } catch (PropertyVetoException ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                    LOGGER.error("", ex);
                 }
             }
         }
@@ -139,7 +142,7 @@ public class Desktop extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        DesktopPane = new javax.swing.JDesktopPane();
+        desktopPane = new javax.swing.JDesktopPane();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         NewMenu = new javax.swing.JMenuItem();
@@ -151,7 +154,7 @@ public class Desktop extends javax.swing.JFrame {
         IconifyMenu = new javax.swing.JMenuItem();
         MaximizeMenu = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
-        AboutMenu = new javax.swing.JMenuItem();
+        aboutMenu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("kSar : a sar grapher");
@@ -160,7 +163,7 @@ public class Desktop extends javax.swing.JFrame {
                 formWindowClosing(evt);
             }
         });
-        getContentPane().add(DesktopPane, java.awt.BorderLayout.CENTER);
+        getContentPane().add(desktopPane, java.awt.BorderLayout.CENTER);
 
         FileMenu.setText("File"); // NOI18N
 
@@ -226,13 +229,13 @@ public class Desktop extends javax.swing.JFrame {
 
         HelpMenu.setText("?");
 
-        AboutMenu.setText("About");
-        AboutMenu.addActionListener(new java.awt.event.ActionListener() {
+        aboutMenu.setText("About");
+        aboutMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AboutMenuActionPerformed(evt);
             }
         });
-        HelpMenu.add(AboutMenu);
+        HelpMenu.add(aboutMenu);
 
         MenuBar.add(HelpMenu);
 
@@ -262,23 +265,23 @@ public class Desktop extends javax.swing.JFrame {
     }//GEN-LAST:event_NewMenuActionPerformed
 
     private void TileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TileMenuActionPerformed
-        tile(DesktopPane);
+        tile(desktopPane);
     }//GEN-LAST:event_TileMenuActionPerformed
 
     private void IconifyMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IconifyMenuActionPerformed
-        iconify(DesktopPane);
+        iconify(desktopPane);
     }//GEN-LAST:event_IconifyMenuActionPerformed
 
     private void MaximizeMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MaximizeMenuActionPerformed
-        maximize(DesktopPane);
+        maximize(desktopPane);
     }//GEN-LAST:event_MaximizeMenuActionPerformed
 
     public void add_window() {
-        kSar mysar = new kSar(DesktopPane);
+        kSar mysar = new kSar(desktopPane);
     }
 
     public JDesktopPane getDesktopPane() {
-        return DesktopPane;
+        return desktopPane;
     }
 
 
@@ -288,9 +291,9 @@ public class Desktop extends javax.swing.JFrame {
             System.exit(0);
         }
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem AboutMenu;
-    private javax.swing.JDesktopPane DesktopPane;
+
+    private javax.swing.JMenuItem aboutMenu;
+    private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu FileMenu;
     private javax.swing.JMenu HelpMenu;
     private javax.swing.JMenuItem IconifyMenu;
@@ -302,5 +305,4 @@ public class Desktop extends javax.swing.JFrame {
     private javax.swing.JMenuItem SysprefMenu;
     private javax.swing.JMenuItem TileMenu;
     private javax.swing.JMenu WindowMenu;
-    // End of variables declaration//GEN-END:variables
 }

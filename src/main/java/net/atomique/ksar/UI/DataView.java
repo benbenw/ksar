@@ -27,6 +27,7 @@ import net.atomique.ksar.GlobalOptions;
 import net.atomique.ksar.kSar;
 import net.atomique.ksar.Export.FileCSV;
 import net.atomique.ksar.Export.FilePDF;
+import net.atomique.ksar.Export.GraphExportCallback;
 import net.atomique.ksar.Graph.Graph;
 import net.atomique.ksar.Graph.GraphList;
 
@@ -344,16 +345,19 @@ public class DataView extends javax.swing.JInternalFrame {
         JPanel panel0 = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
-        JProgressBar pbar = new JProgressBar();
+        
+        final JProgressBar pbar = new JProgressBar();
         pbar.setMinimum(0);
         pbar.setMaximum(pages);
         pbar.setStringPainted(true);
+        
         JLabel mytitre = new JLabel("Exporting: ");
         panel1.add(mytitre);
         panel2.add(pbar);
         panel0.add(panel1);
         panel0.add(panel2);
-        JDialog mydial = new JDialog();
+        
+        final JDialog mydial = new JDialog();
         mydial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mydial.setContentPane(panel0);
         mydial.setSize(250, 80);
@@ -361,27 +365,44 @@ public class DataView extends javax.swing.JInternalFrame {
         mydial.setLocationRelativeTo(GlobalOptions.getUI());
         mydial.setVisible(true);
 
-        Runnable t = new FilePDF(filename, mysar, pbar, mydial);
+        GraphExportCallback exportCallback = new GraphExportCallback() {
+            
+            @Override
+            public void onGraphExported() {
+                pbar.setValue(pbar.getValue() + 1);
+                
+            }
+            
+            @Override
+            public void onEnd() {
+                mydial.dispose();
+            }
+        };
+        
+        Runnable t = new FilePDF(filename, mysar, exportCallback);
         Thread th = new Thread(t);
         th.start();
     }
    
     public void doExportCSV(String filename) {
         int pages = 0;
-        pages= mysar.myparser.getDateSamples().size();
+        pages = mysar.parser.getDateSamples().size();
         JPanel panel0 = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
-        JProgressBar pbar = new JProgressBar();
+        
+        final JProgressBar pbar = new JProgressBar();
         pbar.setMinimum(0);
         pbar.setMaximum(pages);
         pbar.setStringPainted(true);
+        
         JLabel mytitre = new JLabel("Exporting: ");
         panel1.add(mytitre);
         panel2.add(pbar);
         panel0.add(panel1);
         panel0.add(panel2);
-        JDialog mydial = new JDialog();
+        
+        final JDialog mydial = new JDialog();
         mydial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mydial.setContentPane(panel0);
         mydial.setSize(250, 80);
@@ -389,10 +410,23 @@ public class DataView extends javax.swing.JInternalFrame {
         mydial.setLocationRelativeTo(GlobalOptions.getUI());
         mydial.setVisible(true);
         
-        Runnable t = new FileCSV(filename, mysar, pbar, mydial);
+        GraphExportCallback exportCallback = new GraphExportCallback() {
+            
+            @Override
+            public void onGraphExported() {
+                pbar.setValue(pbar.getValue() + 1);
+                
+            }
+            
+            @Override
+            public void onEnd() {
+                mydial.dispose();
+            }
+        };
+        
+        Runnable t = new FileCSV(filename, mysar, exportCallback);
         Thread th = new Thread(t);
         th.start();
-        
     }
 
     

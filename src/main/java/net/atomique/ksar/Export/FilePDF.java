@@ -8,9 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import javax.swing.JDialog;
-import javax.swing.JProgressBar;
-
 import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.JFreeChart;
 import org.slf4j.Logger;
@@ -49,16 +46,17 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilePDF.class);
     
+    private GraphExportCallback exportCallback = null;
+    
     public FilePDF(String filename, kSar hissar) {
         pdffilename = filename;
         mysar = hissar;
     }
 
-    public FilePDF(String filename, kSar hissar, JProgressBar g, JDialog d) {
+    public FilePDF(String filename, kSar hissar, GraphExportCallback exportCallback) {
         pdffilename = filename;
         mysar = hissar;
-        progressBar = g;
-        dialog = d;
+        this.exportCallback = exportCallback;
     }
 
     public void run() {
@@ -111,8 +109,8 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
             
         }
 
-        if (dialog != null) {
-            dialog.dispose();
+        if (exportCallback != null) {
+            exportCallback.onEnd();
         }
     }
 
@@ -148,9 +146,8 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
     }
 
     private void updateUi() {
-        if (progressBar != null) {
-            progressBar.setValue(++progressInfo);
-            progressBar.repaint();
+        if (exportCallback != null) {
+            exportCallback.onGraphExported();
         }
     }
 
@@ -169,7 +166,7 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
     }
 
     public int addchart(PdfWriter writer, Graph graph) {
-        JFreeChart chart = graph.getgraph(mysar.myparser.getStartofgraph(), mysar.myparser.getEndofgraph());
+        JFreeChart chart = graph.getgraph(mysar.parser.getStartofgraph(), mysar.parser.getEndofgraph());
         PdfTemplate pdftpl = pdfcb.createTemplate(pagewidth,pageheight);
         Graphics2D g2d = pdftpl.createGraphics(pagewidth,pageheight , mapper);
         Double r2d = new Rectangle2D.Double(0, 0, pagewidth,pageheight );
@@ -186,7 +183,7 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
 
     private void indexPage(PdfWriter writer, Document document) {
         String title = "Statistics";
-        String date = "On " + mysar.myparser.getDate();
+        String date = "On " + mysar.parser.getDate();
         pdfcb.beginText();
         pdfcb.setFontAndSize(bf, 48);
         pdfcb.setColorFill(new BaseColor(0x00, 0x00, 0x00));
@@ -197,7 +194,6 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
         document.newPage();
     }
 
-    private int progressInfo =0;
     private float pdfheight;
     private float pdfwidth;
     private int pdfmargins = 10;
@@ -211,7 +207,5 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
     private kSar mysar = null;
     private FontMapper mapper = new DefaultFontMapper();
     private BaseFont bf = FontFactory.getFont(FontFactory.COURIER).getCalculatedBaseFont(false);
-    private JProgressBar progressBar = null;
-    private JDialog dialog = null;
     private ChartRenderingInfo chartinfo = null;
 }

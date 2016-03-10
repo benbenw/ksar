@@ -6,13 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.JDialog;
-import javax.swing.JProgressBar;
 
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Second;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.kSar;
 import net.atomique.ksar.Graph.Graph;
@@ -26,18 +24,20 @@ import net.atomique.ksar.UI.TreeNodeInfo;
  * @author Max
  */
 public class FileCSV implements Runnable {
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileCSV.class);
+    
+    private GraphExportCallback exportCallback = null;
 
     public FileCSV(String filename, kSar hissar) {
         csvfilename = filename;
         mysar = hissar;
-
     }
 
-    public FileCSV(String filename, kSar hissar, JProgressBar g, JDialog d) {
+    public FileCSV(String filename, kSar hissar, GraphExportCallback exportCallback) {
         csvfilename = filename;
         mysar = hissar;
-        progress_bar = g;
-        dialog = d;
+        this.exportCallback = exportCallback;
     }
 
     public void run() {
@@ -54,7 +54,7 @@ public class FileCSV implements Runnable {
         
         export_treenode_header(mysar.graphtree);
         tmpcsv.append("\n");
-        Iterator<Second> ite = mysar.myparser.getDateSamples().iterator();
+        Iterator<Second> ite = mysar.parser.getDateSamples().iterator();
         while (ite.hasNext()) {
             Second tmp = ite.next();
             export_treenode_data(mysar.graphtree, tmp);
@@ -64,16 +64,13 @@ public class FileCSV implements Runnable {
             out.write(tmpcsv.toString());
             out.close();
         } catch (IOException ex) {
-            Logger.getLogger(FileCSV.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error("", ex);
         }
         
         
-        if (dialog != null) {
-            dialog.dispose();
+        if (exportCallback != null) {
+            exportCallback.onEnd();
         }
-
-
-
     }
 
 
@@ -123,26 +120,21 @@ public class FileCSV implements Runnable {
                 Graph nodeobj = tmpnode.getNode_object();
                 if ( nodeobj.doPrint()) {
                     tmpcsv.append(nodeobj.getCsvLine(time));
-                    update_ui();
+                    updateUi();
 
                 }
             }
         }
     }
      
-    private void update_ui() {
-        if (progress_bar != null) {
-            progress_bar.setValue(++progress_info);
-            progress_bar.repaint();
+    private void updateUi() {
+        if (exportCallback != null) {
+            exportCallback.onGraphExported();
         }
-
     }
 
     
     private StringBuilder tmpcsv = new StringBuilder();
-    private int progress_info =0;
     private String csvfilename = null;
     private kSar mysar = null;
-    private JProgressBar progress_bar = null;
-    private JDialog dialog = null;
 }

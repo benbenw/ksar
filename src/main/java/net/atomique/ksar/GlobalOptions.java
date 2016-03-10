@@ -39,7 +39,7 @@ public class GlobalOptions {
     }
 
     GlobalOptions() {
-        systemprops = System.getProperties();
+        Properties systemprops = System.getProperties();
         username = (String) systemprops.get("user.name");
         userhome = (String) systemprops.get("user.home") + systemprops.get("file.separator");
         fileseparator = (String) systemprops.get("file.separator");
@@ -51,10 +51,8 @@ public class GlobalOptions {
         
         String[] OSParserNames = {"AIX", "HPUX",  "Linux", "SunOS"};
         String filename = null;
-        XMLConfig tmp = null;
         InputStream is = this.getClass().getResourceAsStream("/Config.xml");
-        tmp = new XMLConfig(is);
-        for ( String  OSName : OSParserNames ) {
+        for ( String OSName : OSParserNames ) {
             try {
                 Class tmpclass = Class.forName("net.atomique.ksar.Parser."+OSName);
                 parserMap.put(OSName, tmpclass);
@@ -63,6 +61,7 @@ public class GlobalOptions {
             }
         }
         
+        XMLConfig tmp = new XMLConfig(is);
         for (String parsername : parserMap.keySet()) {
             is = this.getClass().getResourceAsStream("/" + parsername + ".xml");
             if (is != null) {
@@ -238,7 +237,6 @@ public class GlobalOptions {
 
     }
     private static Desktop UI = null;
-    private static Properties systemprops;
     private static String userhome;
     private static String username;
     private static String fileseparator;

@@ -188,7 +188,7 @@ public class Graph {
         } catch (SeriesException se) {
             // insert not possible
             // check if column can be update
-            StatConfig statconfig = ((OSParser) mysar.myparser).get_OSConfig().getStat(mysar.myparser.getCurrentStat());
+            StatConfig statconfig = ((OSParser) mysar.parser).get_OSConfig().getStat(mysar.parser.getCurrentStat());
             if (statconfig != null) {
                 if (statconfig.canDuplicateTime()) {
                     Number oldval = ((TimeSeries) (Stats.get(col))).getValue(now);
@@ -262,7 +262,7 @@ public class Graph {
 
     public int savePNG(final Second g_start, final Second g_end, final String filename, final int width, final int height) {
         try {
-            ChartUtilities.saveChartAsPNG(new File(filename), this.getgraph(mysar.myparser.getStartofgraph(), mysar.myparser.getEndofgraph()), width, height);
+            ChartUtilities.saveChartAsPNG(new File(filename), this.getgraph(mysar.parser.getStartofgraph(), mysar.parser.getEndofgraph()), width, height);
         } catch (IOException e) {
             System.err.println("Unable to write to : " + filename);
             return -1;
@@ -272,7 +272,7 @@ public class Graph {
 
     public int saveJPG(final Second g_start, final Second g_end, final String filename, final int width, final int height) {
         try {
-            ChartUtilities.saveChartAsJPEG(new File(filename), this.getgraph(mysar.myparser.getStartofgraph(), mysar.myparser.getEndofgraph()), width, height);
+            ChartUtilities.saveChartAsJPEG(new File(filename), this.getgraph(mysar.parser.getStartofgraph(), mysar.parser.getEndofgraph()), width, height);
         } catch (IOException e) {
             System.err.println("Unable to write to : " + filename);
             return -1;
@@ -292,11 +292,11 @@ public class Graph {
         if (mygraph == null) {
             mygraph = makegraph(start, end);
         } else {
-            if (!axisofdate.getMaximumDate().equals(mysar.myparser.getEndofgraph().getEnd())) {
-                axisofdate.setMaximumDate(mysar.myparser.getEndofgraph().getEnd());
+            if (!axisofdate.getMaximumDate().equals(mysar.parser.getEndofgraph().getEnd())) {
+                axisofdate.setMaximumDate(mysar.parser.getEndofgraph().getEnd());
             }
-            if (!axisofdate.getMinimumDate().equals(mysar.myparser.getStartofgraph().getStart())) {
-                axisofdate.setMinimumDate(mysar.myparser.getStartofgraph().getStart());
+            if (!axisofdate.getMinimumDate().equals(mysar.parser.getStartofgraph().getStart())) {
+                axisofdate.setMinimumDate(mysar.parser.getStartofgraph().getStart());
             }
         }
         return mygraph;
@@ -341,15 +341,15 @@ public class Graph {
             if (mysar.isParsing()) {
                 chartpanel = new ChartPanel(getgraph(null, null));
             } else {
-                chartpanel = new ChartPanel(getgraph(mysar.myparser.getStartofgraph(), mysar.myparser.getEndofgraph()));
+                chartpanel = new ChartPanel(getgraph(mysar.parser.getStartofgraph(), mysar.parser.getEndofgraph()));
             }
         } else {
             if (!mysar.isParsing()) {
-                if (!axisofdate.getMaximumDate().equals(mysar.myparser.getEndofgraph().getEnd())) {
-                    axisofdate.setMaximumDate(mysar.myparser.getEndofgraph().getEnd());
+                if (!axisofdate.getMaximumDate().equals(mysar.parser.getEndofgraph().getEnd())) {
+                    axisofdate.setMaximumDate(mysar.parser.getEndofgraph().getEnd());
                 }
-                if (!axisofdate.getMinimumDate().equals(mysar.myparser.getStartofgraph().getStart())) {
-                    axisofdate.setMinimumDate(mysar.myparser.getStartofgraph().getStart());
+                if (!axisofdate.getMinimumDate().equals(mysar.parser.getStartofgraph().getStart())) {
+                    axisofdate.setMinimumDate(mysar.parser.getStartofgraph().getStart());
                 }
             }
         }

@@ -118,14 +118,14 @@ public class kSar {
                 try {
                     Class classtmp = GlobalOptions.getParser(parserType);
                     if (classtmp != null) {
-                        if (myparser == null) {
-                            myparser = (AllParser) classtmp.newInstance();
-                            myparser.init(this, currentLine);
+                        if (parser == null) {
+                            parser = (AllParser) classtmp.newInstance();
+                            parser.init(this, currentLine);
 
                             continue;
                         } else {
-                            if (myparser.getParserName().equals(parserType)) {
-                                myparser.parse_header(currentLine);
+                            if (parser.getParserName().equals(parserType)) {
+                                parser.parse_header(currentLine);
                                 continue;
                             }
                         }
@@ -137,13 +137,13 @@ public class kSar {
                 }
 
 
-                if (myparser == null) {
+                if (parser == null) {
                     System.out.println("unknown parser");
                     parsing = false;
                     return -1;
                 }
 
-                parserReturn = myparser.parse(currentLine, columns);
+                parserReturn = parser.parse(currentLine, columns);
                 if(LOGGER.isDebugEnabled()) {
                     if (parserReturn == 1) {
                         LOGGER.debug("### " + currentLine);
@@ -153,7 +153,7 @@ public class kSar {
                     }
                 }
 
-                myparser.updateUITitle();
+                parser.updateUITitle();
             }
         } catch (IOException ex) {
             LOGGER.error("", ex);
@@ -169,8 +169,8 @@ public class kSar {
         parsingEnd = System.currentTimeMillis();
         if(LOGGER.isDebugEnabled()) {
             LOGGER.debug("time to parse: " + (parsingEnd - parsingStart) + "ms ");
-            if (myparser != null) {
-                LOGGER.debug("number of datesamples: " + myparser.DateSamples.size());
+            if (parser != null) {
+                LOGGER.debug("number of datesamples: " + parser.DateSamples.size());
             }
         }
         parsing = false;
@@ -247,7 +247,7 @@ public class kSar {
     private boolean action_interrupted = false;
     private boolean parsing = false;
     
-    public AllParser myparser = null;
-    public int total_graph = 0;
+    public AllParser parser = null;
+    private int totalGraph = 0;
     public SortedTreeNode graphtree = new SortedTreeNode("kSar");
 }
