@@ -46,7 +46,6 @@ public class AboutBox extends javax.swing.JDialog {
         urllabel = new javax.swing.JLabel();
         authorlabel = new javax.swing.JLabel();
         licencelabel = new javax.swing.JLabel();
-        tipslabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         OkButton = new javax.swing.JButton();
 
@@ -82,17 +81,14 @@ public class AboutBox extends javax.swing.JDialog {
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
-        urllabel.setText("website: http://sourceforge.net/projects/ksar/");
+        urllabel.setText("https://github.com/benbenw/ksar");
         jPanel2.add(urllabel);
 
-        authorlabel.setText("Author: xavier cherif");
+        authorlabel.setText("Original author: xavier cherif");
         jPanel2.add(authorlabel);
 
         licencelabel.setText("License: BSD (see LICENCE file)");
         jPanel2.add(licencelabel);
-
-        tipslabel.setText("ARS LONGA, VITA BREVIS");
-        jPanel2.add(tipslabel);
 
         getContentPane().add(jPanel2);
 
@@ -123,7 +119,6 @@ public class AboutBox extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel licencelabel;
-    private javax.swing.JLabel tipslabel;
     private javax.swing.JLabel urllabel;
     private javax.swing.JLabel versionlabel;
     // End of variables declaration//GEN-END:variables
