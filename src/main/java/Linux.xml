@@ -76,6 +76,10 @@
                 <headerstr>runq-sz plist-sz ldavg-1 ldavg-5 ldavg-15</headerstr>
                 <graphname>LOAD</graphname>
             </Stat>
+            <Stat name="load3">
+                <headerstr>runq-sz plist-sz ldavg-1 ldavg-5 ldavg-15 blocked</headerstr>
+                <graphname>LOAD</graphname>
+            </Stat>
             <Stat name="kswap">
                 <headerstr>kbswpfree kbswpused %swpused kbswpcad %swpcad</headerstr>
                 <graphname>KSWAP</graphname>
@@ -128,6 +132,10 @@
                 <headerstr>kbmemfree kbmemused %memused kbbuffers kbcached kbswpfree kbswpused %swpused kbswpcad</headerstr>
                 <graphname>KMEM</graphname>
             </Stat>
+            <Stat name="kmem5">
+                <headerstr>kbmemfree kbmemused %memused kbbuffers kbcached kbcommit %commit kbactive kbinact kbdirty</headerstr>
+                <graphname>KMEM</graphname>
+            </Stat>
             <Stat name="dev4">
                 <headerstr>DEV tps rd_sec/s wr_sec/s avgrq-sz avgqu-sz await svctm %util</headerstr>
                 <graphname>DEV</graphname>
@@ -150,6 +158,10 @@
             </Stat>
             <Stat name="cpu6">
                 <headerstr>CPU %usr %nice %sys %iowait %steal %irq %soft %guest %idle</headerstr>
+                <graphname>CPU</graphname>
+            </Stat>
+            <Stat name="cpu6">
+                <headerstr>CPU %usr %nice %sys %iowait %steal %irq %soft %guest %gnice %idle</headerstr>
                 <graphname>CPU</graphname>
             </Stat>
             <Stat name="nsfm">
