@@ -157,7 +157,7 @@ public class XMLConfig extends DefaultHandler {
         }
 
         if ( "HostInfo".equals(qName)) {
-            in_hostinfo=true;
+            inHostinfo=true;
         }
         
         // COLORS
@@ -176,7 +176,7 @@ public class XMLConfig extends DefaultHandler {
             }
         }
         // hostinfo
-        if (in_hostinfo) {
+        if (inHostinfo) {
             if ("host".equals(qName)) {
                 currentHost = new HostInfo(attributes.getValue("name"));
                 inHost=true;
@@ -266,7 +266,7 @@ public class XMLConfig extends DefaultHandler {
             currentStack = null;
         }
         if ("HostInfo".equals(qName)) {
-            in_hostinfo = false;
+            inHostinfo = false;
         }
         
 
@@ -332,7 +332,7 @@ public class XMLConfig extends DefaultHandler {
                 currentCnx = null;
             }
         }
-        if ( in_hostinfo ) {
+        if ( inHostinfo ) {
             if ( "alias".equals(qName)) {
                 currentHost.setAlias(tempval);
             }
@@ -357,7 +357,7 @@ public class XMLConfig extends DefaultHandler {
     private boolean inOS = false;
     private boolean inHistory = false;
     private boolean inCnx = false;
-    private boolean in_hostinfo = false;
+    private boolean inHostinfo = false;
     private boolean inHost = false;
     
     private ColumnConfig currentColor = null;
