@@ -15,6 +15,20 @@
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>
 			<version>5.0.6</version>
+			<exclusions>
+			 <exclusion>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcmail-jdk14</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk14</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bctsp-jdk14</artifactId>
+        </exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.jcraft</groupId>
@@ -34,7 +48,55 @@
                     <source>1.7</source>
                     <target>1.7</target>
                 </configuration>
-            </plugin>    
+            </plugin>
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <classpathPrefix>lib</classpathPrefix>
+                        <mainClass>net.atomique.ksar.Main</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+<!--             <plugin> -->
+<!--                         <artifactId>maven-assembly-plugin</artifactId> -->
+<!--                         <version>2.4</version> -->
+<!--                         <executions> -->
+<!--                             <execution> -->
+<!--                                 <phase>package</phase> -->
+<!--                                 <goals> -->
+<!--                                     <goal>single</goal> -->
+<!--                                 </goals> -->
+<!--                                 <configuration> -->
+<!--                                     <descriptors> -->
+<!--                                         <descriptor>src/main/assembly/assembly.xml</descriptor> -->
+<!--                                     </descriptors> -->
+<!--                                 </configuration> -->
+<!--                             </execution> -->
+<!--                         </executions> -->
+<!--                     </plugin> -->
+
+<!--                     <plugin> -->
+<!--                         <groupId>org.apache.maven.plugins</groupId> -->
+<!--                         <artifactId>maven-dependency-plugin</artifactId> -->
+<!--                         <executions> -->
+<!--                             <execution> -->
+<!--                                 <id>copy-dependencies</id> -->
+<!--                                 <phase>package</phase> -->
+<!--                                 <goals> -->
+<!--                                     <goal>copy-dependencies</goal> -->
+<!--                                 </goals> -->
+<!--                                 <configuration> -->
+<!--                                     https://jira.codehaus.org/browse/MDEP-85 -->
+<!--                                     <includeScope>compile</includeScope> -->
+<!--                                 </configuration> -->
+<!--                             </execution> -->
+<!--                         </executions> -->
+<!--                     </plugin> -->
         </plugins>
     </build>
 </project>
