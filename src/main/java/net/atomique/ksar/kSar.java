@@ -102,7 +102,7 @@ public class kSar {
             while ((current_line = br.readLine()) != null && !action_interrupted) {
                 Parsing = true;
 
-                lines_parsed++;
+                linesParsed++;
                 if (current_line.length() == 0) {
                     continue;
                 }
@@ -236,7 +236,7 @@ public class kSar {
     }
     
     DataView dataview = null;
-    private long lines_parsed = 0L;
+    private long linesParsed = 0L;
     private String reload_action = "Empty";
     private Thread launched_action = null;
     private boolean action_interrupted = false;
