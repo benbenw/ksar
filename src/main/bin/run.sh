@@ -9,9 +9,9 @@ else
     JAVA="java"
 fi
 
-if [ ! -f "$DIRNAME/kSar.jar" ] ; then
-    echo "Unable to find kSar.jar"
+if [ ! -f "$DIRNAME/ksar.jar" ] ; then
+    echo "Unable to find ksar.jar"
     exit 1;
 fi
 
-exec $JAVA $JAVA_OPT -jar $DIRNAME/kSar.jar $@
+exec $JAVA $JAVA_OPT -jar $DIRNAME/ksar.jar $@
