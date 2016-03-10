@@ -23,14 +23,14 @@ public class kSar {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(kSar.class);
     
-    public kSar(JDesktopPane DesktopPane) {
+    public kSar(JDesktopPane desktopPane) {
         dataview = new DataView(this);
         dataview.toFront();
         dataview.setVisible(true);
         dataview.setTitle("Empty");
-        DesktopPane.add(dataview);
+        desktopPane.add(dataview);
         try {
-            int num = DesktopPane.getAllFrames().length;
+            int num = desktopPane.getAllFrames().length;
             if (num != 1) {
                 dataview.reshape(5 * num, 5 * num, 800, 600);
             } else {
@@ -53,7 +53,7 @@ public class kSar {
         } else {
             launched_action = new FileRead(this, filename);
         }
-        reload_action = ((FileRead) launched_action).get_action();
+        reloadAction = ((FileRead) launched_action).get_action();
         doAction();
     }
 
@@ -63,24 +63,23 @@ public class kSar {
         } else {
             launched_action = new LocalCommand(this, cmd);
         }
-        reload_action = ((LocalCommand) launched_action).get_action();
+        reloadAction = ((LocalCommand) launched_action).get_action();
         doAction();
     }
 
     public void do_sshread(String cmd) {
         if (cmd == null) {
             launched_action = new SSHCommand(this);
-            //mysar.reload_command=t.get_command();
         } else {
             launched_action = new SSHCommand(this, cmd);
         }
 
-        reload_action = ((SSHCommand) launched_action).get_action();
+        reloadAction = ((SSHCommand) launched_action).get_action();
         doAction();
     }
 
     private void doAction() {
-        if (reload_action == null ) {
+        if (reloadAction == null ) {
             System.out.println("action is null");
             return;
         }
@@ -205,20 +204,19 @@ public class kSar {
         }
     }
 
-    public int get_page_to_print() {
-        page_to_print = 0;
-        count_printSelected(graphtree);
-        return page_to_print;
+    public int getPageToPrint() {
+        return count_printSelected(graphtree);
     }
 
-    public void count_printSelected(SortedTreeNode node) {
+    public int count_printSelected(SortedTreeNode node) {
+        int page_to_print = 0;
         int num = node.getChildCount();
 
         if (num > 0) {
             Object obj1 = node.getUserObject();
             for (int i = 0; i < num; i++) {
                 SortedTreeNode l = (SortedTreeNode) node.getChildAt(i);
-                count_printSelected(l);
+                page_to_print += count_printSelected(l);
             }
         } else {
             Object obj1 = node.getUserObject();
@@ -230,6 +228,8 @@ public class kSar {
                 }
             }
         }
+        
+        return page_to_print;
     }
 
     public DataView getDataView() {
@@ -240,9 +240,9 @@ public class kSar {
         return parsing;
     }
     
-    DataView dataview = null;
+    private DataView dataview = null;
     private long linesParsed = 0L;
-    private String reload_action = "Empty";
+    private String reloadAction = "Empty";
     private Thread launched_action = null;
     private boolean action_interrupted = false;
     private boolean parsing = false;
@@ -250,5 +250,4 @@ public class kSar {
     public AllParser myparser = null;
     public int total_graph = 0;
     public SortedTreeNode graphtree = new SortedTreeNode("kSar");
-    public int page_to_print = 0;
 }

@@ -7,14 +7,14 @@ import java.awt.geom.Rectangle2D.Double;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JDialog;
 import javax.swing.JProgressBar;
 
 import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.JFreeChart;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -47,77 +47,77 @@ import net.atomique.ksar.UI.TreeNodeInfo;
  */
 public class FilePDF extends PdfPageEventHelper implements Runnable {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FilePDF.class);
+    
     public FilePDF(String filename, kSar hissar) {
         pdffilename = filename;
         mysar = hissar;
-
     }
 
     public FilePDF(String filename, kSar hissar, JProgressBar g, JDialog d) {
         pdffilename = filename;
         mysar = hissar;
-        progress_bar = g;
+        progressBar = g;
         dialog = d;
     }
 
     public void run() {
-        total_pages+=mysar.get_page_to_print();
+        totalPages += mysar.getPageToPrint();
         org.jfree.text.TextUtilities.setUseDrawRotatedStringWorkaround(true);
         if ("A4".equals(Config.getPDFPageFormat())) {
             document = new Document(PageSize.A4.rotate());
-            pdfheight=document.getPageSize().getHeight();
-        }else if ("LEGAL".equals(Config.getPDFPageFormat())) {
+        }
+        else if ("LEGAL".equals(Config.getPDFPageFormat())) {
             document = new Document(PageSize.LEGAL.rotate());
-        } else if ("LETTER".equals(Config.getPDFPageFormat())) {
+        }
+        else if ("LETTER".equals(Config.getPDFPageFormat())) {
             document = new Document(PageSize.LETTER.rotate());
-        } else {
+        }
+        else {
             document = new Document(PageSize.A4.rotate());
         }
-        pdfheight=document.getPageSize().getHeight();
-        pdfwidth=document.getPageSize().getWidth();
+        
+        pdfheight = document.getPageSize().getHeight();
+        pdfwidth = document.getPageSize().getWidth();
         pageheight = pdfheight - (2 * pdfmargins);
         pagewidth = pdfwidth - (2 * pdfmargins);
         try {
             writer = PdfWriter.getInstance(document, new FileOutputStream(pdffilename));
+        
+            writer.setPageEvent(this);
+            writer.setCompressionLevel(0);
+    
+            // document parameter before open
+            document.addTitle("kSar Grapher");
+            document.addCreator("kSar Version:" + VersionNumber.getVersionNumber());
+            document.addAuthor("Xavier cherif");
+    
+            // open the doc
+            document.open();
+            pdfcb = writer.getDirectContent();
+            PdfOutline root = pdfcb.getRootOutline();
+    
+            indexPage(writer, document);
+    
+            exportTreenode(mysar.graphtree, root);
+    
+            document.close();
         } catch (DocumentException ex) {
-            Logger.getLogger(FilePDF.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error("", ex);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FilePDF.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error("", ex);
         }
-        writer.setPageEvent(this);
-        writer.setCompressionLevel(0);
-
-        // document parameter before open
-        document.addTitle("kSar Grapher");
-        //document.addSubject("Sar output of " + mysar.hostName);
-        //document.addKeywords("http://ksar.atomique.net/ ");
-        //document.addKeywords(mysar.hostName);
-        //document.addKeywords(mysar.myOS.sarStartDate);
-        //document.addKeywords(mysar.myOS.sarEndDate);
-        document.addCreator("kSar Version:" + VersionNumber.getVersionNumber());
-        document.addAuthor("Xavier cherif");
-
-        // open the doc
-        document.open();
-        pdfcb = writer.getDirectContent();
-        PdfOutline root = pdfcb.getRootOutline();
-
-        IndexPage(writer, document);
-
-        export_treenode(mysar.graphtree, root);
-
-        document.close();
+        finally {
+            
+        }
 
         if (dialog != null) {
             dialog.dispose();
         }
-
-
-
     }
 
 
-    public void export_treenode(SortedTreeNode node, PdfOutline root) {
+    public void exportTreenode(SortedTreeNode node, PdfOutline root) {
         int num = node.getChildCount();
         if (num > 0) {
             Object obj1 = node.getUserObject();
@@ -130,7 +130,7 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
             }
             for (int i = 0; i < num; i++) {
                 SortedTreeNode l = (SortedTreeNode) node.getChildAt(i);
-                export_treenode(l, root);
+                exportTreenode(l, root);
             }
         } else {
             Object obj1 = node.getUserObject();
@@ -142,23 +142,21 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
                     updateUi();
                     addchart(writer, nodeobj);
                     document.newPage();
-                    
                 }
             }
         }
     }
 
     private void updateUi() {
-        if (progress_bar != null) {
-            progress_bar.setValue(++progress_info);
-            progress_bar.repaint();
+        if (progressBar != null) {
+            progressBar.setValue(++progressInfo);
+            progressBar.repaint();
         }
-
     }
 
     public void onEndPage(PdfWriter writer, Document document) {
         try {
-            String text = "Page " + writer.getPageNumber() + "/" + total_pages;
+            String text = "Page " + writer.getPageNumber() + "/" + totalPages;
 
             pdfcb.beginText();
             pdfcb.setFontAndSize(bf, 10);
@@ -171,7 +169,7 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
     }
 
     public int addchart(PdfWriter writer, Graph graph) {
-        JFreeChart chart = graph.getgraph(mysar.myparser.get_startofgraph(),mysar.myparser.get_endofgraph());
+        JFreeChart chart = graph.getgraph(mysar.myparser.getStartofgraph(), mysar.myparser.getEndofgraph());
         PdfTemplate pdftpl = pdfcb.createTemplate(pagewidth,pageheight);
         Graphics2D g2d = pdftpl.createGraphics(pagewidth,pageheight , mapper);
         Double r2d = new Rectangle2D.Double(0, 0, pagewidth,pageheight );
@@ -186,40 +184,34 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
         return 0;
     }
 
-    public void IndexPage(PdfWriter writer, Document document) {
-        try {
-            
-            String title = "Statistics";
-            String t_date = "On " + mysar.myparser.getDate();
-            pdfcb.beginText();
-            pdfcb.setFontAndSize(bf, 48);
-            pdfcb.setColorFill(new BaseColor(0x00, 0x00, 0x00));
-            pdfcb.showTextAligned(PdfContentByte.ALIGN_CENTER, title, ((pdfheight - pdfmargins) / 2), 500, 0);
-            pdfcb.setFontAndSize(bf, 36);
-            pdfcb.showTextAligned(PdfContentByte.ALIGN_CENTER, t_date, ((pdfheight - pdfmargins) / 2), 300, 0);
-            pdfcb.endText();
-            document.newPage();
-            
-        } catch (Exception de) {
-            return;
-        }
+    private void indexPage(PdfWriter writer, Document document) {
+        String title = "Statistics";
+        String date = "On " + mysar.myparser.getDate();
+        pdfcb.beginText();
+        pdfcb.setFontAndSize(bf, 48);
+        pdfcb.setColorFill(new BaseColor(0x00, 0x00, 0x00));
+        pdfcb.showTextAligned(PdfContentByte.ALIGN_CENTER, title, ((pdfheight - pdfmargins) / 2), 500, 0);
+        pdfcb.setFontAndSize(bf, 36);
+        pdfcb.showTextAligned(PdfContentByte.ALIGN_CENTER, date, ((pdfheight - pdfmargins) / 2), 300, 0);
+        pdfcb.endText();
+        document.newPage();
     }
 
-    private int progress_info =0;
+    private int progressInfo =0;
     private float pdfheight;
     private float pdfwidth;
     private int pdfmargins = 10;
-    float pageheight;
-    float pagewidth;
-    private int total_pages = 1; // page 1 (index)
+    private float pageheight;
+    private float pagewidth;
+    private int totalPages = 1; // page 1 (index)
     private String pdffilename = null;
     private Document document = null;
     private PdfWriter writer = null;
     private PdfContentByte pdfcb;
     private kSar mysar = null;
-    FontMapper mapper = new DefaultFontMapper();
-    BaseFont bf = FontFactory.getFont(FontFactory.COURIER).getCalculatedBaseFont(false);
-    private JProgressBar progress_bar = null;
+    private FontMapper mapper = new DefaultFontMapper();
+    private BaseFont bf = FontFactory.getFont(FontFactory.COURIER).getCalculatedBaseFont(false);
+    private JProgressBar progressBar = null;
     private JDialog dialog = null;
     private ChartRenderingInfo chartinfo = null;
 }

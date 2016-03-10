@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 public class SplashPicture extends JPanel {
 
     public static final long serialVersionUID = 501L;
-    Image img = null;
+    private Image img = null;
 
     public SplashPicture() {
         img = new ImageIcon(this.getClass().getResource("/logo_ksar.jpg")).getImage();

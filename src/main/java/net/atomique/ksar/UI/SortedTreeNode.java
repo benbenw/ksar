@@ -28,27 +28,27 @@ public class SortedTreeNode extends DefaultMutableTreeNode implements Comparable
         super(tmp);
     }
     
-    public void count_graph(SortedTreeNode node) {
+    public void countGraph(SortedTreeNode node) {
         int num = node.getChildCount();
 
         if (num > 0) {
             for (int i = 0; i < num; i++) {
                 SortedTreeNode l = (SortedTreeNode) node.getChildAt(i);
-                count_graph(l);
+                countGraph(l);
             }
         } else {
             Object obj1 = node.getUserObject();
             if (obj1 instanceof TreeNodeInfo) {
-                leaf_num++;
+                this.leafNum++;
             }
         }
         
     }
     
-    public int  LeafCount() {
-        leaf_num=0;
-        count_graph(this);
-        return leaf_num;
+    public int leafCount() {
+        this.leafNum = 0;
+        countGraph(this);
+        return this.leafNum;
     }
     
     @Override
@@ -56,9 +56,11 @@ public class SortedTreeNode extends DefaultMutableTreeNode implements Comparable
         super.insert(newChild, childIndex);
         Collections.sort(this.children);
     }
+    
+    @Override
     public int compareTo(final Object o) {
         return this.toString().compareToIgnoreCase(o.toString());
     }
 
-    private int leaf_num=0;
+    private int leafNum = 0;
 }

@@ -340,8 +340,7 @@ public class DataView extends javax.swing.JInternalFrame {
     }
 
    public void doExportPDF(String filename) {
-        int pages = 0;
-        pages= mysar.get_page_to_print();
+        int pages= mysar.getPageToPrint();
         JPanel panel0 = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();

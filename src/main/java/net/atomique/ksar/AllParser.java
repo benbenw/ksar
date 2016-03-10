@@ -35,11 +35,11 @@ public abstract class AllParser {
         return -1;
     }
 
-    public Second get_startofgraph() {
+    public Second getStartofgraph() {
         return startofgraph;
     }
     
-    public Second get_endofgraph() {
+    public Second getEndofgraph() {
         return endofgraph;
     }
 

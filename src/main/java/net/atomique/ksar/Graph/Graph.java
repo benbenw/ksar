@@ -262,7 +262,7 @@ public class Graph {
 
     public int savePNG(final Second g_start, final Second g_end, final String filename, final int width, final int height) {
         try {
-            ChartUtilities.saveChartAsPNG(new File(filename), this.getgraph(mysar.myparser.get_startofgraph(), mysar.myparser.get_endofgraph()), width, height);
+            ChartUtilities.saveChartAsPNG(new File(filename), this.getgraph(mysar.myparser.getStartofgraph(), mysar.myparser.getEndofgraph()), width, height);
         } catch (IOException e) {
             System.err.println("Unable to write to : " + filename);
             return -1;
@@ -272,7 +272,7 @@ public class Graph {
 
     public int saveJPG(final Second g_start, final Second g_end, final String filename, final int width, final int height) {
         try {
-            ChartUtilities.saveChartAsJPEG(new File(filename), this.getgraph(mysar.myparser.get_startofgraph(), mysar.myparser.get_endofgraph()), width, height);
+            ChartUtilities.saveChartAsJPEG(new File(filename), this.getgraph(mysar.myparser.getStartofgraph(), mysar.myparser.getEndofgraph()), width, height);
         } catch (IOException e) {
             System.err.println("Unable to write to : " + filename);
             return -1;
@@ -288,15 +288,15 @@ public class Graph {
         return printSelected;
     }
 
-    public JFreeChart getgraph(Second g_start, Second g_end) {
+    public JFreeChart getgraph(Second start, Second end) {
         if (mygraph == null) {
-            mygraph = makegraph(g_start, g_end);
+            mygraph = makegraph(start, end);
         } else {
-            if (!axisofdate.getMaximumDate().equals(mysar.myparser.get_endofgraph().getEnd())) {
-                axisofdate.setMaximumDate(mysar.myparser.get_endofgraph().getEnd());
+            if (!axisofdate.getMaximumDate().equals(mysar.myparser.getEndofgraph().getEnd())) {
+                axisofdate.setMaximumDate(mysar.myparser.getEndofgraph().getEnd());
             }
-            if (!axisofdate.getMinimumDate().equals(mysar.myparser.get_startofgraph().getStart())) {
-                axisofdate.setMinimumDate(mysar.myparser.get_startofgraph().getStart());
+            if (!axisofdate.getMinimumDate().equals(mysar.myparser.getStartofgraph().getStart())) {
+                axisofdate.setMinimumDate(mysar.myparser.getStartofgraph().getStart());
             }
         }
         return mygraph;
@@ -341,15 +341,15 @@ public class Graph {
             if (mysar.isParsing()) {
                 chartpanel = new ChartPanel(getgraph(null, null));
             } else {
-                chartpanel = new ChartPanel(getgraph(mysar.myparser.get_startofgraph(), mysar.myparser.get_endofgraph()));
+                chartpanel = new ChartPanel(getgraph(mysar.myparser.getStartofgraph(), mysar.myparser.getEndofgraph()));
             }
         } else {
             if (!mysar.isParsing()) {
-                if (!axisofdate.getMaximumDate().equals(mysar.myparser.get_endofgraph().getEnd())) {
-                    axisofdate.setMaximumDate(mysar.myparser.get_endofgraph().getEnd());
+                if (!axisofdate.getMaximumDate().equals(mysar.myparser.getEndofgraph().getEnd())) {
+                    axisofdate.setMaximumDate(mysar.myparser.getEndofgraph().getEnd());
                 }
-                if (!axisofdate.getMinimumDate().equals(mysar.myparser.get_startofgraph().getStart())) {
-                    axisofdate.setMinimumDate(mysar.myparser.get_startofgraph().getStart());
+                if (!axisofdate.getMinimumDate().equals(mysar.myparser.getStartofgraph().getStart())) {
+                    axisofdate.setMinimumDate(mysar.myparser.getStartofgraph().getStart());
                 }
             }
         }
@@ -373,7 +373,7 @@ public class Graph {
             if (tmp2 != null) {
                 StackedXYAreaRenderer2 renderer = new StackedXYAreaRenderer2();
                 NumberAxis graphaxistitle = tmp.getAxis();
-                XYPlot temp_plot = new XYPlot(tmp2, axisofdate, graphaxistitle, renderer);
+                XYPlot tempPlot = new XYPlot(tmp2, axisofdate, graphaxistitle, renderer);
                 for (int i = 0; i < tmp2.getSeriesCount(); i++) {
                     Color color = GlobalOptions.getDataColor(tmp2.getSeriesKey(i).toString());
                     if (color != null) {
@@ -381,7 +381,7 @@ public class Graph {
                         renderer.setBaseStroke(new BasicStroke(1.0F));
                     }
                 }
-                plot.add(temp_plot, tmp.getSize());
+                plot.add(tempPlot, tmp.getSize());
             }
         }
         // do the line stuff
