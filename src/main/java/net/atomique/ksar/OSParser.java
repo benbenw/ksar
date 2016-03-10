@@ -112,11 +112,11 @@ public abstract class OSParser extends AllParser {
     }
 
     public String getOriginal_line() {
-        return original_line;
+        return originalLine;
     }
 
     public void setOriginal_line(String original_line) {
-        this.original_line = original_line;
+        this.originalLine = original_line;
     }
 
     public String gethostName() {
@@ -153,6 +153,6 @@ public abstract class OSParser extends AllParser {
     protected String NBCpu = null;
     protected String ENT = null;
     protected String Detect = null;
-    protected String original_line=null;
+    protected String originalLine=null;
     
 }

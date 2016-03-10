@@ -36,7 +36,7 @@ import net.atomique.ksar.Config;
 import net.atomique.ksar.VersionNumber;
 import net.atomique.ksar.kSar;
 import net.atomique.ksar.Graph.Graph;
-import net.atomique.ksar.Graph.List;
+import net.atomique.ksar.Graph.GraphList;
 import net.atomique.ksar.UI.ParentNodeInfo;
 import net.atomique.ksar.UI.SortedTreeNode;
 import net.atomique.ksar.UI.TreeNodeInfo;
@@ -123,7 +123,7 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
             Object obj1 = node.getUserObject();
             if (obj1 instanceof ParentNodeInfo) {
                 ParentNodeInfo tmpnode = (ParentNodeInfo) obj1;
-                List nodeobj = tmpnode.getNode_object();
+                GraphList nodeobj = tmpnode.getNode_object();
                 if ( nodeobj.isPrintSelected() ) {
                     root = new PdfOutline(root, new PdfDestination(PdfDestination.FIT), nodeobj.getTitle());
                 }

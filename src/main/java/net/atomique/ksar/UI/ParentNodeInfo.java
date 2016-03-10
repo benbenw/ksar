@@ -1,6 +1,6 @@
 package net.atomique.ksar.UI;
 
-import net.atomique.ksar.Graph.List;
+import net.atomique.ksar.Graph.GraphList;
 
 /**
  *
@@ -8,12 +8,12 @@ import net.atomique.ksar.Graph.List;
  */
 public class ParentNodeInfo {
 
-    public ParentNodeInfo(String t, List list) {
+    public ParentNodeInfo(String t, GraphList list) {
         nodeTitle = t;
         nodeObject = list;
     }
 
-    public List getNode_object() {
+    public GraphList getNode_object() {
         return nodeObject;
     }
 
@@ -26,6 +26,6 @@ public class ParentNodeInfo {
     }
     
     private String nodeTitle = null;
-    private List nodeObject = null;
+    private GraphList nodeObject = null;
     
 }

@@ -4,17 +4,18 @@ package net.atomique.ksar;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Max
  */
 public class FileRead extends Thread {
 
-    private static final Logger LOGGER = Logger.getLogger(FileRead.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     
     private kSar mysar = null;
     private String sarfilename = null;
@@ -63,7 +64,7 @@ public class FileRead extends Thread {
             myfilereader = new BufferedReader(tmpfile);
             mysar.parse(myfilereader);
         } catch (FileNotFoundException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.error("", ex);
         }
         finally {
             if (myfilereader != null) {

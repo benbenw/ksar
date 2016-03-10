@@ -16,7 +16,7 @@ import org.jfree.data.time.Second;
 
 import net.atomique.ksar.kSar;
 import net.atomique.ksar.Graph.Graph;
-import net.atomique.ksar.Graph.List;
+import net.atomique.ksar.Graph.GraphList;
 import net.atomique.ksar.UI.ParentNodeInfo;
 import net.atomique.ksar.UI.SortedTreeNode;
 import net.atomique.ksar.UI.TreeNodeInfo;
@@ -84,7 +84,7 @@ public class FileCSV implements Runnable {
             Object obj1 = node.getUserObject();
             if (obj1 instanceof ParentNodeInfo) {
                 ParentNodeInfo tmpnode = (ParentNodeInfo) obj1;
-                List nodeobj = tmpnode.getNode_object();                
+                GraphList nodeobj = tmpnode.getNode_object();                
             }
             for (int i = 0; i < num; i++) {
                 SortedTreeNode l = (SortedTreeNode) node.getChildAt(i);
@@ -110,7 +110,7 @@ public class FileCSV implements Runnable {
             Object obj1 = node.getUserObject();
             if (obj1 instanceof ParentNodeInfo) {
                 ParentNodeInfo tmpnode = (ParentNodeInfo) obj1;
-                List nodeobj = tmpnode.getNode_object();
+                GraphList nodeobj = tmpnode.getNode_object();
             }
             for (int i = 0; i < num; i++) {
                 SortedTreeNode l = (SortedTreeNode) node.getChildAt(i);

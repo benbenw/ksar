@@ -248,7 +248,6 @@ public class SSHCommand extends Thread {
         ((ChannelExec) channel).setCommand("LC_ALL=C " + commandComboBox.getSelectedItem() + "\n");
         channel.setInputStream(null);
         channel.setXForwarding(false);
-        //((ChannelExec) channel).setErrStream(err);
 
         try {
             in = channel.getInputStream();

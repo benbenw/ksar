@@ -24,9 +24,9 @@ import net.atomique.ksar.XML.GraphConfig;
  *
  * @author alex
  */
-public class List {
+public class GraphList {
 
-    public List(kSar hissar, GraphConfig g, String stitle, String sheader, int i) {
+    public GraphList(kSar hissar, GraphConfig g, String stitle, String sheader, int i) {
         mysar = hissar;
         HeaderStr = sheader;
         graphconfig =g ;

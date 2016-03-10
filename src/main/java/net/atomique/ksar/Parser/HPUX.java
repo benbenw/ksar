@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import net.atomique.ksar.GlobalOptions;
 import net.atomique.ksar.OSParser;
 import net.atomique.ksar.Graph.Graph;
-import net.atomique.ksar.Graph.List;
+import net.atomique.ksar.Graph.GraphList;
 import net.atomique.ksar.UI.DataView;
 import net.atomique.ksar.XML.GraphConfig;
 
@@ -107,7 +107,7 @@ public class HPUX extends OSParser {
                         return 0;
                     }
                     if ("multiple".equals(mygraphinfo.getType())) {
-                        obj = new List(mysar, mygraphinfo, mygraphinfo.getTitle(), line, firstdatacolumn);
+                        obj = new GraphList(mysar, mygraphinfo, mygraphinfo.getTitle(), line, firstdatacolumn);
                         listofGraph.put(checkStat, obj);
                         currentStat = checkStat;
                         return 0;
@@ -152,8 +152,8 @@ public class HPUX extends OSParser {
                 Graph ag = (Graph) currentStatObj;
                 return ag.parse_line(now, line);
             }
-            if (currentStatObj instanceof List) {
-                List ag = (List) currentStatObj;
+            if (currentStatObj instanceof GraphList) {
+                GraphList ag = (GraphList) currentStatObj;
                 return ag.parse_line(now, line);
             }
         }

@@ -28,7 +28,7 @@ import net.atomique.ksar.kSar;
 import net.atomique.ksar.Export.FileCSV;
 import net.atomique.ksar.Export.FilePDF;
 import net.atomique.ksar.Graph.Graph;
-import net.atomique.ksar.Graph.List;
+import net.atomique.ksar.Graph.GraphList;
 
 /**
  *
@@ -235,7 +235,7 @@ public class DataView extends javax.swing.JInternalFrame {
             }
             if (obj1 instanceof ParentNodeInfo) {
                 ParentNodeInfo tmpnode = (ParentNodeInfo) obj1;
-                List nodeobj = tmpnode.getNode_object();
+                GraphList nodeobj = tmpnode.getNode_object();
                 if (current_panel != null) {
                     displayPanel.removeAll();
                     current_panel=null;
@@ -404,7 +404,7 @@ public class DataView extends javax.swing.JInternalFrame {
             Object obj1 = node.getUserObject();
             if (obj1 instanceof ParentNodeInfo) {                
                 ParentNodeInfo tmpnode = (ParentNodeInfo) obj1;
-                List nodeobj = tmpnode.getNode_object();
+                GraphList nodeobj = tmpnode.getNode_object();
                 askparentPanel= nodeobj.getprintform();
                 graphselection.addPrintCheckBox(askparentPanel);
             }
