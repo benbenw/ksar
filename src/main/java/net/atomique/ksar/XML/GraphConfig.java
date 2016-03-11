@@ -42,9 +42,9 @@ public class GraphConfig {
         return this.stacklist;
     }
 
-    private String name =null;
+    private String name = null;
     private String title = null;
     private String type = null;
-    HashMap<String, PlotConfig> plotlist = new HashMap<>();
-    HashMap<String, StackConfig> stacklist = new HashMap<>();
+    private HashMap<String, PlotConfig> plotlist = new HashMap<>();
+    private HashMap<String, StackConfig> stacklist = new HashMap<>();
 }

@@ -28,11 +28,6 @@ public class PlotConfig {
 
     public void setHeaderStr(String s) {
         this.Header = s.split("\\s+");
-        this.HeaderStr = s;
-    }
-
-    public String getHeaderStr() {
-        return this.HeaderStr;
     }
 
     public int getSize() {
@@ -45,10 +40,8 @@ public class PlotConfig {
 
     public void setSize(String s) {
         Integer tmp = new Integer(s);
-        if (tmp == null) {
-            return;
-        }
-        this.size = this.size;
+        
+        this.size = tmp.intValue();
     }
 
 
@@ -92,5 +85,4 @@ public class PlotConfig {
     private int size = 1;
     private String Title = null;
     private String[] Header = null;
-    private String HeaderStr = null;
 }

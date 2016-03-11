@@ -144,7 +144,6 @@ public class XMLConfig extends DefaultHandler {
         if (inHostinfo) {
             if ("host".equals(qName)) {
                 currentHost = new HostInfo(attributes.getValue("name"));
-                inHost=true;
             }
         }
 
@@ -269,12 +268,7 @@ public class XMLConfig extends DefaultHandler {
 
 
         if ("itemcolor".equals(qName)) {
-            if (currentColor.is_valid()) {
-                GlobalOptions.getColorlist().put(currentColor.getData_title(), currentColor);
-            } else {
-                System.err.println("Err: " + currentColor.getError_message());
-                currentColor = null;
-            }
+            GlobalOptions.getColorlist().put(currentColor.getData_title(), currentColor);
             inColor = false;
         }
 
@@ -323,7 +317,6 @@ public class XMLConfig extends DefaultHandler {
     private boolean inHistory = false;
     private boolean inCnx = false;
     private boolean inHostinfo = false;
-    private boolean inHost = false;
     
     private ColumnConfig currentColor = null;
     private OSConfig currentOS = null;

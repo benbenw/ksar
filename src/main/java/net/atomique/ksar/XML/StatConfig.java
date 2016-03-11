@@ -19,37 +19,30 @@ public class StatConfig {
         this.graphName = GraphName;
     }
 
-    public String[] getHeader() {
-        return this.Header;
-    }
-
-    public String getHeaderStr() {
-        return this.HeaderStr;
-    }
 
     public void setHeaderStr(String s) {
         this.HeaderStr = s;
-        this.Header = this.HeaderStr.split("\\s+");
-        this.headerNum = this.Header.length;
+        this.Header = s.split("\\s+");
     }
 
     public String getStatName() {
         return this.statName;
     }
 
-    public boolean check_Header(String c, int i) {
-        if (!compare_Header(i)) {
+    public boolean checkHeader(String c, int i) {
+        if (!compareHeader(i)) {
             return false;
         }
 
         if (this.HeaderStr.equals(c)) {
             return true;
         }
+        
         return false;
     }
 
-    public boolean compare_Header(int i) {
-        if (i == this.headerNum) {
+    private boolean compareHeader(int i) {
+        if (i == this.Header.length) {
             return true;
         }
         return false;
@@ -64,10 +57,8 @@ public class StatConfig {
             this.duplicatetime=true;
         }
     }
-
     
 
-    private int headerNum = 0;
     private String statName = null;
     private String graphName = null;
     private String[] Header = null;

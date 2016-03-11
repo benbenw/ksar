@@ -28,18 +28,6 @@ public class StackConfig {
 
     public void setHeaderStr(String s) {
         this.header = s.split("\\s+");
-        this.HeaderStr = s;
-    }
-
-    public String getHeaderStr() {
-        return this.HeaderStr;
-    }
-
-    public void print() {
-        System.out.println("Title " + this.title);
-        System.out.println("HeaderStr " + this.HeaderStr);
-        System.out.println("Header " + this.header);
-
     }
 
     public int getSize() {
@@ -97,5 +85,4 @@ public class StackConfig {
     private int size = 1;
     private String title = null;
     private String[] header = null;
-    private String HeaderStr = null;
 }

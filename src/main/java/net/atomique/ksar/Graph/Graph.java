@@ -92,7 +92,7 @@ public class Graph {
         while (it.hasNext()) {
             StackConfig tmp = (StackConfig) graphconfig.getStacklist().get(it.next());
             TimeTableXYDataset tmp2 = new TimeTableXYDataset();
-            String[] s = tmp.getHeaderStr().split("\\s+");
+            String[] s = tmp.getHeader();
             for (int i = 0; i < s.length; i++) {
                 stackListbyCol.put(s[i], tmp2);
             }
@@ -393,7 +393,7 @@ public class Graph {
             PlotConfig tmp = (PlotConfig) graphconfig.getPlotlist().get(it.next());
             XYItemRenderer renderer = new StandardXYItemRenderer();
             ArrayList<String> t = new ArrayList<String>();
-            String[] s = tmp.getHeaderStr().split("\\s+");
+            String[] s = tmp.getHeader();
             for (int i = 0; i < s.length; i++) {
                 t.add(s[i]);
             }

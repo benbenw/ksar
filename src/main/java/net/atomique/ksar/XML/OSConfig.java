@@ -44,7 +44,7 @@ public class OSConfig {
         while (ite.hasNext()) {
             String tmptitle = ite.next();
             StatConfig tmp = this.StatHash.get(tmptitle);
-            if (tmp.check_Header(header, num)) {
+            if (tmp.checkHeader(header, num)) {
                 return tmp.getGraphName();
             }
         }
@@ -68,20 +68,11 @@ public class OSConfig {
     }
 
     public GraphConfig getGraphConfig(String s) {
-        if (this.GraphHash.isEmpty()) {
-            return null;
-        }
         return this.GraphHash.get(s);
     }
 
-    public HashMap<String, StatConfig> getStatHash() {
-        return this.StatHash;
-    }
 
-    public HashMap<String, GraphConfig> getGraphHash() {
-        return this.GraphHash;
-    }
     private String OSname = null;
-    HashMap<String, StatConfig> StatHash = new HashMap<String, StatConfig>();
-    HashMap<String, GraphConfig> GraphHash = new HashMap<String, GraphConfig>();
+    private HashMap<String, StatConfig> StatHash = new HashMap<String, StatConfig>();
+    private HashMap<String, GraphConfig> GraphHash = new HashMap<String, GraphConfig>();
 }
