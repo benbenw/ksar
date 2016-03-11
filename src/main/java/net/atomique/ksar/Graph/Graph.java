@@ -38,8 +38,8 @@ import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.Config;
 import net.atomique.ksar.GlobalOptions;
-import net.atomique.ksar.OSParser;
 import net.atomique.ksar.kSar;
+import net.atomique.ksar.Parser.OSParser;
 import net.atomique.ksar.UI.SortedTreeNode;
 import net.atomique.ksar.UI.TreeNodeInfo;
 import net.atomique.ksar.XML.ColumnConfig;

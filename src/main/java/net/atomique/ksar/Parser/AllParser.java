@@ -1,4 +1,4 @@
-package net.atomique.ksar;
+package net.atomique.ksar.Parser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 import org.jfree.data.time.Second;
 
+import net.atomique.ksar.kSar;
 import net.atomique.ksar.XML.OSConfig;
 
 /**
@@ -89,7 +90,7 @@ public abstract class AllParser {
     }
 
     public TreeSet<Second> getDateSamples() {
-        return DateSamples;
+        return dateSamples;
     }
 
     public String getCurrentStat() {
@@ -104,7 +105,7 @@ public abstract class AllParser {
 
     protected Second startofgraph = null;
     protected Second endofgraph =null;
-    protected TreeSet<Second> DateSamples = new TreeSet<Second>();
+    protected TreeSet<Second> dateSamples = new TreeSet<Second>();
     protected int firstdatacolumn = 0;
 
     abstract public String getInfo();

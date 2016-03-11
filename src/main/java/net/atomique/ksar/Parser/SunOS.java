@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.GlobalOptions;
-import net.atomique.ksar.OSParser;
 import net.atomique.ksar.Graph.Graph;
 import net.atomique.ksar.Graph.GraphList;
 import net.atomique.ksar.UI.DataView;
@@ -158,7 +157,7 @@ public class SunOS extends OSParser {
         if (currentStatObj == null) {
             return -1;
         } else {
-            DateSamples.add(now);
+            dateSamples.add(now);
             if (currentStatObj instanceof Graph) {
                 Graph ag = (Graph) currentStatObj;
                 return ag.parse_line(now, line);

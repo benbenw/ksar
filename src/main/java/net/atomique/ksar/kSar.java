@@ -3,8 +3,6 @@ package net.atomique.ksar;
 
 import java.beans.PropertyVetoException;
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JDesktopPane;
 import javax.swing.SwingUtilities;
@@ -13,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.Graph.Graph;
+import net.atomique.ksar.Parser.AllParser;
 import net.atomique.ksar.UI.DataView;
 import net.atomique.ksar.UI.SortedTreeNode;
 import net.atomique.ksar.UI.TreeNodeInfo;
@@ -181,7 +180,7 @@ public class kSar {
         if(LOGGER.isDebugEnabled()) {
             LOGGER.debug("time to parse: " + (parsingEnd - parsingStart) + "ms ");
             if (parser != null) {
-                LOGGER.debug("number of datesamples: " + parser.DateSamples.size());
+                LOGGER.debug("number of datesamples: " + parser.getDateSamples().size());
             }
         }
         parsing = false;

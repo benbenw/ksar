@@ -1,9 +1,11 @@
 
-package net.atomique.ksar;
+package net.atomique.ksar.Parser;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import net.atomique.ksar.GlobalOptions;
+import net.atomique.ksar.kSar;
 import net.atomique.ksar.XML.OSConfig;
 
 /**
