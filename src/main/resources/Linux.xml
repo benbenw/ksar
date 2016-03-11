@@ -322,11 +322,11 @@
             <Graph name="KMEM" Title="KMem" type="unique">
                 <Plot Title="KMem">
                     <cols>kbmemfree kbmemused kbmemshrd kbbuffers kbcached kbcommit</cols>
-                    <format base="1024" factor="1024"></format>
+                    <format base="1024" factor="1024"/>
                 </Plot>
                 <Plot Title="Swap">
                     <cols>kbswpfree kbswpused kbswpcad</cols>
-                    <format base="1024" factor="1024"></format>
+                    <format base="1024" factor="1024"/>
                 </Plot>
                 <Plot Title="%">
                     <cols>%memused %swpused %commit</cols>
@@ -335,7 +335,7 @@
             <Graph name="KSWAP" Title="KSwap" type="unique">
                 <Plot Title="Swap">
                     <cols>kbswpfree kbswpused kbswpcad</cols>
-                    <format base="1024" factor="1024"></format>
+                    <format base="1024" factor="1024"/>
                 </Plot>
                 <Plot Title="%">
                     <cols>%swpused %swpcad</cols>

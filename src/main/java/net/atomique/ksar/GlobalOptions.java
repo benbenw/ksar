@@ -10,8 +10,9 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.UI.Desktop;
 import net.atomique.ksar.XML.CnxHistory;
@@ -25,6 +26,8 @@ import net.atomique.ksar.XML.OSConfig;
  */
 public class GlobalOptions {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalOptions.class);
+    
     private static GlobalOptions instance = new GlobalOptions();
 
     public static GlobalOptions getInstance() {
@@ -46,8 +49,8 @@ public class GlobalOptions {
         columnlist = new HashMap<String, ColumnConfig>();
         OSlist = new HashMap<String, OSConfig>();
         parserMap = new HashMap<String, Class>();
-        HistoryList = new HashMap<String, CnxHistory>();
-        HostInfoList = new HashMap<String, HostInfo>();
+        historyList = new HashMap<String, CnxHistory>();
+        hostInfoList = new HashMap<String, HostInfo>();
         
         String[] OSParserNames = {"AIX", "HPUX",  "Linux", "SunOS"};
         String filename = null;
@@ -57,7 +60,7 @@ public class GlobalOptions {
                 Class tmpclass = Class.forName("net.atomique.ksar.Parser."+OSName);
                 parserMap.put(OSName, tmpclass);
             } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
+                LOGGER.error("parser not found {}", OSName, ex);
             }
         }
         
@@ -111,12 +114,13 @@ public class GlobalOptions {
         }
         return columnlist.get(s);
     }
+    
     public static Color getDataColor(String s) {
         ColumnConfig tmp = columnlist.get(s);
         if (tmp != null) {
             return tmp.getData_color();
         } else {
-            System.err.println("WARN: color not found for tag " + s);
+            LOGGER.warn("color not found for tag {}", s);
         }
         return null;
     }
@@ -147,41 +151,41 @@ public class GlobalOptions {
     }
 
     public static HashMap<String, HostInfo> getHostInfoList() {
-        return HostInfoList;
+        return hostInfoList;
     }
 
     public static HostInfo getHostInfo(String s) {
-        if (HostInfoList.isEmpty()) {
+        if (hostInfoList.isEmpty()) {
             return null;
         }
-        return HostInfoList.get(s);
+        return hostInfoList.get(s);
     }
 
     public static void addHostInfo(HostInfo s) {
-        HostInfoList.put(s.getHostname(), s);
+        hostInfoList.put(s.getHostname(), s);
         saveHistory();
     }
 
     public static HashMap<String, CnxHistory> getHistoryList() {
-        return HistoryList;
+        return historyList;
     }
 
     public static CnxHistory getHistory(String s) {
-        if (HistoryList.isEmpty()) {
+        if (historyList.isEmpty()) {
             return null;
         }
-        return HistoryList.get(s);
+        return historyList.get(s);
     }
 
     public static void addHistory(CnxHistory s) {
-        CnxHistory tmp = HistoryList.get(s.getLink());
+        CnxHistory tmp = historyList.get(s.getLink());
         if ( tmp != null) {
             Iterator<String> ite = s.getCommandList().iterator();
             while (ite.hasNext()) {
                 tmp.addCommand(ite.next());
             }
         } else {
-            HistoryList.put(s.getLink(), s);
+            historyList.put(s.getLink(), s);
         }
         saveHistory();
     }
@@ -192,7 +196,7 @@ public class GlobalOptions {
         File tmpfile = null;
         BufferedWriter tmpfile_out = null;
 
-        if (HistoryList.isEmpty() && HostInfoList.isEmpty()) {
+        if (historyList.isEmpty() && hostInfoList.isEmpty()) {
             System.out.println("list is null");
             return;
         }
@@ -209,17 +213,17 @@ public class GlobalOptions {
             //xml header
             tmpfile_out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ConfiG>\n");
             tmpfile_out.write("\t<History>\n");
-            Iterator<String> ite = HistoryList.keySet().iterator();
+            Iterator<String> ite = historyList.keySet().iterator();
             while (ite.hasNext()) {
-                CnxHistory tmp = HistoryList.get(ite.next());
+                CnxHistory tmp = historyList.get(ite.next());
                 tmpfile_out.write(tmp.save());
             }
             //xml footer
             tmpfile_out.write("\t</History>\n");
             tmpfile_out.write("\t<HostInfo>\n");
-            Iterator<String> ite2 = HostInfoList.keySet().iterator();
+            Iterator<String> ite2 = hostInfoList.keySet().iterator();
             while (ite2.hasNext()) {
-                HostInfo tmp = HostInfoList.get(ite2.next());
+                HostInfo tmp = hostInfoList.get(ite2.next());
                 tmpfile_out.write(tmp.save());
             }
             //xml footer
@@ -232,7 +236,7 @@ public class GlobalOptions {
             tmpfile.renameTo(oldfile);
 
         } catch (IOException ex) {
-            Logger.getLogger(GlobalOptions.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error("", ex);
         }
 
     }
@@ -242,8 +246,8 @@ public class GlobalOptions {
     private static String fileseparator;
     private static HashMap<String, ColumnConfig> columnlist;
     private static HashMap<String, OSConfig> OSlist;
-    private static HashMap<String, CnxHistory> HistoryList;
-    private static HashMap<String, HostInfo> HostInfoList;
+    private static HashMap<String, CnxHistory> historyList;
+    private static HashMap<String, HostInfo> hostInfoList;
     private static String CLfilename = null;
     private static HashMap<String, Class> parserMap;
 }

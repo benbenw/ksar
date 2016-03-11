@@ -22,6 +22,32 @@ public abstract class BaseParser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataView.class);
     
+    protected Second startofstat = null;
+    protected Second endofstat = null;
+    
+    protected String sarStartDate = null;
+    protected String sarEndDate = null;
+
+    protected Second startofgraph = null;
+    protected Second endofgraph =null;
+    protected TreeSet<Second> dateSamples = new TreeSet<Second>();
+    protected int firstdatacolumn = 0;
+
+    
+    protected kSar mysar = null;
+    protected OSConfig myosconfig = null;
+    protected String parserName = null;
+
+    protected Calendar cal = Calendar.getInstance();
+    protected Date parsedate = null;
+    protected int day = 0;
+    protected int month = 0;
+    protected int year = 0;
+    protected String currentStat = "NONE";
+    protected String dateFormat = "MM/dd/yy";
+    protected String timeFormat = "HH:mm:ss";
+    protected int timeColumn = 1;
+    
     public BaseParser () {}
 
     public void init (kSar hissar, String header) {
@@ -60,6 +86,7 @@ public abstract class BaseParser {
         if (sarStartDate == null) {
             sarStartDate = s;
         }
+        
         if (sarEndDate == null) {
             sarEndDate = s;
         }
@@ -100,32 +127,8 @@ public abstract class BaseParser {
     public String getCurrentStat() {
         return currentStat;
     }
-
-
-    protected Second startofstat = null;
-    protected Second endofstat = null;
-    protected String sarStartDate = null;
-    protected String sarEndDate = null;
-
-    protected Second startofgraph = null;
-    protected Second endofgraph =null;
-    protected TreeSet<Second> dateSamples = new TreeSet<Second>();
-    protected int firstdatacolumn = 0;
-
+    
     abstract public String getInfo();
     abstract public void parseHeader(String s);
-     
-    protected kSar mysar = null;
-    protected OSConfig myosconfig = null;
-    protected String parserName = null;
 
-    protected Calendar cal = Calendar.getInstance();
-    protected Date parsedate = null;
-    protected int day = 0;
-    protected int month = 0;
-    protected int year = 0;
-    protected String currentStat = "NONE";
-    protected String dateFormat = "MM/dd/yy";
-    protected String timeFormat = "HH:mm:ss";
-    protected int timeColumn = 1;
 }

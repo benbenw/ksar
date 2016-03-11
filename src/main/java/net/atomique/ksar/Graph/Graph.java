@@ -3,6 +3,7 @@ package net.atomique.ksar.Graph;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +37,6 @@ import org.jfree.data.xy.XYDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.atomique.ksar.Config;
 import net.atomique.ksar.GlobalOptions;
 import net.atomique.ksar.kSar;
 import net.atomique.ksar.Parser.OSParser;
@@ -56,6 +56,8 @@ public class Graph {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Graph.class);
     
+    private static final Font DEFAULT_FONT = new Font("SansSerif", Font.BOLD, 18);
+
     public Graph(kSar hissar, GraphConfig g, String title, String hdrs, int skipcol, SortedTreeNode pp) {
         mysar = hissar;
         graphtitle = title;
@@ -82,7 +84,7 @@ public class Graph {
     private void createDataStore() {
         // create timeseries
         for (int i = skipColumn; i < headerStr.length; i++) {
-            Stats.add(new TimeSeries(headerStr[i]));
+            stats.add(new TimeSeries(headerStr[i]));
         }
         // create stack
         SortedSet<String> sortedset = new TreeSet<String>(graphconfig.getStacklist().keySet());
@@ -183,7 +185,7 @@ public class Graph {
 
     private boolean addDatapointPlot(Second now, int col, String colheader, Double value) {
         try {
-            ((TimeSeries) (Stats.get(col))).add(now, value);
+            ((TimeSeries) (stats.get(col))).add(now, value);
             return true;
         } catch (SeriesException se) {
             // insert not possible
@@ -191,7 +193,7 @@ public class Graph {
             StatConfig statconfig = ((OSParser) mysar.parser).getOSConfig().getStat(mysar.parser.getCurrentStat());
             if (statconfig != null) {
                 if (statconfig.canDuplicateTime()) {
-                    Number oldval = ((TimeSeries) (Stats.get(col))).getValue(now);
+                    Number oldval = ((TimeSeries) (stats.get(col))).getValue(now);
                     Double tempval;
                     if (oldval == null) {
                         return false;
@@ -209,7 +211,7 @@ public class Graph {
                     }
 
                     try {
-                        ((TimeSeries) (Stats.get(col))).update(now, tempval);
+                        ((TimeSeries) (stats.get(col))).update(now, tempval);
                         return true;
                     } catch (SeriesException se2) {
                         return false;
@@ -226,7 +228,7 @@ public class Graph {
         tmp.append("Date;");
         tmp.append(getCsvHeader());
         tmp.append("\n");
-        TimeSeries datelist = (TimeSeries) Stats.get(0);
+        TimeSeries datelist = (TimeSeries) stats.get(0);
         Iterator ite = datelist.getTimePeriods().iterator();
         while (ite.hasNext()) {
             TimePeriod item = (TimePeriod) ite.next();
@@ -242,7 +244,7 @@ public class Graph {
     public String getCsvHeader() {
         StringBuilder tmp = new StringBuilder();
         for (int i = 1 + skipColumn; i < headerStr.length; i++) {
-            TimeSeries tmpseries = (TimeSeries) Stats.get(i - skipColumn);
+            TimeSeries tmpseries = (TimeSeries) stats.get(i - skipColumn);
             tmp.append(graphtitle).append(" ").append(tmpseries.getKey());
             tmp.append(";");
         }
@@ -252,7 +254,7 @@ public class Graph {
     public String getCsvLine(RegularTimePeriod t) {
         StringBuilder tmp = new StringBuilder();
         for (int i = 1 + skipColumn; i < headerStr.length; i++) {
-            TimeSeries tmpseries = (TimeSeries) Stats.get(i - skipColumn);
+            TimeSeries tmpseries = (TimeSeries) stats.get(i - skipColumn);
             tmp.append(tmpseries.getValue(t));
 
             tmp.append(";");
@@ -316,8 +318,8 @@ public class Graph {
         boolean hasdata = false;
         for (int i = 0; i < l.size(); i++) {
             found = null;
-            for (int j = 0; j < Stats.size(); j++) {
-                found = (TimeSeries) Stats.get(j);
+            for (int j = 0; j < stats.size(); j++) {
+                found = (TimeSeries) stats.get(j);
                 if (found.getKey().equals(l.get(i))) {
                     break;
                 } else {
@@ -416,7 +418,7 @@ public class Graph {
         }
 
         plot.setOrientation(PlotOrientation.VERTICAL);
-        JFreeChart mychart = new JFreeChart(graphtitle, Config.getDEFAULT_FONT(), plot, true);
+        JFreeChart mychart = new JFreeChart(graphtitle, DEFAULT_FONT, plot, true);
         long endgenerate = System.currentTimeMillis();
         mychart.setBackgroundPaint(Color.white);
         LOGGER.debug("graph generation: {} ms",  (endgenerate - begingenerate));
@@ -433,7 +435,7 @@ public class Graph {
     private GraphConfig graphconfig = null;
     private int skipColumn = 0;
     private String[] headerStr = null;
-    private ArrayList<TimeSeries> Stats = new ArrayList<TimeSeries>();
+    private ArrayList<TimeSeries> stats = new ArrayList<TimeSeries>();
     private Map<String, TimeTableXYDataset> stackListbyName = new HashMap<String, TimeTableXYDataset>();
     private Map<String, TimeTableXYDataset> stackListbyCol = new HashMap<String, TimeTableXYDataset>();
 }

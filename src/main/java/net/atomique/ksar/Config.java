@@ -1,7 +1,6 @@
 
 package net.atomique.ksar;
 
-import java.awt.Font;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -148,10 +147,7 @@ public class Config {
         Config.numberHostHistory = number_host_history;
     }
 
-    public static Font getDEFAULT_FONT() {
-        return DEFAULT_FONT;
-    }
-
+   
     public static int getImageHeight() {
         return imageHeight;
     }
@@ -181,7 +177,6 @@ public class Config {
     public static int store_configdir() {
         Properties systemprops = System.getProperties();
         String userhome = (String) systemprops.get("user.home") + systemprops.get("file.separator");
-        String username = (String) systemprops.get("user.name");
         String fileseparator = (String) systemprops.get("file.separator");
         // mkdir userhome/.ksar
         String buffer = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n\n<ConfiG>\n</ConfiG>\n";
@@ -229,8 +224,6 @@ public class Config {
     private static int localConfigfile;
     private static ArrayList<String> hostHistory = new ArrayList<String>();
     
-    public static final Font DEFAULT_FONT = new Font("SansSerif", Font.BOLD, 18);
-
     private static String linuxDateFormat;
     private static String PDFPageFormat;
     private static int imageWidth;

@@ -55,7 +55,7 @@ public class kSar {
         } else {
             launchedAction = new FileRead(this, filename);
         }
-        reloadAction = ((FileRead) launchedAction).get_action();
+        reloadAction = ((FileRead) launchedAction).getAction();
         doAction();
     }
 

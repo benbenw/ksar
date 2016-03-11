@@ -100,42 +100,7 @@ public class XMLConfig extends DefaultHandler {
 
     }
 
-    public void dump_XML() {
-        SortedSet<String> sortedset = new TreeSet<String>(GlobalOptions.getOSlist().keySet());
-        Iterator<String> it = sortedset.iterator();
-        while (it.hasNext()) {
-            OSConfig tmp = (OSConfig) GlobalOptions.getOSlist().get(it.next());
-            System.out.println("-OS-" + tmp.getOSname());
-            SortedSet<String> sortedset2 = new TreeSet<String>(tmp.getStatHash().keySet());
-            Iterator<String> it2 = sortedset2.iterator();
-            while (it2.hasNext()) {
-                StatConfig tmp2 = (StatConfig) tmp.getStatHash().get(it2.next());
-                System.out.println("--STAT-- "
-                        + tmp2.getStatName() + "=> "
-                        + tmp2.getGraphName() + " "
-                        + tmp2.getHeaderStr());
-            }
-            SortedSet<String> sortedset3 = new TreeSet<String>(tmp.getGraphHash().keySet());
-            Iterator<String> it3 = sortedset3.iterator();
-            while (it3.hasNext()) {
-                GraphConfig tmp3 = (GraphConfig) tmp.getGraphHash().get(it3.next());
-                System.out.println("---GRAPH--- "
-                        + tmp3.getName() + "=> "
-                        + tmp3.getTitle());
-                SortedSet<String> sortedset4 = new TreeSet<String>(tmp3.getPlotlist().keySet());
-                Iterator<String> it4 = sortedset4.iterator();
-                while (it4.hasNext()) {
-                    PlotConfig tmp4 = (PlotConfig) tmp3.getPlotlist().get(it4.next());
-                    System.out.println("----PLOT---- "
-                            + tmp4.getTitle() + "=> "
-                            + tmp4.getHeaderStr());
-
-                }
-            }
-        }
-
-    }
-
+   
     public void characters(char[] ch, int start, int length) throws SAXException {
         tempval = new String(ch, start, length);
     }

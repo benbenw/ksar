@@ -21,15 +21,13 @@ public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     
-    static Config config = null;
-    static GlobalOptions globaloptions = null;
-    static ResourceBundle resource = ResourceBundle.getBundle("net/atomique/ksar/Language/Message");
+    private static ResourceBundle resource = ResourceBundle.getBundle("net/atomique/ksar/Language/Message");
 
     public static void usage() {
-        show_version();
+        showVersion();
     }
 
-    public static void show_version() {
+    public static void showVersion() {
         System.err.println("ksar Version : " + VersionNumber.getVersionNumber());
     }
 
@@ -51,7 +49,7 @@ public class Main {
         }
     }
 
-    public static void make_ui() {
+    public static void makeUi() {
         SplashScreen mysplash = new SplashScreen(null, 3000);
         while (mysplash.isVisible()) {
             try {
@@ -84,16 +82,14 @@ public class Main {
             System.setProperty("apple.laf.useScreenMenuBar", "true");
         }
 
-        config = Config.getInstance();
-        globaloptions = GlobalOptions.getInstance();
-
+      
         int i = 0;
         String arg;
         if (args.length > 0) {
             while (i < args.length && args[i].startsWith("-")) {
                 arg = args[i++];
                 if ("-version".equals(arg)) {
-                    show_version();
+                    showVersion();
                     System.exit(0);
                 }
                 if ("-help".equals(arg)) {
@@ -105,19 +101,19 @@ public class Main {
                     if (i < args.length) {
                         GlobalOptions.setCLfilename(args[i++]);
                     } else {
-                        exit_error(resource.getString("INPUT_REQUIRE_ARG"));
+                        exitError(resource.getString("INPUT_REQUIRE_ARG"));
                     }
                     continue;
                 }
             }
         }
 
-        make_ui();
+        makeUi();
 
         System.out.println("exit");
     }
 
-    public static void exit_error(final String message) {
+    public static void exitError(final String message) {
         System.err.println(message);
         System.exit(1);
     }

@@ -63,7 +63,7 @@ public abstract class OSParser extends BaseParser {
     }
 
     public void setNBCpu(String s) {
-        NBCpu = s;
+        nbCpu = s;
     }
 
     public void setENT(String s) {
@@ -97,8 +97,8 @@ public abstract class OSParser extends BaseParser {
         if (NBDisk != null) {
             tmpstr.append("Number of disks: ").append(NBDisk).append("\n");
         }
-        if (NBCpu != null) {
-            tmpstr.append("Number of CPU: ").append(NBCpu).append("\n");
+        if (nbCpu != null) {
+            tmpstr.append("Number of CPU: ").append(nbCpu).append("\n");
         }
         if (ENT != null) {
             tmpstr.append("Ent: ").append(ENT).append("\n");
@@ -149,9 +149,9 @@ public abstract class OSParser extends BaseParser {
     protected String MacAddress = null;
     protected String Memory = null;
     protected String NBDisk = null;
-    protected String NBCpu = null;
+    protected String nbCpu = null;
     protected String ENT = null;
-    protected String Detect = null;
+    protected String detect = null;
     protected String originalLine=null;
     
 }
