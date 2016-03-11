@@ -15,7 +15,6 @@ public class SortedTreeNode extends DefaultMutableTreeNode implements Comparable
 
     public static final long serialVersionUID = 15071L;
 
-
     public SortedTreeNode(String name) {
         super(name);
     }
@@ -26,29 +25,6 @@ public class SortedTreeNode extends DefaultMutableTreeNode implements Comparable
 
     public SortedTreeNode(ParentNodeInfo tmp) {
         super(tmp);
-    }
-    
-    public void countGraph(SortedTreeNode node) {
-        int num = node.getChildCount();
-
-        if (num > 0) {
-            for (int i = 0; i < num; i++) {
-                SortedTreeNode l = (SortedTreeNode) node.getChildAt(i);
-                countGraph(l);
-            }
-        } else {
-            Object obj1 = node.getUserObject();
-            if (obj1 instanceof TreeNodeInfo) {
-                this.leafNum++;
-            }
-        }
-        
-    }
-    
-    public int leafCount() {
-        this.leafNum = 0;
-        countGraph(this);
-        return this.leafNum;
     }
     
     @Override
@@ -62,5 +38,4 @@ public class SortedTreeNode extends DefaultMutableTreeNode implements Comparable
         return this.toString().compareToIgnoreCase(o.toString());
     }
 
-    private int leafNum = 0;
 }

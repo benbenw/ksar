@@ -200,7 +200,7 @@ public class DataView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-        save_data();
+        saveData();
         dispose();
     }//GEN-LAST:event_formInternalFrameClosing
 
@@ -498,11 +498,12 @@ public class DataView extends javax.swing.JInternalFrame {
         }
     }
     
-    private void save_data() {
+    private void saveData() {
         if (hasFreshData) {
-            System.out.println("need backup");
+            LOGGER.debug("need backup");
         }
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem CSVMenu;
     private javax.swing.JMenu GraphMenu;

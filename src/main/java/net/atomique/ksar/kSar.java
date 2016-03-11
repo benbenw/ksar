@@ -4,8 +4,10 @@ package net.atomique.ksar;
 import java.beans.PropertyVetoException;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JDesktopPane;
+import javax.swing.SwingUtilities;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,16 +157,25 @@ public class kSar {
 
                 parser.updateUITitle();
             }
-        } catch (IOException ex) {
+            
+            if (dataview != null) {
+                SwingUtilities.invokeAndWait(new Runnable() {
+                    
+                    @Override
+                    public void run() {
+                        dataview.treehome();
+                        dataview.notifyrun(false);
+                        dataview.setHasData(true);
+                    }
+                });
+            }
+            
+        } catch (Exception ex) {
             LOGGER.error("", ex);
             parsing = false;
         }
 
-        if (dataview != null) {
-            dataview.treehome();
-            dataview.notifyrun(false);
-            dataview.setHasData(true);
-        }
+        
 
         parsingEnd = System.currentTimeMillis();
         if(LOGGER.isDebugEnabled()) {
@@ -198,25 +209,35 @@ public class kSar {
         }
     }
 
-    public void add2tree(SortedTreeNode parent, SortedTreeNode newNode) {
+    public void add2tree(final SortedTreeNode parent, final SortedTreeNode newNode) {
         if (dataview != null) {
-            dataview.add2tree(parent, newNode);
+            try {
+                SwingUtilities.invokeAndWait(new Runnable() {
+                    
+                    @Override
+                    public void run() {
+                        dataview.add2tree(parent, newNode);
+                    }
+                });
+            } catch (Exception e) {
+                LOGGER.error("add2tree", e);
+            }
         }
     }
 
     public int getPageToPrint() {
-        return count_printSelected(graphtree);
+        return countPrintSelected(graphtree);
     }
 
-    public int count_printSelected(SortedTreeNode node) {
-        int page_to_print = 0;
+    private int countPrintSelected(SortedTreeNode node) {
+        int pageToPrint = 0;
         int num = node.getChildCount();
 
         if (num > 0) {
             Object obj1 = node.getUserObject();
             for (int i = 0; i < num; i++) {
                 SortedTreeNode l = (SortedTreeNode) node.getChildAt(i);
-                page_to_print += count_printSelected(l);
+                pageToPrint += countPrintSelected(l);
             }
         } else {
             Object obj1 = node.getUserObject();
@@ -224,12 +245,12 @@ public class kSar {
                 TreeNodeInfo tmpnode = (TreeNodeInfo) obj1;
                 Graph nodeobj = tmpnode.getNode_object();
                 if (nodeobj.isPrintSelected()) {
-                    page_to_print++;
+                    pageToPrint++;
                 }
             }
         }
         
-        return page_to_print;
+        return pageToPrint;
     }
 
     public DataView getDataView() {
