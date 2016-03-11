@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.Graph.Graph;
-import net.atomique.ksar.Parser.AllParser;
+import net.atomique.ksar.Parser.BaseParser;
 import net.atomique.ksar.Parser.OSParser;
 import net.atomique.ksar.UI.DataView;
 import net.atomique.ksar.UI.SortedTreeNode;
@@ -121,7 +121,7 @@ public class kSar {
                     Class classtmp = GlobalOptions.getParser(parserType);
                     if (classtmp != null) {
                         if (parser == null) {
-                            parser = (AllParser) classtmp.newInstance();
+                            parser = (BaseParser) classtmp.newInstance();
                             parser.init(this, currentLine);
 
                             continue;
@@ -270,7 +270,7 @@ public class kSar {
     private boolean actionInterrupted = false;
     private boolean parsing = false;
     
-    public AllParser parser = null;
+    public BaseParser parser = null;
     private int totalGraph = 0;
     public SortedTreeNode graphtree = new SortedTreeNode("kSar");
 }

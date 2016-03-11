@@ -12,7 +12,7 @@ import net.atomique.ksar.XML.OSConfig;
  *
  * @author Max
  */
-public abstract class OSParser extends AllParser {
+public abstract class OSParser extends BaseParser {
 
     public OSParser () {
     }

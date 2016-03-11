@@ -18,11 +18,11 @@ import net.atomique.ksar.XML.OSConfig;
  *
  * @author alex
  */
-public abstract class AllParser {
+public abstract class BaseParser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataView.class);
     
-    public AllParser () {}
+    public BaseParser () {}
 
     public void init (kSar hissar, String header) {
         String[] s = header.split("\\s+");
@@ -31,7 +31,7 @@ public abstract class AllParser {
         parseHeader(header);
     }
 
-    public AllParser(kSar hissar, String header) {
+    public BaseParser(kSar hissar, String header) {
         init(hissar, header);
     }
 
