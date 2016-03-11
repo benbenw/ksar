@@ -25,8 +25,8 @@ public abstract class BaseParser {
     protected Second startofstat = null;
     protected Second endofstat = null;
     
-    protected String sarStartDate = null;
-    protected String sarEndDate = null;
+    protected Date sarStartDate = null;
+    protected Date sarEndDate = null;
 
     protected Second startofgraph = null;
     protected Second endofgraph = null;
@@ -47,6 +47,7 @@ public abstract class BaseParser {
     protected String dateFormat = "MM/dd/yy";
     protected String timeFormat = "HH:mm:ss";
     protected int timeColumn = 1;
+    protected SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
     
     public BaseParser () {}
 
@@ -80,42 +81,36 @@ public abstract class BaseParser {
 
      public boolean setDate(String s) {
         Date dateSimple1;
-        Date dateSimple2;
-        Date dateSimple3;
-        
-        if (sarStartDate == null) {
-            sarStartDate = s;
-        }
-        
-        if (sarEndDate == null) {
-            sarEndDate = s;
-        }
         
         try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
             dateSimple1 = simpleDateFormat.parse(s);
             cal.setTime(dateSimple1);
             day = cal.get(Calendar.DAY_OF_MONTH);
-            month = cal.get(Calendar.MONTH)+1;
+            month = cal.get(Calendar.MONTH) + 1;
             year = cal.get(Calendar.YEAR);
-            dateSimple2 = simpleDateFormat.parse(sarStartDate);
-            dateSimple3 = simpleDateFormat.parse(sarEndDate);
+            if (sarStartDate == null) {
+                sarStartDate = dateSimple1;
+            }
+            
+            if (sarEndDate == null) {
+                sarEndDate = dateSimple1;
+            }
         } catch (ParseException e) {
             return false;
         }
         
-        if (dateSimple1.compareTo(dateSimple2) < 0) {
-            sarStartDate = s;
+        if (dateSimple1.compareTo(sarStartDate) < 0) {
+            sarStartDate = dateSimple1;
         }
-        if (dateSimple1.compareTo(dateSimple3) > 0) {
-            sarEndDate = s;
+        else if (dateSimple1.compareTo(sarEndDate) > 0) {
+            sarEndDate = dateSimple1;
         }
         return true;
     }
 
      public String getDate() {
         if (sarStartDate.equals(sarEndDate)) {
-            return sarStartDate;
+            return sarStartDate.toString();
         } else {
             return sarStartDate + " to " + sarEndDate;
         }

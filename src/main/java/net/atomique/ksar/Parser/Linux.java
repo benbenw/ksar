@@ -26,7 +26,7 @@ public class Linux extends OSParser {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataView.class);
     
     private String linuxDateFormat;
-    private SimpleDateFormat simpleDateFormat;
+    private SimpleDateFormat simpleTimeFormat;
     
     @Override
     public void parseHeader(String s) {
@@ -58,7 +58,8 @@ public class Linux extends OSParser {
             dateFormat = "yy-MM-dd";
         }
         
-        simpleDateFormat = new SimpleDateFormat(timeFormat);
+        simpleDateFormat = new SimpleDateFormat(dateFormat);
+        simpleTimeFormat = new SimpleDateFormat(timeFormat);
     }
 
     private void askDateFormat(String s) {
@@ -102,9 +103,9 @@ public class Linux extends OSParser {
 
         try {
             if ( timeColumn == 2 ) {
-                parsedate = simpleDateFormat.parse(columns[0]+" "+columns[1]);
+                parsedate = simpleTimeFormat.parse(columns[0]+" "+columns[1]);
             } else {
-                parsedate = simpleDateFormat.parse(columns[0]);
+                parsedate = simpleTimeFormat.parse(columns[0]);
             }
             cal.setTime(parsedate);
             hour = cal.get(Calendar.HOUR_OF_DAY);
