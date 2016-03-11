@@ -35,31 +35,31 @@ public abstract class OSParser extends BaseParser {
     }
 
     public void setHostname(String s) {
-        Hostname = s;
+        hostname = s;
     }
 
     public void setOSversion(String s) {
-        OSversion = s;
+        osVersion = s;
     }
 
     public void setKernel(String s) {
-        Kernel = s;
+        kernel = s;
     }
 
     public void setCpuType(String s) {
-        CpuType = s;
+        cpuType = s;
     }
 
     public void setMacAddress(String s) {
-        MacAddress = s;
+        macAddress = s;
     }
 
     public void setMemory(String s) {
-        Memory = s;
+        memory = s;
     }
 
     public void setNBDisk(String s) {
-        NBDisk = s;
+        nbDisk = s;
     }
 
     public void setNBCpu(String s) {
@@ -76,26 +76,26 @@ public abstract class OSParser extends BaseParser {
     public String getInfo() {
         StringBuilder tmpstr = new StringBuilder();
         tmpstr.append("OS Type: ").append(ostype);
-        if (OSversion != null) {
-           tmpstr.append("OS Version: ").append(OSversion).append("\n");
+        if (osVersion != null) {
+           tmpstr.append("OS Version: ").append(osVersion).append("\n");
         }
-        if (Kernel != null) {
-            tmpstr.append("Kernel Release: ").append(Kernel).append("\n");
+        if (kernel != null) {
+            tmpstr.append("Kernel Release: ").append(kernel).append("\n");
         }
-        if (CpuType != null) {
-            tmpstr.append("CPU Type: ").append(CpuType).append("\n");
+        if (cpuType != null) {
+            tmpstr.append("CPU Type: ").append(cpuType).append("\n");
         }
-        if (Hostname != null) {
-            tmpstr.append("Hostname: ").append(Hostname).append("\n");
+        if (hostname != null) {
+            tmpstr.append("Hostname: ").append(hostname).append("\n");
         }
-        if (MacAddress != null) {
-            tmpstr.append("Mac Address: ").append(MacAddress).append("\n");
+        if (macAddress != null) {
+            tmpstr.append("Mac Address: ").append(macAddress).append("\n");
         }
-        if (Memory != null) {
-            tmpstr.append("Memory: ").append(Memory).append("\n");
+        if (memory != null) {
+            tmpstr.append("Memory: ").append(memory).append("\n");
         }
-        if (NBDisk != null) {
-            tmpstr.append("Number of disks: ").append(NBDisk).append("\n");
+        if (nbDisk != null) {
+            tmpstr.append("Number of disks: ").append(nbDisk).append("\n");
         }
         if (nbCpu != null) {
             tmpstr.append("Number of CPU: ").append(nbCpu).append("\n");
@@ -124,7 +124,7 @@ public abstract class OSParser extends BaseParser {
     }
 
     public String gethostName() {
-        return Hostname;
+        return hostname;
     }
 
     public String getOstype() {
@@ -142,16 +142,16 @@ public abstract class OSParser extends BaseParser {
     protected Object currentStatObj = null;
     
     protected String ostype = null;
-    protected String Hostname = null;
-    protected String OSversion = null;
-    protected String Kernel = null;
-    protected String CpuType = null;
-    protected String MacAddress = null;
-    protected String Memory = null;
-    protected String NBDisk = null;
+    protected String hostname = null;
+    protected String osVersion = null;
+    protected String kernel = null;
+    protected String cpuType = null;
+    protected String macAddress = null;
+    protected String memory = null;
+    protected String nbDisk = null;
     protected String nbCpu = null;
     protected String ENT = null;
     protected String detect = null;
-    protected String originalLine=null;
+    protected String originalLine = null;
     
 }
