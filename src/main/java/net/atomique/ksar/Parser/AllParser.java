@@ -7,8 +7,11 @@ import java.util.Date;
 import java.util.TreeSet;
 
 import org.jfree.data.time.Second;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.kSar;
+import net.atomique.ksar.UI.DataView;
 import net.atomique.ksar.XML.OSConfig;
 
 /**
@@ -17,14 +20,15 @@ import net.atomique.ksar.XML.OSConfig;
  */
 public abstract class AllParser {
 
-    public AllParser () {
-    }
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataView.class);
+    
+    public AllParser () {}
 
     public void init (kSar hissar, String header) {
         String[] s = header.split("\\s+");
         mysar = hissar;
         parserName = s[0];
-        parse_header(header);
+        parseHeader(header);
     }
 
     public AllParser(kSar hissar, String header) {
@@ -32,7 +36,7 @@ public abstract class AllParser {
     }
 
     public int parse(String line, String[] columns) {
-        System.err.println("not implemented");
+        LOGGER.error("not implemented");
         return -1;
     }
 
@@ -62,7 +66,7 @@ public abstract class AllParser {
         
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
-            dateSimple1 = simpleDateFormat.parse(s);            
+            dateSimple1 = simpleDateFormat.parse(s);
             cal.setTime(dateSimple1);
             day = cal.get(Calendar.DAY_OF_MONTH);
             month = cal.get(Calendar.MONTH)+1;
@@ -109,8 +113,7 @@ public abstract class AllParser {
     protected int firstdatacolumn = 0;
 
     abstract public String getInfo();
-    abstract public void parse_header(String s);
-    abstract public void updateUITitle();
+    abstract public void parseHeader(String s);
      
     protected kSar mysar = null;
     protected OSConfig myosconfig = null;

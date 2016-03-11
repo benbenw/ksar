@@ -26,8 +26,10 @@ public class Linux extends OSParser {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataView.class);
     
     private String linuxDateFormat;
+    private SimpleDateFormat simpleDateFormat;
     
-    public void parse_header(String s) {
+    @Override
+    public void parseHeader(String s) {
         boolean retdate = false;
         linuxDateFormat = Config.getLinuxDateFormat();
         String[] columns = s.split("\\s+");
@@ -55,7 +57,9 @@ public class Linux extends OSParser {
             dateFormat = "dd/MM/yy";
         } else if ("YYYY-MM-DD 23:59:59".equals(linuxDateFormat)) {
             dateFormat = "yy-MM-dd";
-        }  
+        }
+        
+        simpleDateFormat = new SimpleDateFormat(timeFormat);
     }
 
     private void askDateFormat(String s) {
@@ -63,7 +67,7 @@ public class Linux extends OSParser {
             LinuxDateFormat tmp = new LinuxDateFormat(GlobalOptions.getUI(),true);
             tmp.setTitle(s);
             if ( tmp.isOk()) {
-                linuxDateFormat=tmp.getDateFormat();
+                linuxDateFormat = tmp.getDateFormat();
                 if ( tmp.hasToRemenber() ) {
                     Config.setLinuxDateFormat(tmp.getDateFormat());
                     Config.save();
@@ -98,7 +102,6 @@ public class Linux extends OSParser {
         }
 
         try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(timeFormat);
             if ( timeColumn == 2 ) {
                 parsedate = simpleDateFormat.parse(columns[0]+" "+columns[1]);
             } else {
@@ -123,7 +126,7 @@ public class Linux extends OSParser {
             }
             firstdatacolumn = timeColumn;
         } catch (ParseException ex) {
-            System.out.println("unable to parse time " + columns[0]);
+            LOGGER.error("unable to parse time " + columns[0]);
             return -1;
         }
 

@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import net.atomique.ksar.Graph.Graph;
 import net.atomique.ksar.Parser.AllParser;
+import net.atomique.ksar.Parser.OSParser;
 import net.atomique.ksar.UI.DataView;
 import net.atomique.ksar.UI.SortedTreeNode;
 import net.atomique.ksar.UI.TreeNodeInfo;
@@ -40,42 +41,42 @@ public class kSar {
             dataview.setSelected(true);
         } catch (PropertyVetoException vetoe) {
         }
+        
         if (GlobalOptions.getCLfilename() != null) {
-            do_fileread(GlobalOptions.getCLfilename());
+            doFileRead(GlobalOptions.getCLfilename());
         }
     }
 
-    public kSar() {
-    }
+    public kSar() {}
 
-    public void do_fileread(String filename) {
+    public void doFileRead(String filename) {
         if (filename == null) {
-            launched_action = new FileRead(this);
+            launchedAction = new FileRead(this);
         } else {
-            launched_action = new FileRead(this, filename);
+            launchedAction = new FileRead(this, filename);
         }
-        reloadAction = ((FileRead) launched_action).get_action();
+        reloadAction = ((FileRead) launchedAction).get_action();
         doAction();
     }
 
     public void do_localcommand(String cmd) {
         if (cmd == null) {
-            launched_action = new LocalCommand(this);
+            launchedAction = new LocalCommand(this);
         } else {
-            launched_action = new LocalCommand(this, cmd);
+            launchedAction = new LocalCommand(this, cmd);
         }
-        reloadAction = ((LocalCommand) launched_action).get_action();
+        reloadAction = ((LocalCommand) launchedAction).get_action();
         doAction();
     }
 
     public void do_sshread(String cmd) {
         if (cmd == null) {
-            launched_action = new SSHCommand(this);
+            launchedAction = new SSHCommand(this);
         } else {
-            launched_action = new SSHCommand(this, cmd);
+            launchedAction = new SSHCommand(this, cmd);
         }
 
-        reloadAction = ((SSHCommand) launched_action).get_action();
+        reloadAction = ((SSHCommand) launchedAction).get_action();
         doAction();
     }
 
@@ -84,11 +85,11 @@ public class kSar {
             System.out.println("action is null");
             return;
         }
-        if (launched_action != null) {
+        if (launchedAction != null) {
             if (dataview != null) {
                 dataview.notifyrun(true);
             }
-            launched_action.start();
+            launchedAction.start();
         }
     }
 
@@ -102,7 +103,7 @@ public class kSar {
         parsingStart = System.currentTimeMillis();
 
         try {
-            while ((currentLine = br.readLine()) != null && !action_interrupted) {
+            while ((currentLine = br.readLine()) != null && !actionInterrupted) {
                 parsing = true;
 
                 linesParsed++;
@@ -126,7 +127,7 @@ public class kSar {
                             continue;
                         } else {
                             if (parser.getParserName().equals(parserType)) {
-                                parser.parse_header(currentLine);
+                                parser.parseHeader(currentLine);
                                 continue;
                             }
                         }
@@ -154,10 +155,12 @@ public class kSar {
                     }
                 }
 
-                parser.updateUITitle();
             }
-            
             if (dataview != null) {
+                if(parser instanceof OSParser) {
+                    OSParser osparser = (OSParser) parser;
+                    dataview.setTitle(osparser.gethostName() + " from "+ osparser.getStartofgraph() + " to " + osparser.getEndofgraph());
+                }
                 SwingUtilities.invokeAndWait(new Runnable() {
                     
                     @Override
@@ -199,12 +202,12 @@ public class kSar {
     }
 
     public boolean isAction_interrupted() {
-        return action_interrupted;
+        return actionInterrupted;
     }
 
     public void interrupt_parsing() {
         if (isParsing()) {
-            action_interrupted = true;
+            actionInterrupted = true;
         }
     }
 
@@ -263,8 +266,8 @@ public class kSar {
     private DataView dataview = null;
     private long linesParsed = 0L;
     private String reloadAction = "Empty";
-    private Thread launched_action = null;
-    private boolean action_interrupted = false;
+    private Thread launchedAction = null;
+    private boolean actionInterrupted = false;
     private boolean parsing = false;
     
     public AllParser parser = null;

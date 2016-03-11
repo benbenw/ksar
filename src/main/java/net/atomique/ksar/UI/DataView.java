@@ -255,7 +255,7 @@ public class DataView extends javax.swing.JInternalFrame {
 }//GEN-LAST:event_LoadCommandActionPerformed
 
     private void LoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadFileActionPerformed
-        mysar.do_fileread(null);
+        mysar.doFileRead(null);
         
 }//GEN-LAST:event_LoadFileActionPerformed
 

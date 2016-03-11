@@ -23,7 +23,8 @@ public class HPUX extends OSParser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataView.class);
     
-    public void parse_header(String s) {
+    @Override
+    public void parseHeader(String s) {
         String[] columns = s.split("\\s+");
         setOstype(columns[0]);
         setHostname(columns[1]);

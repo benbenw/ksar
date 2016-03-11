@@ -25,7 +25,8 @@ public class SunOS extends OSParser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataView.class);
     
-    public void parse_header(String s) {
+    @Override
+    public void parseHeader(String s) {
         String[] columns = s.split("\\s+");
         setOstype(columns[0]);
         setHostname(columns[1]);
@@ -55,7 +56,7 @@ public class SunOS extends OSParser {
 
 
         if ("Average".equals(columns[0])) {
-            under_average = true;
+            underAverage = true;
             return 0;
         }
 
@@ -74,7 +75,8 @@ public class SunOS extends OSParser {
 
 
         try {
-            parsedate = new SimpleDateFormat(timeFormat).parse(columns[0]);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(timeFormat);
+            parsedate = simpleDateFormat.parse(columns[0]);
             cal.setTime(parsedate);
             heure = cal.get(Calendar.HOUR_OF_DAY);
             minute = cal.get(Calendar.MINUTE);
@@ -138,7 +140,7 @@ public class SunOS extends OSParser {
             if (!lastStat.equals(currentStat)) {
                 LOGGER.debug("Stat change from " + lastStat + " to " + currentStat);
                 lastStat = currentStat;
-                under_average = false;
+                underAverage = false;
             }
         } else {
             lastStat = currentStat;
@@ -150,7 +152,7 @@ public class SunOS extends OSParser {
             return -1;
         }
 
-        if (under_average) {
+        if (underAverage) {
             return 0;
         }
         currentStatObj = listofGraph.get(currentStat);
@@ -170,5 +172,5 @@ public class SunOS extends OSParser {
         return -1;
     }
     Second now = null;
-    boolean under_average = false;
+    boolean underAverage = false;
 }

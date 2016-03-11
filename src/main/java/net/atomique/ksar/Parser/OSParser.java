@@ -21,12 +21,13 @@ public abstract class OSParser extends AllParser {
         init(hissar, header);
     }
 
+    @Override
     public void init (kSar hissar, String header) {
         String[] s = header.split("\\s+");
         this.mysar = hissar;
         this.parserName = s[0];
         this.myosconfig = GlobalOptions.getOSinfo(this.parserName);
-        parse_header(header);
+        parseHeader(header);
     }
     
     public OSConfig getOSConfig() {
@@ -71,6 +72,7 @@ public abstract class OSParser extends AllParser {
 
     
 
+    @Override
     public String getInfo() {
         StringBuilder tmpstr = new StringBuilder();
         tmpstr.append("OS Type: ").append(ostype);
@@ -133,11 +135,6 @@ public abstract class OSParser extends AllParser {
         this.ostype = ostype;
     }
 
-     public void updateUITitle() {
-        if ( mysar.getDataView() != null) {
-            mysar.getDataView().setTitle(Hostname + " from "+ startofgraph + " to " + endofgraph);
-        }
-    }
     
     protected Map<String, Object> listofGraph = new HashMap<String, Object>();
     
