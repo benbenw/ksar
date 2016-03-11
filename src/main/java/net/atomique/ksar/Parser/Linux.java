@@ -195,7 +195,7 @@ public class Linux extends OSParser {
             }
             if (currentStatObj instanceof GraphList) {
                 GraphList ag = (GraphList) currentStatObj;
-                return ag.parse_line(now, line);
+                return ag.parseLine(now, line);
             }
         }
         return -1;

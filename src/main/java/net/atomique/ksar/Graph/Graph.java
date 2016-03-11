@@ -188,7 +188,7 @@ public class Graph {
         } catch (SeriesException se) {
             // insert not possible
             // check if column can be update
-            StatConfig statconfig = ((OSParser) mysar.parser).get_OSConfig().getStat(mysar.parser.getCurrentStat());
+            StatConfig statconfig = ((OSParser) mysar.parser).getOSConfig().getStat(mysar.parser.getCurrentStat());
             if (statconfig != null) {
                 if (statconfig.canDuplicateTime()) {
                     Number oldval = ((TimeSeries) (Stats.get(col))).getValue(now);

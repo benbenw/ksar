@@ -365,12 +365,12 @@ public class DataView extends javax.swing.JInternalFrame {
         mydial.setLocationRelativeTo(GlobalOptions.getUI());
         mydial.setVisible(true);
 
+        //FIXME do it on the awt thread
         GraphExportCallback exportCallback = new GraphExportCallback() {
             
             @Override
             public void onGraphExported() {
                 pbar.setValue(pbar.getValue() + 1);
-                
             }
             
             @Override
@@ -410,6 +410,7 @@ public class DataView extends javax.swing.JInternalFrame {
         mydial.setLocationRelativeTo(GlobalOptions.getUI());
         mydial.setVisible(true);
         
+        //FIXME do it on the awt thread
         GraphExportCallback exportCallback = new GraphExportCallback() {
             
             @Override

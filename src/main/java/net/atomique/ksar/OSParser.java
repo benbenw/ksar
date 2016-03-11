@@ -27,7 +27,7 @@ public abstract class OSParser extends AllParser {
         parse_header(header);
     }
     
-    public OSConfig get_OSConfig() {
+    public OSConfig getOSConfig() {
         return myosconfig;
     }
 

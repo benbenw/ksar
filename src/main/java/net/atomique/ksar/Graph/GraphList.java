@@ -28,20 +28,20 @@ public class GraphList {
 
     public GraphList(kSar hissar, GraphConfig g, String stitle, String sheader, int i) {
         mysar = hissar;
-        HeaderStr = sheader;
+        headerStr = sheader;
         graphconfig =g ;
-        Title = stitle;
+        title = stitle;
         skipColumn = i;
-        ParentNodeInfo tmp = new ParentNodeInfo(Title, this);
+        ParentNodeInfo tmp = new ParentNodeInfo(title, this);
         parentTreeNode = new SortedTreeNode(tmp);
         mysar.add2tree(mysar.graphtree, parentTreeNode);
     }
 
-    public int parse_line(Second now,String s) {
-        String cols[] = s.split("\\s+");
+    public int parseLine(Second now,String s) {
+        String[] cols = s.split("\\s+");
         Graph tmp = null;
         if ( ! nodeHashList.containsKey(cols[skipColumn])) {
-            tmp= new Graph(mysar, graphconfig,Title + " " + cols[skipColumn], HeaderStr, skipColumn+1, null);
+            tmp= new Graph(mysar, graphconfig,title + " " + cols[skipColumn], headerStr, skipColumn+1, null);
             nodeHashList.put(cols[skipColumn], tmp);
             TreeNodeInfo infotmp= new TreeNodeInfo( cols[skipColumn], tmp);
             SortedTreeNode nodetmp = new SortedTreeNode(infotmp);
@@ -99,12 +99,12 @@ public class GraphList {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public JPanel getprintform() {
         JPanel panel = new JPanel();
-        panel.setBorder(new TitledBorder(Title));
+        panel.setBorder(new TitledBorder(title));
         panel.setLayout(new javax.swing.BoxLayout(panel, javax.swing.BoxLayout.PAGE_AXIS));
         return panel;
     }
@@ -113,9 +113,9 @@ public class GraphList {
     protected GraphConfig graphconfig = null;
     protected SortedTreeNode parentTreeNode = null;
     protected kSar mysar = null;
-    protected String HeaderStr = null;
+    protected String headerStr = null;
     protected Map<String, Graph> nodeHashList = new HashMap<String, Graph>();
     protected int skipColumn = 0;
-    protected String Title = null;
+    protected String title = null;
     
 }
