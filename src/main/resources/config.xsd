@@ -1,0 +1,85 @@
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:complexType name="Stat">
+		<xs:sequence>
+			<xs:element name="headerstr" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="graphname" type="xs:string" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="Format">
+		<xs:attribute type="xs:short" name="base" use="optional" />
+		<xs:attribute type="xs:short" name="factor" use="optional" />
+	</xs:complexType>
+
+	<xs:complexType name="Plot">
+		<xs:sequence>
+			<xs:element type="xs:string" name="cols" />
+			<xs:element name="format" type="Format" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="Title" use="optional" />
+		<xs:attribute type="xs:byte" name="size" use="optional" />
+	</xs:complexType>
+
+	<xs:complexType name="Stack">
+		<xs:sequence>
+			<xs:element type="xs:string" name="cols" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="Title" />
+		<xs:attribute type="xs:byte" name="size" />
+	</xs:complexType>
+
+	<xs:complexType name="Graph">
+		<xs:sequence>
+			<xs:element name="Stack" type="Stack" minOccurs="0" />
+			<xs:element name="Plot" type="Plot" maxOccurs="unbounded"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name" use="optional" />
+		<xs:attribute type="xs:string" name="Title" use="optional" />
+		<xs:attribute type="xs:string" name="type" use="optional" />
+	</xs:complexType>
+
+	<xs:complexType name="OSType">
+		<xs:sequence>
+			<xs:element name="Stat" type="Stat" maxOccurs="unbounded"
+				minOccurs="0" />
+			<xs:element name="Graph" type="Graph" maxOccurs="unbounded"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name" />
+	</xs:complexType>
+	
+	<xs:complexType name="Itemcolor">
+		<xs:sequence>
+			<xs:element type="xs:string" name="color" />
+			<xs:element type="xs:string" name="type" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name" use="optional" />
+	</xs:complexType>
+	
+          <xs:complexType name="Colors">
+            <xs:sequence>
+              <xs:element name="itemcolor" type="Itemcolor" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+
+	<xs:complexType name="OS">
+		<xs:sequence>
+			<xs:element name="OSType" type="OSType" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="ConfiG">
+		<xs:complexType>
+			<xs:sequence>
+			    <xs:element name="colors" type="Colors"/>
+				<xs:element name="OS" type="OS" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

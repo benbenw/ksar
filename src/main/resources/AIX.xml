@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE ConfiG PUBLIC "-//NET/ATOMIQUE/KSAR/CONFIG.DTD" "Config.dtd" >
+<ConfiG xsi:schemaLocation="./confid.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-<ConfiG>
-   
     <!--  BEGIN OS -->
     <OS>
         <OSType name="AIX">

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE ConfiG PUBLIC "-//NET/ATOMIQUE/KSAR/CONFIG.DTD" "Config.dtd">
 
-<ConfiG>
+<ConfiG xsi:schemaLocation="./confid.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <OS>
         <OSType name="Linux">
             <Stat name="proc1">

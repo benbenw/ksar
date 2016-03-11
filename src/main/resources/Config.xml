@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE ConfiG PUBLIC "-//NET/ATOMIQUE/KSAR/CONFIG.DTD" "Config.dtd" >
-<!--
-    Document   : Config.xml
-    Created on : 10 août 2010, 16:31
-    Author     : Max
-    Description:
-        Configure color of graphs
+<ConfiG xsi:schemaLocation="./confid.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
--->
-
-<ConfiG>
     <colors>
         <itemcolor name="rawch/s">
             <color>0,255,0</color>
