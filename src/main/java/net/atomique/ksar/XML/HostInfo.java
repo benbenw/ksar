@@ -27,11 +27,11 @@ public class HostInfo {
     }
     
     public String getAlias() {
-        return this.aka_hostname;
+        return this.akaHostname;
     }
 
     public void setAlias(String aka_hostname) {
-        this.aka_hostname = aka_hostname;
+        this.akaHostname = aka_hostname;
     }
 
     public String getDescription() {
@@ -53,7 +53,7 @@ public class HostInfo {
     public String save() {
         StringBuilder tmp = new StringBuilder();
         tmp.append("\t\t<host name=\"" + this.sarHostname + "\">\n");
-        tmp.append("\t\t\t<alias>" + this.aka_hostname + "</alias>\n");
+        tmp.append("\t\t\t<alias>" + this.akaHostname + "</alias>\n");
         tmp.append("\t\t\t<description>" + this.description + "</description>\n");
         tmp.append("\t\t\t<memblocksize>" + this.memBlockSize + "</memblocksize>\n");
         tmp.append("\t\t</host>\n");
@@ -63,7 +63,7 @@ public class HostInfo {
 
 
     private String sarHostname =null;
-    private String aka_hostname = null;
+    private String akaHostname = null;
     private String description = null;
     private Integer memBlockSize = 1;
     

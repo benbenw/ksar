@@ -109,8 +109,6 @@ public class Main {
         }
 
         makeUi();
-
-        System.out.println("exit");
     }
 
     public static void exitError(final String message) {
