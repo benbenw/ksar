@@ -6,7 +6,7 @@ import java.text.NumberFormat;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.data.Range;
 
-import net.atomique.ksar.Graph.IEEE1541Number;
+import net.atomique.ksar.Graph.IEEE1541NumberFormat;
 
 /**
  *
@@ -48,7 +48,7 @@ public class PlotConfig {
     public NumberAxis getAxis() {
         NumberAxis tmp = new NumberAxis(this.Title);
         if ("1024".equals(this.base)) {
-            NumberFormat decimalformat1 = new IEEE1541Number(this.factor.intValue());
+            NumberFormat decimalformat1 = new IEEE1541NumberFormat(this.factor.intValue());
             tmp.setNumberFormatOverride(decimalformat1);
         }
 

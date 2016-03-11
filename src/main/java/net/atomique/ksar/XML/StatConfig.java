@@ -22,7 +22,7 @@ public class StatConfig {
 
     public void setHeaderStr(String s) {
         this.HeaderStr = s;
-        this.Header = s.split("\\s+");
+        this.header = s.split("\\s+");
     }
 
     public String getStatName() {
@@ -30,7 +30,7 @@ public class StatConfig {
     }
 
     public boolean checkHeader(String c, int i) {
-        if (!compareHeader(i)) {
+        if (i != this.header.length) {
             return false;
         }
 
@@ -41,27 +41,20 @@ public class StatConfig {
         return false;
     }
 
-    private boolean compareHeader(int i) {
-        if (i == this.Header.length) {
-            return true;
-        }
-        return false;
-    }
-
     public boolean canDuplicateTime() {
         return this.duplicatetime;
     }
 
     public void setDuplicateTime(String s) {
         if ( "yes".equals(s) || "true".equals(s) ){
-            this.duplicatetime=true;
+            this.duplicatetime = true;
         }
     }
     
 
     private String statName = null;
     private String graphName = null;
-    private String[] Header = null;
+    private String[] header = null;
     private String HeaderStr = null;
     private boolean duplicatetime = false;
 }
