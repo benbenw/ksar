@@ -52,15 +52,14 @@ public class GlobalOptions {
         historyList = new HashMap<String, CnxHistory>();
         hostInfoList = new HashMap<String, HostInfo>();
         
-        String[] OSParserNames = {"AIX", "HPUX",  "Linux", "SunOS"};
         String filename = null;
         InputStream is = this.getClass().getResourceAsStream("/Config.xml");
-        for ( String OSName : OSParserNames ) {
+        for (OsParsers parser : OsParsers.values()) {
             try {
-                Class tmpclass = Class.forName("net.atomique.ksar.Parser."+OSName);
-                parserMap.put(OSName, tmpclass);
+                Class tmpclass = Class.forName("net.atomique.ksar.Parser."+parser.name());
+                parserMap.put(parser.name(), tmpclass);
             } catch (ClassNotFoundException ex) {
-                LOGGER.error("parser not found {}", OSName, ex);
+                LOGGER.error("parser not found {}", parser.name(), ex);
             }
         }
         

@@ -7,6 +7,8 @@
 				maxOccurs="1" />
 			<xs:element name="graphname" type="xs:string" minOccurs="0"
 				maxOccurs="1" />
+				<xs:element name="duplicate" type="xs:string" minOccurs="0"
+                maxOccurs="1" />
 		</xs:sequence>
 		<xs:attribute type="xs:string" name="name" use="required" />
 	</xs:complexType>
