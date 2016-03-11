@@ -149,7 +149,7 @@ public class HPUX extends OSParser {
         } else {
             if (currentStatObj instanceof Graph) {
                 Graph ag = (Graph) currentStatObj;
-                return ag.parse_line(now, line);
+                return ag.parseLine(now, line);
             }
             if (currentStatObj instanceof GraphList) {
                 GraphList ag = (GraphList) currentStatObj;

@@ -13,7 +13,7 @@ public class ParentNodeInfo {
         nodeObject = list;
     }
 
-    public GraphList getNode_object() {
+    public GraphList getNodeObject() {
         return nodeObject;
     }
 

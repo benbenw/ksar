@@ -72,6 +72,7 @@ public class Graph {
             }
         });
         skipColumn = skipcol;
+        
         if (pp != null) {
             TreeNodeInfo infotmp = new TreeNodeInfo(title, this);
             SortedTreeNode nodetmp = new SortedTreeNode(infotmp);
@@ -86,6 +87,7 @@ public class Graph {
         for (int i = skipColumn; i < headerStr.length; i++) {
             stats.add(new TimeSeries(headerStr[i]));
         }
+        
         // create stack
         SortedSet<String> sortedset = new TreeSet<String>(graphconfig.getStacklist().keySet());
         Iterator<String> it = sortedset.iterator();
@@ -100,7 +102,7 @@ public class Graph {
         }
     }
 
-    public int parse_line(Second now, String s) {
+    public int parseLine(Second now, String s) {
         String[] cols = s.split("\\s+");
         Double colvalue = null;
         
@@ -118,7 +120,6 @@ public class Graph {
 
             addDatapointPlot(now, i-skipColumn , headerStr[i-skipColumn], colvalue);
 
-
             TimeTableXYDataset tmp = stackListbyCol.get(headerStr[i]);
             if (tmp != null) {
                 addDatapointStack(tmp, now, i , headerStr[i], colvalue);
@@ -134,50 +135,7 @@ public class Graph {
 
             return true;
         } catch (SeriesException se) {
-            /*
-             *
-             * not update on stack
-             *
-            int indexcol = -1;
-            // add not working
-            // find timeseries index
-            for (int i = 0; i < dataset.getSeriesCount(); i++) {
-                String name = (String) dataset.getSeriesKey(i);
-                if (colheader.equals(name)) {
-                    indexcol = i;
-                    break;
-                }
-                System.out.println(dataset.indexOf(name) + ": " + name);
-            }
-            if (indexcol == -1) {
-                return false;
-            }
-            StatConfig statconfig = ((OSParser) mysar.myparser).get_OSConfig().getStat(mysar.myparser.getCurrentStat());
-            if (statconfig != null) {
-                if (statconfig.canDuplicateTime()) {
-                    Number oldval = dataset.getXValue(indexcol, col);
-                    Double tempval;
-                    if (oldval == null) {
-                        return false;
-                    }
-                    ColumnConfig colconfig = GlobalOptions.getColumnConfig(colheader);
-                    if (colconfig.getType() == 1) {
-                        tempval = new Double((oldval.doubleValue() + value) / 2);
-                    } else if (colconfig.getType() == 2) {
-                        tempval = new Double(oldval.doubleValue() + value);
-                    } else {
-                        return false;
-                    }
-
-                    try {
-                        ((TimeSeries) (Stats.get(col))).update(now, tempval);
-                        return true;
-                    } catch (SeriesException se2) {
-                        return false;
-                    }
-                }
-            }
-            */
+            
             return false;
         }
 
@@ -338,7 +296,7 @@ public class Graph {
         return graphcollection;
     }
 
-    public ChartPanel get_ChartPanel() {
+    public ChartPanel getChartPanel() {
         if (chartpanel == null) {
             if (mysar.isParsing()) {
                 chartpanel = new ChartPanel(getgraph(null, null));

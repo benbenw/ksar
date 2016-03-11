@@ -118,7 +118,7 @@ public class FilePDF extends PdfPageEventHelper implements Runnable {
             Object obj1 = node.getUserObject();
             if (obj1 instanceof ParentNodeInfo) {
                 ParentNodeInfo tmpnode = (ParentNodeInfo) obj1;
-                GraphList nodeobj = tmpnode.getNode_object();
+                GraphList nodeobj = tmpnode.getNodeObject();
                 if ( nodeobj.isPrintSelected() ) {
                     root = new PdfOutline(root, new PdfDestination(PdfDestination.FIT), nodeobj.getTitle());
                 }

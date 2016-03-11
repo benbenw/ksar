@@ -62,5 +62,5 @@ public class IEEE1541NumberFormat extends NumberFormat {
         return null;
     }
     
-    int kilo = 0;
+    private int kilo = 0;
 }

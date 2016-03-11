@@ -29,7 +29,7 @@ public abstract class BaseParser {
     protected String sarEndDate = null;
 
     protected Second startofgraph = null;
-    protected Second endofgraph =null;
+    protected Second endofgraph = null;
     protected TreeSet<Second> dateSamples = new TreeSet<Second>();
     protected int firstdatacolumn = 0;
 
@@ -103,6 +103,7 @@ public abstract class BaseParser {
         } catch (ParseException e) {
             return false;
         }
+        
         if (dateSimple1.compareTo(dateSimple2) < 0) {
             sarStartDate = s;
         }

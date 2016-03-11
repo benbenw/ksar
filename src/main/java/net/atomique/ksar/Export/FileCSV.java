@@ -80,7 +80,7 @@ public class FileCSV implements Runnable {
             Object obj1 = node.getUserObject();
             if (obj1 instanceof ParentNodeInfo) {
                 ParentNodeInfo tmpnode = (ParentNodeInfo) obj1;
-                GraphList nodeobj = tmpnode.getNode_object();                
+                GraphList nodeobj = tmpnode.getNodeObject();                
             }
             for (int i = 0; i < num; i++) {
                 SortedTreeNode l = (SortedTreeNode) node.getChildAt(i);
@@ -106,7 +106,7 @@ public class FileCSV implements Runnable {
             Object obj1 = node.getUserObject();
             if (obj1 instanceof ParentNodeInfo) {
                 ParentNodeInfo tmpnode = (ParentNodeInfo) obj1;
-                GraphList nodeobj = tmpnode.getNode_object();
+                GraphList nodeobj = tmpnode.getNodeObject();
             }
             for (int i = 0; i < num; i++) {
                 SortedTreeNode l = (SortedTreeNode) node.getChildAt(i);

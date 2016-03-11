@@ -29,7 +29,7 @@ public class GraphList {
     public GraphList(kSar hissar, GraphConfig g, String stitle, String sheader, int i) {
         mysar = hissar;
         headerStr = sheader;
-        graphconfig =g ;
+        graphconfig = g ;
         title = stitle;
         skipColumn = i;
         ParentNodeInfo tmp = new ParentNodeInfo(title, this);
@@ -37,32 +37,30 @@ public class GraphList {
         mysar.add2tree(mysar.graphtree, parentTreeNode);
     }
 
-    public int parseLine(Second now,String s) {
+    public int parseLine(Second now, String s) {
         String[] cols = s.split("\\s+");
-        Graph tmp = null;
-        if ( ! nodeHashList.containsKey(cols[skipColumn])) {
-            tmp= new Graph(mysar, graphconfig,title + " " + cols[skipColumn], headerStr, skipColumn+1, null);
+        Graph tmp = nodeHashList.get(cols[skipColumn]);
+        if (tmp == null) {
+            tmp = new Graph(mysar, graphconfig, title + " " + cols[skipColumn], headerStr, skipColumn+1, null);
             nodeHashList.put(cols[skipColumn], tmp);
-            TreeNodeInfo infotmp= new TreeNodeInfo( cols[skipColumn], tmp);
+            TreeNodeInfo infotmp = new TreeNodeInfo( cols[skipColumn], tmp);
             SortedTreeNode nodetmp = new SortedTreeNode(infotmp);
             mysar.add2tree(parentTreeNode, nodetmp);
-        } else {
-            tmp = (Graph)nodeHashList.get(cols[skipColumn]);
         }
 
-        return tmp.parse_line(now,s);
+        return tmp.parseLine(now,s);
     }
 
 
     public JPanel run() {
-        JPanel tmppanel = new JPanel();
-        LayoutManager tmplayout = null;
         int graphnumber = nodeHashList.size();
         int linenum = (int) Math.floor(graphnumber / 2);
         if (graphnumber % 2 != 0) {
             linenum++;
         }
-        tmplayout = new java.awt.GridLayout(linenum, 2);
+        
+        LayoutManager tmplayout = new java.awt.GridLayout(linenum, 2);
+        JPanel tmppanel = new JPanel();
         tmppanel.setLayout(tmplayout);
 
 
@@ -71,8 +69,8 @@ public class GraphList {
         Iterator<String> it = sortedset.iterator();
 
         while (it.hasNext()) {
-            Graph tmpgraph = (Graph) nodeHashList.get(it.next());
-            tmppanel.add(tmpgraph.get_ChartPanel());
+            Graph tmpgraph = nodeHashList.get(it.next());
+            tmppanel.add(tmpgraph.getChartPanel());
         }
 
         return tmppanel;
@@ -85,24 +83,21 @@ public class GraphList {
         Iterator<String> it = sortedset.iterator();
 
         while (it.hasNext()) {
-            Graph tmpgraph = (Graph) nodeHashList.get(it.next());
+            Graph tmpgraph = nodeHashList.get(it.next());
             if (tmpgraph.printSelected) {
                 leaftoprint = true;
                 break;
             }
         }
-        if (leaftoprint) {
-            return true;
-        } else {
-            return false;
-        }
+
+        return leaftoprint;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public JPanel getprintform() {
+    public JPanel getPrintForm() {
         JPanel panel = new JPanel();
         panel.setBorder(new TitledBorder(title));
         panel.setLayout(new javax.swing.BoxLayout(panel, javax.swing.BoxLayout.PAGE_AXIS));
@@ -110,12 +105,12 @@ public class GraphList {
     }
 
 
-    protected GraphConfig graphconfig = null;
-    protected SortedTreeNode parentTreeNode = null;
-    protected kSar mysar = null;
-    protected String headerStr = null;
-    protected Map<String, Graph> nodeHashList = new HashMap<String, Graph>();
-    protected int skipColumn = 0;
-    protected String title = null;
+    private GraphConfig graphconfig = null;
+    private SortedTreeNode parentTreeNode = null;
+    private kSar mysar = null;
+    private String headerStr = null;
+    private Map<String, Graph> nodeHashList = new HashMap<>();
+    private int skipColumn = 0;
+    private String title = null;
     
 }

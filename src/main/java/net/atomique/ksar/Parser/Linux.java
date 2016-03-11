@@ -30,7 +30,6 @@ public class Linux extends OSParser {
     
     @Override
     public void parseHeader(String s) {
-        boolean retdate = false;
         linuxDateFormat = Config.getLinuxDateFormat();
         String[] columns = s.split("\\s+");
         setOstype(columns[0]);
@@ -38,7 +37,7 @@ public class Linux extends OSParser {
         String tmpstr = columns[2];
         setHostname(tmpstr.substring(1, tmpstr.length() - 1));
         checkDateFormat();
-        retdate = setDate(columns[3]);
+        setDate(columns[3]);
     }
 
     private void checkDateFormat() {
@@ -116,10 +115,12 @@ public class Linux extends OSParser {
                 startofstat = now;
                 startofgraph = now;
             }
+            
             if (endofstat == null) {
                 endofstat = now;
                 endofgraph = now;
             }
+            
             if (now.compareTo(endofstat) > 0) {
                 endofstat = now;
                 endofgraph = now;
@@ -193,7 +194,7 @@ public class Linux extends OSParser {
             dateSamples.add(now);
             if (currentStatObj instanceof Graph) {
                 Graph ag = (Graph) currentStatObj;
-                return ag.parse_line(now, line);
+                return ag.parseLine(now, line);
             }
             if (currentStatObj instanceof GraphList) {
                 GraphList ag = (GraphList) currentStatObj;

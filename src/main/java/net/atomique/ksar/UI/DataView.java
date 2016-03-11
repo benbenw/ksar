@@ -236,7 +236,7 @@ public class DataView extends javax.swing.JInternalFrame {
             }
             if (obj1 instanceof ParentNodeInfo) {
                 ParentNodeInfo tmpnode = (ParentNodeInfo) obj1;
-                GraphList nodeobj = tmpnode.getNode_object();
+                GraphList nodeobj = tmpnode.getNodeObject();
                 if (current_panel != null) {
                     displayPanel.removeAll();
                     current_panel=null;
@@ -438,8 +438,8 @@ public class DataView extends javax.swing.JInternalFrame {
             Object obj1 = node.getUserObject();
             if (obj1 instanceof ParentNodeInfo) {                
                 ParentNodeInfo tmpnode = (ParentNodeInfo) obj1;
-                GraphList nodeobj = tmpnode.getNode_object();
-                askparentPanel= nodeobj.getprintform();
+                GraphList nodeobj = tmpnode.getNodeObject();
+                askparentPanel= nodeobj.getPrintForm();
                 graphselection.addPrintCheckBox(askparentPanel);
             }
             for (int i = 0; i < num; i++) {
