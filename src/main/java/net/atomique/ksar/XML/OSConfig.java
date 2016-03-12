@@ -15,7 +15,7 @@ public class OSConfig {
     }
 
     public void addStat(StatConfig s) {
-        this.StatHash.put(s.getStatName(), s);
+        this.statHash.put(s.getStatName(), s);
     }
 
     public void addGraph(GraphConfig s) {
@@ -40,10 +40,10 @@ public class OSConfig {
         String header = tmpbuf.toString();
         
 
-        Iterator<String> ite = this.StatHash.keySet().iterator();
+        Iterator<String> ite = this.statHash.keySet().iterator();
         while (ite.hasNext()) {
             String tmptitle = ite.next();
-            StatConfig tmp = this.StatHash.get(tmptitle);
+            StatConfig tmp = this.statHash.get(tmptitle);
             if (tmp.checkHeader(header, num)) {
                 return tmp.getGraphName();
             }
@@ -53,13 +53,13 @@ public class OSConfig {
     }
 
     public StatConfig getStat(String statName) {
-        if (this.StatHash.isEmpty()) {
+        if (this.statHash.isEmpty()) {
             return null;
         }
-        Iterator<String> ite = this.StatHash.keySet().iterator();
+        Iterator<String> ite = this.statHash.keySet().iterator();
         while (ite.hasNext()) {
             String tmptitle = ite.next();
-            StatConfig tmp = this.StatHash.get(tmptitle);
+            StatConfig tmp = this.statHash.get(tmptitle);
             if ( tmp.getGraphName().equals(statName)) {
                 return tmp;
             }
@@ -73,6 +73,6 @@ public class OSConfig {
 
 
     private String OSname = null;
-    private HashMap<String, StatConfig> StatHash = new HashMap<String, StatConfig>();
+    private HashMap<String, StatConfig> statHash = new HashMap<String, StatConfig>();
     private HashMap<String, GraphConfig> GraphHash = new HashMap<String, GraphConfig>();
 }

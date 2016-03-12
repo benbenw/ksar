@@ -32,43 +32,33 @@ public class HPUX extends OSParser {
         setKernel(columns[3]);
         setCpuType(columns[4]);
         setDate(columns[5]);
-
     }
 
     
     @Override
     public int parse(String line, String[] columns) {
-        int heure = 0;
+        int hour = 0;
         int minute = 0;
         int seconde = 0;
 
 
         if ("Average".equals(columns[0])) {
-            under_average = true;
+            underAverage = true;
             return 0;
         }
 
-        if (line.indexOf("unix restarts") >= 0 || line.indexOf(" unix restarted") >= 0) {
+        if (shouldIgnoreLine(line)) {
             return 0;
         }
-
-        // match the System [C|c]onfiguration line on AIX
-        if (line.indexOf("System Configuration") >= 0 || line.indexOf("System configuration") >= 0) {
-            return 0;
-        }
-
-        if (line.indexOf("State change") >= 0) {
-            return 0;
-        }
-
 
         try {
-            parsedate = new SimpleDateFormat("HH:mm:SS").parse(columns[0]);
+            SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("HH:mm:SS");
+            parsedate = simpleDateFormat2.parse(columns[0]);
             cal.setTime(parsedate);
-            heure = cal.get(Calendar.HOUR_OF_DAY);
+            hour = cal.get(Calendar.HOUR_OF_DAY);
             minute = cal.get(Calendar.MINUTE);
             seconde = cal.get(Calendar.SECOND);
-            now = new Second(seconde, minute, heure, day, month, year);
+            now = new Second(seconde, minute, hour, day, month, year);
             if (startofstat == null) {
                 startofstat = now;
                 startofgraph =now;
@@ -127,7 +117,7 @@ public class HPUX extends OSParser {
             if (!lastStat.equals(currentStat) ) {
                 LOGGER.debug("Stat change from " + lastStat + " to " + currentStat);
                 lastStat = currentStat;
-                under_average = false;
+                underAverage = false;
             }
         } else {
             lastStat = currentStat;
@@ -140,7 +130,7 @@ public class HPUX extends OSParser {
             return -1;
         }
 
-        if (under_average) {
+        if (underAverage) {
             return 0;
         }
         currentStatObj = listofGraph.get(currentStat);
@@ -158,9 +148,10 @@ public class HPUX extends OSParser {
         }
         return -1;
     }
-    Second now = null;
-    boolean under_average = false;
-    Calendar cal = Calendar.getInstance();
-    Date parsedate = null;
+   
+    private Second now = null;
+    private boolean underAverage = false;
+    private Calendar cal = Calendar.getInstance();
+    private Date parsedate = null;
 
 }

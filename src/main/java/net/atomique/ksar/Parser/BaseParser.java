@@ -124,6 +124,29 @@ public abstract class BaseParser {
         return currentStat;
     }
     
+    protected boolean shouldIgnoreLine(String line) {
+        boolean ignore = false;
+        
+        if (line == null || line.length() == 0) {
+            ignore = true;
+        }
+        
+        else if (line.indexOf("unix restarts") >= 0 || line.indexOf(" unix restarted") >= 0) {
+            ignore = true;
+        }
+
+        // match the System [C|c]onfiguration line on AIX
+        else if (line.indexOf("System Configuration") >= 0 || line.indexOf("System configuration") >= 0) {
+            ignore = true;
+        }
+
+        else if (line.indexOf("State change") >= 0) {
+            ignore = true;
+        }
+        
+        return ignore;
+    }
+    
     abstract public String getInfo();
     abstract public void parseHeader(String s);
 

@@ -115,13 +115,6 @@ public abstract class OSParser extends BaseParser {
         return tmpstr.toString();
     }
 
-    public String getOriginal_line() {
-        return originalLine;
-    }
-
-    public void setOriginal_line(String original_line) {
-        this.originalLine = original_line;
-    }
 
     public String gethostName() {
         return hostname;
@@ -151,7 +144,4 @@ public abstract class OSParser extends BaseParser {
     protected String nbDisk = null;
     protected String nbCpu = null;
     protected String ENT = null;
-    protected String detect = null;
-    protected String originalLine = null;
-    
 }

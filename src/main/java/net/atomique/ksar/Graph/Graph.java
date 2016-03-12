@@ -89,10 +89,10 @@ public class Graph {
         }
         
         // create stack
-        SortedSet<String> sortedset = new TreeSet<String>(graphconfig.getStacklist().keySet());
+        SortedSet<String> sortedset = new TreeSet<>(graphconfig.getStacklist().keySet());
         Iterator<String> it = sortedset.iterator();
         while (it.hasNext()) {
-            StackConfig tmp = (StackConfig) graphconfig.getStacklist().get(it.next());
+            StackConfig tmp = graphconfig.getStacklist().get(it.next());
             TimeTableXYDataset tmp2 = new TimeTableXYDataset();
             String[] s = tmp.getHeader();
             for (int i = 0; i < s.length; i++) {
@@ -143,7 +143,7 @@ public class Graph {
 
     private boolean addDatapointPlot(Second now, int col, String colheader, Double value) {
         try {
-            ((TimeSeries) (stats.get(col))).add(now, value);
+            stats.get(col).add(now, value);
             return true;
         } catch (SeriesException se) {
             // insert not possible
@@ -270,14 +270,14 @@ public class Graph {
         return printSelected;
     }
 
-    private XYDataset createCollection(java.util.List<?> l) {
+    private XYDataset createCollection(java.util.List<String> l) {
         TimeSeriesCollection graphcollection = new TimeSeriesCollection();
         TimeSeries found = null;
         boolean hasdata = false;
         for (int i = 0; i < l.size(); i++) {
             found = null;
             for (int j = 0; j < stats.size(); j++) {
-                found = (TimeSeries) stats.get(j);
+                found = stats.get(j);
                 if (found.getKey().equals(l.get(i))) {
                     break;
                 } else {
@@ -316,7 +316,7 @@ public class Graph {
         return chartpanel;
     }
 
-    private JFreeChart makegraph(Second g_start, Second g_end) {
+    private JFreeChart makegraph(Second start, Second end) {
         long begingenerate = System.currentTimeMillis();
 
         CombinedDomainXYPlot plot = new CombinedDomainXYPlot(axisofdate);
@@ -324,7 +324,7 @@ public class Graph {
         SortedSet<String> sortedset = new TreeSet<String>(graphconfig.getStacklist().keySet());
         Iterator<String> it = sortedset.iterator();
         while (it.hasNext()) {
-            StackConfig tmp = (StackConfig) graphconfig.getStacklist().get(it.next());
+            StackConfig tmp = graphconfig.getStacklist().get(it.next());
             if (tmp == null) {
                 continue;
             }
@@ -348,9 +348,9 @@ public class Graph {
         sortedset = new TreeSet<String>(graphconfig.getPlotlist().keySet());
         it = sortedset.iterator();
         while (it.hasNext()) {
-            PlotConfig tmp = (PlotConfig) graphconfig.getPlotlist().get(it.next());
+            PlotConfig tmp = graphconfig.getPlotlist().get(it.next());
             XYItemRenderer renderer = new StandardXYItemRenderer();
-            ArrayList<String> t = new ArrayList<String>();
+            ArrayList<String> t = new ArrayList<>();
             String[] s = tmp.getHeader();
             for (int i = 0; i < s.length; i++) {
                 t.add(s[i]);
@@ -360,7 +360,7 @@ public class Graph {
             XYPlot tmpplot = new XYPlot(c, axisofdate, graphaxistitle, renderer);
 
             for (int i = 0; i < s.length; i++) {
-                Color color = GlobalOptions.getDataColor(s[i].toString());
+                Color color = GlobalOptions.getDataColor(s[i]);
                 if (color != null) {
                     renderer.setSeriesPaint(i, color);
                     renderer.setBaseStroke(new BasicStroke(1.0F));
@@ -371,8 +371,8 @@ public class Graph {
         if (plot.getSubplots().isEmpty()) {
             return null;
         }
-        if (g_start != null && g_end != null) {
-            axisofdate.setRange(g_start.getStart(), g_end.getEnd());
+        if (start != null && end != null) {
+            axisofdate.setRange(start.getStart(), end.getEnd());
         }
 
         plot.setOrientation(PlotOrientation.VERTICAL);

@@ -83,21 +83,12 @@ public class Linux extends OSParser {
         int second = 0;
         Second now = null;
 
+        if (shouldIgnoreLine(line)) {
+            return 0;
+        }
+
         if ("Average:".equals(columns[0])) {
             currentStat = "NONE";
-            return 0;
-        }
-
-        if (line.indexOf("unix restarts") >= 0 || line.indexOf(" unix restarted") >= 0) {
-            return 0;
-        }
-
-        // match the System [C|c]onfiguration line on AIX
-        if (line.indexOf("System Configuration") >= 0 || line.indexOf("System configuration") >= 0) {
-            return 0;
-        }
-
-        if (line.indexOf("State change") >= 0) {
             return 0;
         }
 
@@ -184,6 +175,7 @@ public class Linux extends OSParser {
         if ("IGNORE".equals(currentStat)) {
             return 1;
         }
+        
         if ("NONE".equals(currentStat)) {
             return -1;
         }
@@ -191,12 +183,14 @@ public class Linux extends OSParser {
         currentStatObj = listofGraph.get(currentStat);
         if (currentStatObj == null) {
             return -1;
-        } else {
+        } 
+        else {
             dateSamples.add(now);
             if (currentStatObj instanceof Graph) {
                 Graph ag = (Graph) currentStatObj;
                 return ag.parseLine(now, line);
             }
+            
             if (currentStatObj instanceof GraphList) {
                 GraphList ag = (GraphList) currentStatObj;
                 return ag.parseLine(now, line);

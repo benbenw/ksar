@@ -35,7 +35,7 @@ public class AIX extends OSParser {
 
     @Override
     public int parse(String line, String[] columns) {
-        int heure = 0;
+        int hour = 0;
         int minute = 0;
         int seconde = 0;
 
@@ -45,16 +45,7 @@ public class AIX extends OSParser {
             return 0;
         }
 
-        if (line.indexOf("unix restarts") >= 0 || line.indexOf(" unix restarted") >= 0) {
-            return 0;
-        }
-
-        // match the System [C|c]onfiguration line on AIX
-        if (line.indexOf("System Configuration") >= 0 || line.indexOf("System configuration") >= 0) {
-            return 0;
-        }
-
-        if (line.indexOf("State change") >= 0) {
+        if (shouldIgnoreLine(line)) {
             return 0;
         }
 
@@ -63,10 +54,10 @@ public class AIX extends OSParser {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(timeFormat);
             parsedate = simpleDateFormat.parse(columns[0]);
             cal.setTime(parsedate);
-            heure = cal.get(Calendar.HOUR_OF_DAY);
+            hour = cal.get(Calendar.HOUR_OF_DAY);
             minute = cal.get(Calendar.MINUTE);
             seconde = cal.get(Calendar.SECOND);
-            now = new Second(seconde, minute, heure, day, month, year);
+            now = new Second(seconde, minute, hour, day, month, year);
             if (startofstat == null) {
                 startofstat = now;
                 startofgraph =now;
@@ -159,6 +150,6 @@ public class AIX extends OSParser {
     }
 
 
-    Second now = null;
-    boolean underAverage = false;
+    private Second now = null;
+    private boolean underAverage = false;
 }
